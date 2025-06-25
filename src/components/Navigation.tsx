@@ -3,6 +3,212 @@
 import React, { useState } from "react";
 import { useTheme } from "@/theme";
 import Link from "next/link";
+import styled from "styled-components";
+
+// Styled Components
+const NavContainer = styled.nav`
+  background-color: ${({ theme }) => theme.currentSemantic.background};
+  border-bottom: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition: all 0.3s ease;
+`;
+
+const NavWrapper = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 ${({ theme }) => theme.spacing.md};
+`;
+
+const NavContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+`;
+
+const DesktopNavLinks = styled.div`
+  display: none;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xl};
+
+  ${({ theme }) =>
+    theme.breakpoints.md &&
+    `
+    @media (min-width: ${theme.breakpoints.md}) {
+      display: flex;
+    }
+  `}
+`;
+
+const NavLink = styled.a`
+  color: ${({ theme }) => theme.currentSemantic.foreground};
+  font-weight: 500;
+  transition: color 0.2s ease;
+  text-decoration: none;
+
+  &:hover {
+    color: ${({ theme }) => theme.semantic.secondary};
+  }
+`;
+
+const MobileMenuButton = styled.button`
+  display: block;
+  padding: ${({ theme }) => theme.spacing.sm};
+  color: ${({ theme }) => theme.currentSemantic.foreground};
+  transition: color 0.2s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.semantic.secondary};
+  }
+
+  ${({ theme }) =>
+    theme.breakpoints.md &&
+    `
+    @media (min-width: ${theme.breakpoints.md}) {
+      display: none;
+    }
+  `}
+`;
+
+const LogoContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+
+  ${({ theme }) =>
+    theme.breakpoints.md &&
+    `
+    @media (min-width: ${theme.breakpoints.md}) {
+      flex: none;
+    }
+  `}
+`;
+
+const Logo = styled(Link)`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+`;
+
+const LogoText = styled.div`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.semantic.primary};
+`;
+
+const LogoAccent = styled.span`
+  color: ${({ theme }) => theme.semantic.secondary};
+`;
+
+const DesktopRightNav = styled.div`
+  display: none;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.lg};
+
+  ${({ theme }) =>
+    theme.breakpoints.md &&
+    `
+    @media (min-width: ${theme.breakpoints.md}) {
+      display: flex;
+    }
+  `}
+`;
+
+const ThemeButton = styled.button`
+  color: ${({ theme }) => theme.currentSemantic.foreground};
+  transition: color 0.2s ease;
+  font-size: 0.875rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.semantic.secondary};
+  }
+`;
+
+const IconButton = styled.a`
+  color: ${({ theme }) => theme.currentSemantic.foreground};
+  transition: color 0.2s ease;
+  text-decoration: none;
+  position: relative;
+
+  &:hover {
+    color: ${({ theme }) => theme.semantic.secondary};
+  }
+`;
+
+const CartBadge = styled.span`
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  background-color: ${({ theme }) => theme.semantic.secondary};
+  color: white;
+  font-size: 0.75rem;
+  border-radius: ${({ theme }) => theme.radii.full};
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const MobileCartBadge = styled(CartBadge)`
+  width: 1rem;
+  height: 1rem;
+  font-size: 0.75rem;
+`;
+
+const MobileIcons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md};
+
+  ${({ theme }) =>
+    theme.breakpoints.md &&
+    `
+    @media (min-width: ${theme.breakpoints.md}) {
+      display: none;
+    }
+  `}
+`;
+
+const MobileMenu = styled.div<{ isOpen: boolean }>`
+  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  padding: ${({ theme }) => theme.spacing.md} 0;
+  border-top: 1px solid ${({ theme }) => theme.currentSemantic.border};
+
+  ${({ theme }) =>
+    theme.breakpoints.md &&
+    `
+    @media (min-width: ${theme.breakpoints.md}) {
+      display: none;
+    }
+  `}
+`;
+
+const MobileMenuLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md};
+`;
+
+const MobileNavLink = styled(Link)`
+  color: ${({ theme }) => theme.currentSemantic.foreground};
+  font-weight: 500;
+  padding: ${({ theme }) => theme.spacing.sm} 0;
+  transition: color 0.2s ease;
+  text-decoration: none;
+
+  &:hover {
+    color: ${({ theme }) => theme.semantic.secondary};
+  }
+`;
 
 // Icons
 const UserIcon = ({ className }: { className?: string }) => (
@@ -12,6 +218,7 @@ const UserIcon = ({ className }: { className?: string }) => (
     stroke="currentColor"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
+    style={{ width: "1.5rem", height: "1.5rem" }}
   >
     <path
       strokeLinecap="round"
@@ -29,6 +236,7 @@ const CartIcon = ({ className }: { className?: string }) => (
     stroke="currentColor"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
+    style={{ width: "1.5rem", height: "1.5rem" }}
   >
     <path
       strokeLinecap="round"
@@ -46,6 +254,7 @@ const MenuIcon = ({ className }: { className?: string }) => (
     stroke="currentColor"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
+    style={{ width: "1.5rem", height: "1.5rem" }}
   >
     <path
       strokeLinecap="round"
@@ -63,6 +272,7 @@ const CloseIcon = ({ className }: { className?: string }) => (
     stroke="currentColor"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
+    style={{ width: "1.5rem", height: "1.5rem" }}
   >
     <path
       strokeLinecap="round"
@@ -85,130 +295,87 @@ const Navigation: React.FC = () => {
   ];
 
   return (
-    <nav className="bg-background border-b border-border sticky top-0 z-50 transition-colors duration-300">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+    <NavContainer>
+      <NavWrapper>
+        <NavContent>
           {/* Left Navigation - Desktop */}
-          <div className="hidden md:flex items-center space-x-8">
+          <DesktopNavLinks>
             {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-foreground hover:text-secondary transition-colors duration-200 font-medium"
-              >
+              <NavLink key={link.label} href={link.href}>
                 {link.label}
-              </a>
+              </NavLink>
             ))}
-          </div>
+          </DesktopNavLinks>
 
           {/* Mobile Menu Button */}
-          <button
+          <MobileMenuButton
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-foreground hover:text-secondary transition-colors"
             aria-label="Toggle mobile menu"
           >
-            {isMobileMenuOpen ? (
-              <CloseIcon className="w-6 h-6" />
-            ) : (
-              <MenuIcon className="w-6 h-6" />
-            )}
-          </button>
+            {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          </MobileMenuButton>
 
           {/* Logo - Center */}
-          <div className="flex-1 flex justify-center md:flex-none">
-            <Link href="/" className="flex items-center">
-              <div className="text-2xl font-bold text-primary">
-                COCKTAIL
-                <span className="text-secondary">CO</span>
-              </div>
-            </Link>
-          </div>
+          <LogoContainer>
+            <Logo href="/">
+              <LogoText>
+                COCKTAIL<LogoAccent>CO</LogoAccent>
+              </LogoText>
+            </Logo>
+          </LogoContainer>
 
           {/* Right Navigation - Desktop */}
-          <div className="hidden md:flex items-center space-x-6">
-            <a
-              href="#find-store"
-              className="text-foreground hover:text-secondary transition-colors duration-200 font-medium"
-            >
-              Find in Store
-            </a>
-            <button
-              onClick={toggleTheme}
-              className="text-foreground hover:text-secondary transition-colors duration-200 text-sm"
-            >
+          <DesktopRightNav>
+            <NavLink href="#find-store">Find in Store</NavLink>
+            <ThemeButton onClick={toggleTheme}>
               {theme === "light" ? "🌙" : "☀️"}
-            </button>
-            <a
-              href="#account"
-              className="text-foreground hover:text-secondary transition-colors duration-200"
-              aria-label="Account"
-            >
-              <UserIcon className="w-6 h-6" />
-            </a>
-            <a
-              href="#cart"
-              className="text-foreground hover:text-secondary transition-colors duration-200 relative"
-              aria-label="Shopping cart"
-            >
-              <CartIcon className="w-6 h-6" />
-              <span className="absolute -top-2 -right-2 bg-secondary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                0
-              </span>
-            </a>
-          </div>
+            </ThemeButton>
+            <IconButton href="#account" aria-label="Account">
+              <UserIcon />
+            </IconButton>
+            <IconButton href="#cart" aria-label="Shopping cart">
+              <CartIcon />
+              <CartBadge>0</CartBadge>
+            </IconButton>
+          </DesktopRightNav>
 
           {/* Mobile Icons */}
-          <div className="flex md:hidden items-center space-x-4">
-            <button
-              onClick={toggleTheme}
-              className="text-foreground hover:text-secondary transition-colors duration-200"
-            >
+          <MobileIcons>
+            <ThemeButton onClick={toggleTheme}>
               {theme === "light" ? "🌙" : "☀️"}
-            </button>
-            <a
-              href="#account"
-              className="text-foreground hover:text-secondary transition-colors duration-200"
-            >
-              <UserIcon className="w-6 h-6" />
-            </a>
-            <a
-              href="#cart"
-              className="text-foreground hover:text-secondary transition-colors duration-200 relative"
-            >
-              <CartIcon className="w-6 h-6" />
-              <span className="absolute -top-2 -right-2 bg-secondary text-white text-xs rounded-full w-4 h-4 flex items-center justify-center text-xs">
-                0
-              </span>
-            </a>
-          </div>
-        </div>
+            </ThemeButton>
+            <IconButton href="#account">
+              <UserIcon />
+            </IconButton>
+            <IconButton href="#cart">
+              <CartIcon />
+              <MobileCartBadge>0</MobileCartBadge>
+            </IconButton>
+          </MobileIcons>
+        </NavContent>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <div className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="text-foreground hover:text-secondary transition-colors duration-200 font-medium py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="#find-store"
-                className="text-foreground hover:text-secondary transition-colors duration-200 font-medium py-2"
+        <MobileMenu isOpen={isMobileMenuOpen}>
+          <MobileMenuLinks>
+            {navLinks.map((link) => (
+              <MobileNavLink
+                key={link.label}
+                href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Find in Store
-              </Link>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
+                {link.label}
+              </MobileNavLink>
+            ))}
+            <MobileNavLink
+              href="#find-store"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Find in Store
+            </MobileNavLink>
+          </MobileMenuLinks>
+        </MobileMenu>
+      </NavWrapper>
+    </NavContainer>
   );
 };
 

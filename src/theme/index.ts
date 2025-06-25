@@ -15,6 +15,10 @@ export {
 
 export { useTheme, ThemeProvider, type Theme, type ThemeContextType } from './theme-provider';
 
+// Styled-components theme exports
+export { styledTheme, media, type StyledTheme } from './styled-theme';
+export { StyledThemeWrapper } from './styled-theme-provider';
+
 /**
  * Theme configuration constants
  */
