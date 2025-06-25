@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Testimonials from "./Testimonials";
 import {
   LandingSection,
   GradientBackground,
@@ -88,23 +89,25 @@ const LandingPage: React.FC = () => {
 
             {/* CTA Button */}
             <CTAContainer>
-              <CTAButton>
-                <CTAContent>
-                  <span>Start Your Journey</span>
-                  <CTAIcon
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </CTAIcon>
-                </CTAContent>
-              </CTAButton>
+              <Link href="/shop">
+                <CTAButton>
+                  <CTAContent>
+                    <span>Start Your Journey</span>
+                    <CTAIcon
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </CTAIcon>
+                  </CTAContent>
+                </CTAButton>
+              </Link>
             </CTAContainer>
 
             {/* Features */}
@@ -251,6 +254,9 @@ const LandingPage: React.FC = () => {
           </StatItem>
         </StatsSection>
       </Container>
+
+      {/* Customer Testimonials */}
+      <Testimonials />
     </LandingSection>
   );
 };

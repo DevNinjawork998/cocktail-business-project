@@ -138,7 +138,7 @@ export const CTAContainer = styled.div`
   padding-top: ${({ theme }) => theme.spacing.md};
 `;
 
-export const CTAButton = styled.button`
+export const CTAButton = styled.div`
   background-color: ${({ theme }) => theme.semantic.secondary};
   color: white;
   padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
@@ -150,6 +150,7 @@ export const CTAButton = styled.button`
   box-shadow: ${({ theme }) => theme.shadows.lg};
   border: none;
   cursor: pointer;
+  display: inline-block;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.bittersweetShimmer.base};
