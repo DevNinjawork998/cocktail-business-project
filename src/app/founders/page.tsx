@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import Navigation from "@/components/Navigation";
-import FoundersSection from "@/components/FoundersSection";
-import Footer from "@/components/Footer";
+import FoundersPageClient from "./FoundersPageClient";
 
 export const metadata: Metadata = {
   title: "Meet Our Founders - Cocktail Business",
@@ -10,11 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function FoundersPage() {
-  return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <FoundersSection />
-      <Footer />
-    </div>
-  );
+  return <FoundersPageClient />;
 }

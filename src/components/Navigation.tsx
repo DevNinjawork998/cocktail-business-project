@@ -3,212 +3,27 @@
 import React, { useState } from "react";
 import { useTheme } from "@/theme";
 import Link from "next/link";
-import styled from "styled-components";
-
-// Styled Components
-const NavContainer = styled.nav`
-  background-color: ${({ theme }) => theme.currentSemantic.background};
-  border-bottom: 1px solid ${({ theme }) => theme.currentSemantic.border};
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  transition: all 0.3s ease;
-`;
-
-const NavWrapper = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 ${({ theme }) => theme.spacing.md};
-`;
-
-const NavContent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 4rem;
-`;
-
-const DesktopNavLinks = styled.div`
-  display: none;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xl};
-
-  ${({ theme }) =>
-    theme.breakpoints.md &&
-    `
-    @media (min-width: ${theme.breakpoints.md}) {
-      display: flex;
-    }
-  `}
-`;
-
-const NavLink = styled.a`
-  color: ${({ theme }) => theme.currentSemantic.foreground};
-  font-weight: 500;
-  transition: color 0.2s ease;
-  text-decoration: none;
-
-  &:hover {
-    color: ${({ theme }) => theme.semantic.secondary};
-  }
-`;
-
-const MobileMenuButton = styled.button`
-  display: block;
-  padding: ${({ theme }) => theme.spacing.sm};
-  color: ${({ theme }) => theme.currentSemantic.foreground};
-  transition: color 0.2s ease;
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    color: ${({ theme }) => theme.semantic.secondary};
-  }
-
-  ${({ theme }) =>
-    theme.breakpoints.md &&
-    `
-    @media (min-width: ${theme.breakpoints.md}) {
-      display: none;
-    }
-  `}
-`;
-
-const LogoContainer = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-
-  ${({ theme }) =>
-    theme.breakpoints.md &&
-    `
-    @media (min-width: ${theme.breakpoints.md}) {
-      flex: none;
-    }
-  `}
-`;
-
-const Logo = styled(Link)`
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-`;
-
-const LogoText = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.semantic.primary};
-`;
-
-const LogoAccent = styled.span`
-  color: ${({ theme }) => theme.semantic.secondary};
-`;
-
-const DesktopRightNav = styled.div`
-  display: none;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.lg};
-
-  ${({ theme }) =>
-    theme.breakpoints.md &&
-    `
-    @media (min-width: ${theme.breakpoints.md}) {
-      display: flex;
-    }
-  `}
-`;
-
-const ThemeButton = styled.button`
-  color: ${({ theme }) => theme.currentSemantic.foreground};
-  transition: color 0.2s ease;
-  font-size: 0.875rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    color: ${({ theme }) => theme.semantic.secondary};
-  }
-`;
-
-const IconButton = styled.a`
-  color: ${({ theme }) => theme.currentSemantic.foreground};
-  transition: color 0.2s ease;
-  text-decoration: none;
-  position: relative;
-
-  &:hover {
-    color: ${({ theme }) => theme.semantic.secondary};
-  }
-`;
-
-const CartBadge = styled.span`
-  position: absolute;
-  top: -0.5rem;
-  right: -0.5rem;
-  background-color: ${({ theme }) => theme.semantic.secondary};
-  color: white;
-  font-size: 0.75rem;
-  border-radius: ${({ theme }) => theme.radii.full};
-  width: 1.25rem;
-  height: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const MobileCartBadge = styled(CartBadge)`
-  width: 1rem;
-  height: 1rem;
-  font-size: 0.75rem;
-`;
-
-const MobileIcons = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.md};
-
-  ${({ theme }) =>
-    theme.breakpoints.md &&
-    `
-    @media (min-width: ${theme.breakpoints.md}) {
-      display: none;
-    }
-  `}
-`;
-
-const MobileMenu = styled.div<{ isOpen: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
-  padding: ${({ theme }) => theme.spacing.md} 0;
-  border-top: 1px solid ${({ theme }) => theme.currentSemantic.border};
-
-  ${({ theme }) =>
-    theme.breakpoints.md &&
-    `
-    @media (min-width: ${theme.breakpoints.md}) {
-      display: none;
-    }
-  `}
-`;
-
-const MobileMenuLinks = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
-`;
-
-const MobileNavLink = styled(Link)`
-  color: ${({ theme }) => theme.currentSemantic.foreground};
-  font-weight: 500;
-  padding: ${({ theme }) => theme.spacing.sm} 0;
-  transition: color 0.2s ease;
-  text-decoration: none;
-
-  &:hover {
-    color: ${({ theme }) => theme.semantic.secondary};
-  }
-`;
+import {
+  NavContainer,
+  NavWrapper,
+  NavContent,
+  DesktopNavLinks,
+  NavLink,
+  MobileMenuButton,
+  LogoContainer,
+  Logo,
+  LogoText,
+  LogoAccent,
+  DesktopRightNav,
+  ThemeButton,
+  IconButton,
+  CartBadge,
+  MobileCartBadge,
+  MobileIcons,
+  MobileMenu,
+  MobileMenuLinks,
+  MobileNavLink,
+} from "./Navigation.styles";
 
 // Icons
 const UserIcon = ({ className }: { className?: string }) => (
@@ -288,7 +103,8 @@ const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: "Shop", href: "/" },
+    { label: "Home", href: "/" },
+    { label: "Shop", href: "/shop" },
     { label: "Learn", href: "#learn" },
     { label: "Founders", href: "/founders" },
     { label: "Subscribe", href: "#subscribe" },
@@ -301,9 +117,9 @@ const Navigation: React.FC = () => {
           {/* Left Navigation - Desktop */}
           <DesktopNavLinks>
             {navLinks.map((link) => (
-              <NavLink key={link.label} href={link.href}>
-                {link.label}
-              </NavLink>
+              <Link key={link.label} href={link.href}>
+                <NavLink>{link.label}</NavLink>
+              </Link>
             ))}
           </DesktopNavLinks>
 
@@ -317,16 +133,20 @@ const Navigation: React.FC = () => {
 
           {/* Logo - Center */}
           <LogoContainer>
-            <Logo href="/">
-              <LogoText>
-                COCKTAIL<LogoAccent>CO</LogoAccent>
-              </LogoText>
-            </Logo>
+            <Link href="/">
+              <Logo>
+                <LogoText>
+                  COCKTAIL<LogoAccent>CO</LogoAccent>
+                </LogoText>
+              </Logo>
+            </Link>
           </LogoContainer>
 
           {/* Right Navigation - Desktop */}
           <DesktopRightNav>
-            <NavLink href="#find-store">Find in Store</NavLink>
+            <Link href="#find-store">
+              <NavLink>Find in Store</NavLink>
+            </Link>
             <ThemeButton onClick={toggleTheme}>
               {theme === "light" ? "🌙" : "☀️"}
             </ThemeButton>
@@ -355,23 +175,20 @@ const Navigation: React.FC = () => {
         </NavContent>
 
         {/* Mobile Menu */}
-        <MobileMenu isOpen={isMobileMenuOpen}>
+        <MobileMenu $isOpen={isMobileMenuOpen}>
           <MobileMenuLinks>
             {navLinks.map((link) => (
-              <MobileNavLink
-                key={link.label}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.label}
-              </MobileNavLink>
+              <Link key={link.label} href={link.href}>
+                <MobileNavLink onClick={() => setIsMobileMenuOpen(false)}>
+                  {link.label}
+                </MobileNavLink>
+              </Link>
             ))}
-            <MobileNavLink
-              href="#find-store"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Find in Store
-            </MobileNavLink>
+            <Link href="#find-store">
+              <MobileNavLink onClick={() => setIsMobileMenuOpen(false)}>
+                Find in Store
+              </MobileNavLink>
+            </Link>
           </MobileMenuLinks>
         </MobileMenu>
       </NavWrapper>

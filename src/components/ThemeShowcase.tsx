@@ -40,31 +40,31 @@ const ThemeShowcase: React.FC = () => {
   const colorCards = [
     {
       name: "chocolateKisses",
-      hex: colors.chocolateKisses,
+      hex: colors.chocolateKisses.base,
       bgClass: tailwindColors.bg.chocolateKisses,
       textClass: "text-white",
     },
     {
       name: "mauvelous",
-      hex: colors.mauvelous,
+      hex: colors.mauvelous.base,
       bgClass: tailwindColors.bg.mauvelous,
       textClass: tailwindColors.text.chocolateKisses,
     },
     {
       name: "caramel",
-      hex: colors.caramel,
+      hex: colors.caramel.base,
       bgClass: tailwindColors.bg.caramel,
       textClass: tailwindColors.text.chocolateKisses,
     },
     {
       name: "royalOrange",
-      hex: colors.royalOrange,
+      hex: colors.royalOrange.base,
       bgClass: tailwindColors.bg.royalOrange,
       textClass: "text-white",
     },
     {
       name: "bittersweetShimmer",
-      hex: colors.bittersweetShimmer,
+      hex: colors.bittersweetShimmer.base,
       bgClass: tailwindColors.bg.bittersweetShimmer,
       textClass: "text-white",
     },

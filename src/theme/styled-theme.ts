@@ -5,7 +5,7 @@ export interface StyledTheme {
     semantic: typeof semanticColors;
     darkMode: typeof darkModeColors;
     mode: 'light' | 'dark';
-    currentSemantic: typeof semanticColors;
+    currentSemantic: Record<string, string>;
     spacing: {
         xs: string;
         sm: string;

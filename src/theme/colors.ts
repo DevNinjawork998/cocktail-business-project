@@ -4,12 +4,32 @@
  */
 
 export const colors = {
-    // Primary Color Palette
-    chocolateKisses: '#451515',
-    mauvelous: '#EA9DAE',
-    caramel: '#FBE89E',
-    royalOrange: '#F89256',
-    bittersweetShimmer: '#C74C3D',
+    // Primary Color Palette with variants
+    chocolateKisses: {
+        base: '#451515',
+        light: '#6B2D2D',
+        dark: '#2A0F0F',
+    },
+    mauvelous: {
+        base: '#EA9DAE',
+        light: '#F1B4C5',
+        dark: '#D67A95',
+    },
+    caramel: {
+        base: '#FBE89E',
+        light: '#FCF0B8',
+        dark: '#F7DC7A',
+    },
+    royalOrange: {
+        base: '#F89256',
+        light: '#FAA670',
+        dark: '#F67E3C',
+    },
+    bittersweetShimmer: {
+        base: '#C74C3D',
+        light: '#D66B5E',
+        dark: '#A73E32',
+    },
 
     // RGB variants for transparency
     chocolateKissesRgb: '69, 21, 21',
@@ -20,11 +40,11 @@ export const colors = {
 } as const;
 
 export const semanticColors = {
-    primary: colors.chocolateKisses,
-    primaryLight: colors.mauvelous,
-    secondary: colors.royalOrange,
-    accent: colors.caramel,
-    danger: colors.bittersweetShimmer,
+    primary: colors.chocolateKisses.base,
+    primaryLight: colors.mauvelous.base,
+    secondary: colors.royalOrange.base,
+    accent: colors.caramel.base,
+    danger: colors.bittersweetShimmer.base,
 
     // Background colors
     background: '#ffffff',
@@ -33,7 +53,9 @@ export const semanticColors = {
     surfaceHover: '#f5f5f5',
 
     // Text colors
-    foreground: colors.chocolateKisses,
+    text: colors.chocolateKisses.base,
+    textSecondary: `rgba(${colors.chocolateKissesRgb}, 0.7)`,
+    foreground: colors.chocolateKisses.base,
     foregroundMuted: `rgba(${colors.chocolateKissesRgb}, 0.7)`,
     foregroundLight: `rgba(${colors.chocolateKissesRgb}, 0.5)`,
 
@@ -50,7 +72,9 @@ export const darkModeColors = {
     backgroundSecondary: '#2a2a2a',
     surface: '#2a2a2a',
     surfaceHover: '#3a3a3a',
-    foreground: colors.caramel,
+    text: colors.caramel.base,
+    textSecondary: `rgba(${colors.caramelRgb}, 0.8)`,
+    foreground: colors.caramel.base,
     foregroundMuted: `rgba(${colors.caramelRgb}, 0.8)`,
     foregroundLight: `rgba(${colors.caramelRgb}, 0.6)`,
     border: `rgba(${colors.caramelRgb}, 0.3)`,
@@ -63,10 +87,17 @@ export type SemanticColorName = keyof typeof semanticColors;
 /**
  * Helper function to get color with opacity
  */
-export const getColorWithOpacity = (colorName: ColorName, opacity: number): string => {
-    const rgbKey = `${colorName}Rgb` as keyof typeof colors;
-    const rgbValue = colors[rgbKey];
-    return `rgba(${rgbValue}, ${opacity})`;
+export const getColorWithOpacity = (colorName: keyof typeof colors, opacity: number): string => {
+    const colorObj = colors[colorName];
+    if (typeof colorObj === 'object' && 'base' in colorObj) {
+        // For color objects with base/light/dark variants
+        const rgbKey = `${colorName}Rgb` as keyof typeof colors;
+        const rgbValue = colors[rgbKey];
+        if (typeof rgbValue === 'string') {
+            return `rgba(${rgbValue}, ${opacity})`;
+        }
+    }
+    return colorObj as string;
 };
 
 /**

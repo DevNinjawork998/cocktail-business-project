@@ -1,182 +1,23 @@
 "use client";
 
 import React from "react";
-import styled from "styled-components";
-
-// Styled Components
-const FooterContainer = styled.footer`
-  background-color: ${({ theme }) => theme.colors.chocolateKisses};
-  color: white;
-  padding: ${({ theme }) => theme.spacing["2xl"]}
-    ${({ theme }) => theme.spacing.md};
-
-  ${({ theme }) => `
-    @media (min-width: ${theme.breakpoints.md}) {
-      padding: ${theme.spacing["3xl"]} ${theme.spacing.md};
-    }
-  `}
-`;
-
-const FooterWrapper = styled.div`
-  max-width: 72rem;
-  margin: 0 auto;
-  width: 100%;
-`;
-
-const FooterContent = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing["2xl"]};
-`;
-
-const TaglineSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg};
-`;
-
-const MainTagline = styled.h2`
-  font-size: 1.75rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.caramel};
-  line-height: 1.3;
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-
-  ${({ theme }) => `
-    @media (min-width: ${theme.breakpoints.md}) {
-      font-size: 2.25rem;
-    }
-  `}
-`;
-
-const SubTagline = styled.p`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.colors.mauvelous};
-  line-height: 1.6;
-  max-width: 32rem;
-  margin: 0 auto;
-
-  ${({ theme }) => `
-    @media (min-width: ${theme.breakpoints.md}) {
-      font-size: 1.125rem;
-    }
-  `}
-`;
-
-const SocialSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
-  align-items: center;
-`;
-
-const SocialTitle = styled.h3`
-  font-size: 1rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.caramel};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const SocialLinksContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.md};
-  flex-wrap: wrap;
-  padding: 0 ${({ theme }) => theme.spacing.md};
-
-  ${({ theme }) => `
-    @media (min-width: ${theme.breakpoints.md}) {
-      gap: ${theme.spacing.lg};
-      padding: 0;
-    }
-  `}
-`;
-
-const SocialLinkButton = styled.a`
-  padding: ${({ theme }) => theme.spacing.md};
-  border-radius: ${({ theme }) => theme.radii.full};
-  border: 2px solid ${({ theme }) => theme.colors.caramel};
-  transition: all 0.3s ease;
-  transform: scale(1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 3rem;
-  min-height: 3rem;
-  background-color: transparent;
-
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.royalOrange};
-    background-color: ${({ theme }) => theme.colors.royalOrange};
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(248, 146, 86, 0.3);
-  }
-
-  ${({ theme }) => `
-    @media (min-width: ${theme.breakpoints.md}) {
-      padding: ${theme.spacing.lg};
-      min-width: 3.5rem;
-      min-height: 3.5rem;
-    }
-  `}
-`;
-
-const SocialIcon = styled.div`
-  width: 1.25rem;
-  height: 1.25rem;
-  color: ${({ theme }) => theme.colors.caramel};
-  transition: color 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  ${SocialLinkButton}:hover & {
-    color: white;
-  }
-
-  ${({ theme }) => `
-    @media (min-width: ${theme.breakpoints.md}) {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-  `}
-`;
-
-const DividerLine = styled.div`
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    ${({ theme }) => theme.colors.mauvelous} 20%,
-    ${({ theme }) => theme.colors.caramel} 50%,
-    ${({ theme }) => theme.colors.mauvelous} 80%,
-    transparent 100%
-  );
-  opacity: 0.5;
-  margin: ${({ theme }) => theme.spacing.md} 0;
-`;
-
-const CopyrightSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
-  align-items: center;
-`;
-
-const CopyrightText = styled.p`
-  color: ${({ theme }) => theme.colors.mauvelous};
-  font-size: 0.875rem;
-  opacity: 0.8;
-`;
-
-const BrandText = styled.div`
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.caramel};
-  opacity: 0.6;
-  font-weight: 500;
-`;
+import {
+  FooterContainer,
+  FooterWrapper,
+  FooterContent,
+  TaglineSection,
+  MainTagline,
+  SubTagline,
+  SocialSection,
+  SocialTitle,
+  SocialLinksContainer,
+  SocialLinkButton,
+  SocialIcon,
+  DividerLine,
+  CopyrightSection,
+  CopyrightText,
+  BrandText,
+} from "./Footer.styles";
 
 // Social Media Icons as SVG components
 const InstagramIcon = ({ className }: { className?: string }) => (

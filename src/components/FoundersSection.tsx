@@ -1,203 +1,549 @@
+"use client";
+
 import React from "react";
+import styled from "styled-components";
+
+// Styled Components
+const FoundersContainer = styled.section`
+  padding: 5rem 1rem;
+`;
+
+const Container = styled.div`
+  max-width: 80rem;
+  margin: 0 auto;
+`;
+
+const PageHeader = styled.div`
+  text-align: center;
+  margin-bottom: 4rem;
+`;
+
+const MainTitle = styled.h1`
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.semantic.primary};
+  margin-bottom: 1rem;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      font-size: 3rem;
+    }
+  `}
+`;
+
+const TitleDivider = styled.div`
+  width: 6rem;
+  height: 0.25rem;
+  background-color: ${({ theme }) => theme.semantic.secondary};
+  margin: 0 auto;
+`;
+
+const MainGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.lg}) {
+      grid-template-columns: 1fr 1fr;
+    }
+  `}
+`;
+
+const LeftContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`;
+
+const ContentSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.semantic.primary};
+  line-height: 1.2;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      font-size: 2.25rem;
+    }
+  `}
+`;
+
+const TitleAccent = styled.span`
+  color: ${({ theme }) => theme.semantic.secondary};
+`;
+
+const ContentGrid = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const ContentParagraph = styled.p`
+  font-size: 1.125rem;
+  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  line-height: 1.7;
+`;
+
+const FounderHighlights = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      grid-template-columns: 1fr 1fr;
+    }
+  `}
+`;
+
+const HighlightCard = styled.div`
+  background-color: ${({ theme }) => theme.currentSemantic.surface};
+  border: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.lg};
+  padding: 1.5rem;
+`;
+
+const HighlightTitle = styled.h3`
+  font-weight: 600;
+  color: ${({ theme }) => theme.semantic.primary};
+  margin-bottom: 0.5rem;
+`;
+
+const HighlightText = styled.p`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+`;
+
+const ValuesSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const ValuesTitle = styled.h3`
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.semantic.primary};
+`;
+
+const ValuesList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+`;
+
+const ValueItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+`;
+
+const ValueDot = styled.div`
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: ${({ theme }) => theme.semantic.secondary};
+  border-radius: 50%;
+  flex-shrink: 0;
+`;
+
+const ValueText = styled.span`
+  color: ${({ theme }) => theme.currentSemantic.foreground};
+`;
+
+const RightContent = styled.div`
+  position: relative;
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  z-index: 10;
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.caramel.base} 0%,
+    ${({ theme }) => theme.colors.mauvelous.base} 50%,
+    ${({ theme }) => theme.currentSemantic.background} 100%
+  );
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+`;
+
+const MockImageContainer = styled.div`
+  background-color: ${({ theme }) => theme.currentSemantic.surface};
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: ${({ theme }) => theme.shadows.lg};
+`;
+
+const MockImage = styled.div`
+  aspect-ratio: 4/3;
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.chocolateKisses.base} 0%,
+    ${({ theme }) => theme.colors.mauvelous.base} 50%,
+    ${({ theme }) => theme.colors.caramel.base} 100%
+  );
+  border-radius: 0.75rem;
+  position: relative;
+  overflow: hidden;
+`;
+
+const FoundersDisplay = styled.div`
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+`;
+
+const FounderAvatar = styled.div`
+  position: relative;
+`;
+
+const AvatarShape = styled.div`
+  width: 5rem;
+  height: 6rem;
+  background: linear-gradient(
+    to top,
+    ${({ theme }) => theme.colors.chocolateKisses.base} 0%,
+    transparent 100%
+  );
+  border-radius: 2.5rem 2.5rem 0 0;
+  opacity: 0.6;
+`;
+
+const AvatarLabel = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+`;
+
+const AvatarBadge = styled.div<{ $variant: "alex" | "marcus" }>`
+  width: 3rem;
+  height: 0.75rem;
+  background-color: ${({ theme, $variant }) =>
+    $variant === "alex"
+      ? theme.colors.royalOrange.base
+      : theme.colors.caramel.base};
+  border-radius: 9999px;
+  margin-bottom: 0.25rem;
+`;
+
+const AvatarName = styled.div`
+  font-size: 0.75rem;
+  color: white;
+  font-weight: 500;
+`;
+
+const DecorativeElements = styled.div`
+  position: absolute;
+  inset: 0;
+`;
+
+const DecorativeDot = styled.div<{
+  $size: string;
+  $color: string;
+  $position: string;
+}>`
+  position: absolute;
+  width: ${({ $size }) => $size};
+  height: ${({ $size }) => $size};
+  background-color: ${({ $color }) => $color};
+  border-radius: 50%;
+  opacity: 0.4;
+  ${({ $position }) => $position}
+`;
+
+const ImageCaption = styled.div`
+  margin-top: 1rem;
+  text-align: center;
+`;
+
+const CaptionText = styled.p`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  font-style: italic;
+`;
+
+const BackgroundDecoration = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+`;
+
+const BackgroundDot = styled.div<{
+  $size: string;
+  $color: string;
+  $position: string;
+  $blur?: boolean;
+}>`
+  position: absolute;
+  width: ${({ $size }) => $size};
+  height: ${({ $size }) => $size};
+  background-color: ${({ $color }) => $color};
+  border-radius: 50%;
+  opacity: 0.1;
+  ${({ $blur }) => $blur && "filter: blur(3rem);"}
+  ${({ $position }) => $position}
+`;
+
+const BottomSection = styled.div`
+  margin-top: 5rem;
+  padding-top: 4rem;
+  border-top: 1px solid ${({ theme }) => theme.currentSemantic.border};
+`;
+
+const JourneyHeader = styled.div`
+  text-align: center;
+  margin-bottom: 3rem;
+`;
+
+const JourneyTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.semantic.primary};
+  margin-bottom: 1rem;
+`;
+
+const JourneyDescription = styled.p`
+  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  max-width: 32rem;
+  margin: 0 auto;
+`;
+
+const StatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  `}
+`;
+
+const StatItem = styled.div`
+  text-align: center;
+`;
+
+const StatNumber = styled.div`
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.semantic.secondary};
+`;
+
+const StatLabel = styled.div`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+`;
 
 const FoundersSection: React.FC = () => {
   return (
-    <section className="py-20 px-4">
-      <div className="container mx-auto max-w-7xl">
+    <FoundersContainer>
+      <Container>
         {/* Page Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-            Meet Our Founders
-          </h1>
-          <div className="w-24 h-1 bg-secondary mx-auto"></div>
-        </div>
+        <PageHeader>
+          <MainTitle>Meet Our Founders</MainTitle>
+          <TitleDivider />
+        </PageHeader>
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <MainGrid>
           {/* Left Content */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-primary leading-tight">
+          <LeftContent>
+            <ContentSection>
+              <SectionTitle>
                 Our Foundational
                 <br />
-                <span className="text-secondary">Ingredients</span>
-              </h2>
+                <TitleAccent>Ingredients</TitleAccent>
+              </SectionTitle>
 
-              <div className="space-y-4 text-lg text-foreground-muted leading-relaxed">
-                <p>
+              <ContentGrid>
+                <ContentParagraph>
                   For over a decade, Alex and Marcus have shared a vision of a
                   healthier, more vibrant future. Their quest for a product that
                   combines the artistry of traditional cocktails with modern
                   wellness led them to create a new kind of experience.
-                </p>
+                </ContentParagraph>
 
-                <p>
+                <ContentParagraph>
                   Our craft cocktails are delicious, refreshing, and genuinely
                   good for you. We combine the classic cocktail flavors you love
                   with functional ingredients that support your well-being and
                   enhance your social experiences.
-                </p>
+                </ContentParagraph>
 
-                <p>
+                <ContentParagraph>
                   Every bottle represents our commitment to quality, innovation,
                   and the belief that exceptional taste and health consciousness
                   can coexist beautifully.
-                </p>
-              </div>
-            </div>
+                </ContentParagraph>
+              </ContentGrid>
+            </ContentSection>
 
             {/* Founder Highlights */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-surface border border-border rounded-lg p-6">
-                <h3 className="font-semibold text-primary mb-2">
-                  Alex&apos;s Vision
-                </h3>
-                <p className="text-sm text-foreground-muted">
+            <FounderHighlights>
+              <HighlightCard>
+                <HighlightTitle>Alex&apos;s Vision</HighlightTitle>
+                <HighlightText>
                   &quot;Creating cocktails that celebrate life&apos;s moments
                   while nurturing your body.&quot;
-                </p>
-              </div>
-              <div className="bg-surface border border-border rounded-lg p-6">
-                <h3 className="font-semibold text-primary mb-2">
-                  Marcus&apos;s Mission
-                </h3>
-                <p className="text-sm text-foreground-muted">
+                </HighlightText>
+              </HighlightCard>
+              <HighlightCard>
+                <HighlightTitle>Marcus&apos;s Mission</HighlightTitle>
+                <HighlightText>
                   &quot;Bringing premium ingredients and artisanal craftsmanship
                   to everyone.&quot;
-                </p>
-              </div>
-            </div>
+                </HighlightText>
+              </HighlightCard>
+            </FounderHighlights>
 
             {/* Values */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-primary">
-                Our Core Values
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                  <span className="text-foreground">
-                    Premium, ethically-sourced ingredients
-                  </span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                  <span className="text-foreground">
-                    Artisanal craftsmanship in every bottle
-                  </span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                  <span className="text-foreground">
-                    Sustainable business practices
-                  </span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                  <span className="text-foreground">
-                    Community-focused approach
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+            <ValuesSection>
+              <ValuesTitle>Our Core Values</ValuesTitle>
+              <ValuesList>
+                <ValueItem>
+                  <ValueDot />
+                  <ValueText>Premium, ethically-sourced ingredients</ValueText>
+                </ValueItem>
+                <ValueItem>
+                  <ValueDot />
+                  <ValueText>Artisanal craftsmanship in every bottle</ValueText>
+                </ValueItem>
+                <ValueItem>
+                  <ValueDot />
+                  <ValueText>Sustainable business practices</ValueText>
+                </ValueItem>
+                <ValueItem>
+                  <ValueDot />
+                  <ValueText>Community-focused approach</ValueText>
+                </ValueItem>
+              </ValuesList>
+            </ValuesSection>
+          </LeftContent>
 
           {/* Right Content - Founders Image */}
-          <div className="relative">
-            <div className="relative z-10">
-              {/* Image Container with decorative background */}
-              <div className="relative bg-gradient-to-br from-caramel via-mauvelous to-background p-6 rounded-3xl">
-                {/* Mock Image Container */}
-                <div className="bg-surface rounded-2xl p-8 shadow-lg">
-                  <div className="aspect-[4/3] bg-gradient-to-br from-chocolate-kisses via-mauvelous to-caramel rounded-xl relative overflow-hidden">
+          <RightContent>
+            <ImageContainer>
+              <ImageWrapper>
+                <MockImageContainer>
+                  <MockImage>
                     {/* Mock founders silhouettes */}
-                    <div className="absolute inset-0 flex items-end justify-center pb-8">
-                      <div className="flex space-x-4">
-                        {/* Founder 1 */}
-                        <div className="relative">
-                          <div className="w-20 h-24 bg-gradient-to-t from-chocolate-kisses to-transparent rounded-t-full opacity-60"></div>
-                          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-                            <div className="w-12 h-3 bg-royal-orange rounded-full mb-1"></div>
-                            <div className="text-xs text-white font-medium">
-                              ALEX
-                            </div>
-                          </div>
-                        </div>
+                    <FoundersDisplay>
+                      {/* Founder 1 */}
+                      <FounderAvatar>
+                        <AvatarShape />
+                        <AvatarLabel>
+                          <AvatarBadge $variant="alex" />
+                          <AvatarName>ALEX</AvatarName>
+                        </AvatarLabel>
+                      </FounderAvatar>
 
-                        {/* Founder 2 */}
-                        <div className="relative">
-                          <div className="w-20 h-24 bg-gradient-to-t from-chocolate-kisses to-transparent rounded-t-full opacity-60"></div>
-                          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-                            <div className="w-12 h-3 bg-caramel rounded-full mb-1"></div>
-                            <div className="text-xs text-white font-medium">
-                              MARCUS
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                      {/* Founder 2 */}
+                      <FounderAvatar>
+                        <AvatarShape />
+                        <AvatarLabel>
+                          <AvatarBadge $variant="marcus" />
+                          <AvatarName>MARCUS</AvatarName>
+                        </AvatarLabel>
+                      </FounderAvatar>
+                    </FoundersDisplay>
 
                     {/* Decorative elements */}
-                    <div className="absolute top-4 left-4 w-8 h-8 bg-caramel rounded-full opacity-40"></div>
-                    <div className="absolute top-8 right-6 w-6 h-6 bg-royal-orange rounded-full opacity-30"></div>
-                    <div className="absolute bottom-12 left-8 w-4 h-4 bg-mauvelous rounded-full opacity-50"></div>
-                  </div>
+                    <DecorativeElements>
+                      <DecorativeDot
+                        $size="2rem"
+                        $color="#FBE89E"
+                        $position="top: 1rem; left: 1rem;"
+                      />
+                      <DecorativeDot
+                        $size="1.5rem"
+                        $color="#F89256"
+                        $position="top: 2rem; right: 1.5rem;"
+                      />
+                      <DecorativeDot
+                        $size="1rem"
+                        $color="#EA9DAE"
+                        $position="bottom: 3rem; left: 2rem;"
+                      />
+                    </DecorativeElements>
+                  </MockImage>
 
                   {/* Caption */}
-                  <div className="mt-4 text-center">
-                    <p className="text-sm text-foreground-muted italic">
+                  <ImageCaption>
+                    <CaptionText>
                       &quot;Building something extraordinary, together.&quot;
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+                    </CaptionText>
+                  </ImageCaption>
+                </MockImageContainer>
+              </ImageWrapper>
+            </ImageContainer>
 
             {/* Background decorative elements */}
-            <div className="absolute inset-0 -z-10">
-              <div className="absolute top-10 left-10 w-32 h-32 bg-caramel rounded-full opacity-10 blur-xl"></div>
-              <div className="absolute bottom-10 right-10 w-40 h-40 bg-mauvelous rounded-full opacity-10 blur-xl"></div>
-            </div>
-          </div>
-        </div>
+            <BackgroundDecoration>
+              <BackgroundDot
+                $size="8rem"
+                $color="#FBE89E"
+                $position="top: 2.5rem; left: 2.5rem;"
+                $blur
+              />
+              <BackgroundDot
+                $size="10rem"
+                $color="#EA9DAE"
+                $position="bottom: 2.5rem; right: 2.5rem;"
+                $blur
+              />
+            </BackgroundDecoration>
+          </RightContent>
+        </MainGrid>
 
         {/* Bottom Section - Company Stats */}
-        <div className="mt-20 pt-16 border-t border-border">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl font-semibold text-primary mb-4">
-              Our Journey
-            </h3>
-            <p className="text-foreground-muted max-w-2xl mx-auto">
+        <BottomSection>
+          <JourneyHeader>
+            <JourneyTitle>Our Journey</JourneyTitle>
+            <JourneyDescription>
               From a shared passion to a thriving business, we&apos;ve remained
               committed to our founding principles.
-            </p>
-          </div>
+            </JourneyDescription>
+          </JourneyHeader>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-secondary">2019</div>
-              <div className="text-sm text-foreground-muted">Founded</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-secondary">50K+</div>
-              <div className="text-sm text-foreground-muted">
-                Customers Served
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-secondary">15</div>
-              <div className="text-sm text-foreground-muted">Cities</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-secondary">100%</div>
-              <div className="text-sm text-foreground-muted">
-                Organic Ingredients
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+          <StatsGrid>
+            <StatItem>
+              <StatNumber>2019</StatNumber>
+              <StatLabel>Founded</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber>50K+</StatNumber>
+              <StatLabel>Customers Served</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber>15</StatNumber>
+              <StatLabel>Cities</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber>100%</StatNumber>
+              <StatLabel>Organic Ingredients</StatLabel>
+            </StatItem>
+          </StatsGrid>
+        </BottomSection>
+      </Container>
+    </FoundersContainer>
   );
 };
 

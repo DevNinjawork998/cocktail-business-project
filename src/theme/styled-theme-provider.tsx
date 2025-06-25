@@ -23,7 +23,9 @@ export function StyledThemeWrapper({ children }: StyledThemeWrapperProps) {
             ...styledTheme.semantic,
             ...styledTheme.darkMode,
           }
-        : styledTheme.semantic,
+        : {
+            ...styledTheme.semantic,
+          },
   };
 
   return (
