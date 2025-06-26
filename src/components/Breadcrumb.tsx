@@ -2,59 +2,15 @@
 
 import React from "react";
 import Link from "next/link";
-import styled from "styled-components";
-
-// Styled Components
-const BreadcrumbContainer = styled.nav`
-  padding: ${({ theme }) => theme.spacing.md} 0;
-  border-bottom: 1px solid ${({ theme }) => theme.currentSemantic.borderLight};
-  background-color: ${({ theme }) => theme.currentSemantic.surface};
-`;
-
-const BreadcrumbWrapper = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 ${({ theme }) => theme.spacing.md};
-`;
-
-const BreadcrumbList = styled.ol`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
-const BreadcrumbItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-`;
-
-const BreadcrumbLink = styled.div`
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
-  text-decoration: none;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: ${({ theme }) => theme.semantic.secondary};
-  }
-`;
-
-const BreadcrumbCurrent = styled.span`
-  color: ${({ theme }) => theme.currentSemantic.foreground};
-  font-size: 0.875rem;
-  font-weight: 500;
-`;
-
-const BreadcrumbSeparator = styled.span`
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
-  font-size: 0.875rem;
-  opacity: 0.6;
-`;
+import {
+  BreadcrumbContainer,
+  BreadcrumbWrapper,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbCurrent,
+  BreadcrumbSeparator,
+} from "./Breadcrumb.styles";
 
 // Home Icon Component
 const HomeIcon = () => (

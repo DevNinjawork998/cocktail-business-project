@@ -16,9 +16,6 @@ import {
   LogoAccent,
   DesktopRightNav,
   ThemeButton,
-  IconButton,
-  CartBadge,
-  MobileCartBadge,
   MobileIcons,
   MobileMenu,
   MobileMenuLinks,
@@ -26,42 +23,6 @@ import {
 } from "./Navigation.styles";
 
 // Icons
-const UserIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{ width: "1.5rem", height: "1.5rem" }}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-    />
-  </svg>
-);
-
-const CartIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{ width: "1.5rem", height: "1.5rem" }}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"
-    />
-  </svg>
-);
-
 const MenuIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
@@ -105,9 +66,7 @@ const Navigation: React.FC = () => {
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Shop", href: "/shop" },
-    { label: "Learn", href: "#learn" },
     { label: "Founders", href: "/founders" },
-    { label: "Subscribe", href: "#subscribe" },
   ];
 
   return (
@@ -144,19 +103,9 @@ const Navigation: React.FC = () => {
 
           {/* Right Navigation - Desktop */}
           <DesktopRightNav>
-            <Link href="#find-store">
-              <NavLink>Find in Store</NavLink>
-            </Link>
             <ThemeButton onClick={toggleTheme}>
               {theme === "light" ? "🌙" : "☀️"}
             </ThemeButton>
-            <IconButton href="#account" aria-label="Account">
-              <UserIcon />
-            </IconButton>
-            <IconButton href="#cart" aria-label="Shopping cart">
-              <CartIcon />
-              <CartBadge>0</CartBadge>
-            </IconButton>
           </DesktopRightNav>
 
           {/* Mobile Icons */}
@@ -164,13 +113,6 @@ const Navigation: React.FC = () => {
             <ThemeButton onClick={toggleTheme}>
               {theme === "light" ? "🌙" : "☀️"}
             </ThemeButton>
-            <IconButton href="#account">
-              <UserIcon />
-            </IconButton>
-            <IconButton href="#cart">
-              <CartIcon />
-              <MobileCartBadge>0</MobileCartBadge>
-            </IconButton>
           </MobileIcons>
         </NavContent>
 
@@ -184,11 +126,6 @@ const Navigation: React.FC = () => {
                 </MobileNavLink>
               </Link>
             ))}
-            <Link href="#find-store">
-              <MobileNavLink onClick={() => setIsMobileMenuOpen(false)}>
-                Find in Store
-              </MobileNavLink>
-            </Link>
           </MobileMenuLinks>
         </MobileMenu>
       </NavWrapper>

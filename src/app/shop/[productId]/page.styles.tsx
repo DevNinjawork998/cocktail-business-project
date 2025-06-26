@@ -8,8 +8,8 @@ export const ProductPageContainer = styled.div`
   padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.md};
 
   ${media.lg} {
-    padding: ${({ theme }) => theme.spacing["2xl"]}
-      ${({ theme }) => theme.spacing.xl};
+    padding: ${({ theme }) => theme.spacing["2xl"]};
+    ${({ theme }) => theme.spacing.xl};
   }
 `;
 
@@ -154,8 +154,8 @@ export const BuyNowButton = styled.button`
     ${({ theme }) => theme.colors.bittersweetShimmer.base}
   );
   color: white;
-  padding: ${({ theme }) => theme.spacing.lg}
-    ${({ theme }) => theme.spacing["2xl"]};
+  padding: ${({ theme }) => theme.spacing.lg};
+  ${({ theme }) => theme.spacing["2xl"]};
   border-radius: ${({ theme }) => theme.radii.full};
   border: none;
   font-weight: bold;
