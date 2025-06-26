@@ -1,12 +1,13 @@
 import styled, { css } from "styled-components";
 
 export const Section = styled.section`
-  margin: 4rem auto 0 auto;
-  max-width: 800px;
-  padding: 2rem;
+  margin: 2rem auto 0 auto;
+  max-width: 1200px;
+  padding: 3rem;
   background: ${({ theme }) => theme.semantic.background};
   border-radius: 1.5rem;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  margin-bottom: 4rem;
 `;
 
 export const Headline = styled.h2`

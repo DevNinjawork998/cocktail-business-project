@@ -102,18 +102,10 @@ const Navigation: React.FC = () => {
           </LogoContainer>
 
           {/* Right Navigation - Desktop */}
-          <DesktopRightNav>
-            <ThemeButton onClick={toggleTheme}>
-              {theme === "light" ? "🌙" : "☀️"}
-            </ThemeButton>
-          </DesktopRightNav>
+          <DesktopRightNav>{/* ThemeButton removed */}</DesktopRightNav>
 
           {/* Mobile Icons */}
-          <MobileIcons>
-            <ThemeButton onClick={toggleTheme}>
-              {theme === "light" ? "🌙" : "☀️"}
-            </ThemeButton>
-          </MobileIcons>
+          <MobileIcons>{/* ThemeButton removed */}</MobileIcons>
         </NavContent>
 
         {/* Mobile Menu */}
