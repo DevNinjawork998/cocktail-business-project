@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import Testimonials from "./Testimonials";
+import Testimonials from "../Testimonials/Testimonials";
 import {
   LandingSection,
   GradientBackground,
@@ -23,26 +23,6 @@ import {
   FeatureIcon,
   FeatureText,
   RightContent,
-  ProductShowcase,
-  ProductContainer,
-  ProductInner,
-  ProductContent,
-  CocktailBottle,
-  BottleCap,
-  BottleLabel,
-  LabelTitle,
-  LabelSubtitle,
-  LabelSignature,
-  GlassContainer,
-  CocktailGlass,
-  CocktailLiquid,
-  GlassHighlight,
-  FloatingElement1,
-  FloatingElement2,
-  FloatingElement3,
-  BackgroundDecorative,
-  DecorativeElement1,
-  DecorativeElement2,
   FoundersSection,
   FoundersContainer,
   FoundersContent,
@@ -62,6 +42,11 @@ import {
   StatNumber,
   StatLabel,
 } from "./LandingPage.styles";
+import dynamic from "next/dynamic";
+
+const HeroSlideshow = dynamic(() => import("../HeroSlideshow/HeroSlideshow"), {
+  ssr: false,
+});
 
 const LandingPage: React.FC = () => {
   return (
@@ -133,44 +118,7 @@ const LandingPage: React.FC = () => {
 
           {/* Right Content - Product Showcase */}
           <RightContent>
-            <ProductShowcase>
-              {/* Mock Product Image Container */}
-              <ProductContainer>
-                <ProductInner>
-                  {/* Mock Cocktail Bottle/Can */}
-                  <ProductContent>
-                    <CocktailBottle>
-                      <BottleCap />
-                      <BottleLabel>
-                        <LabelTitle>COCKTAIL</LabelTitle>
-                        <LabelSubtitle>PREMIUM</LabelSubtitle>
-                        <LabelSignature>Signature</LabelSignature>
-                        <LabelSubtitle>Blend</LabelSubtitle>
-                      </BottleLabel>
-                    </CocktailBottle>
-
-                    {/* Mock Glass */}
-                    <GlassContainer>
-                      <CocktailGlass>
-                        <CocktailLiquid />
-                        <GlassHighlight />
-                      </CocktailGlass>
-                    </GlassContainer>
-                  </ProductContent>
-                </ProductInner>
-              </ProductContainer>
-
-              {/* Floating Elements */}
-              <FloatingElement1 />
-              <FloatingElement2 />
-              <FloatingElement3 />
-            </ProductShowcase>
-
-            {/* Background decorative elements */}
-            <BackgroundDecorative>
-              <DecorativeElement1 />
-              <DecorativeElement2 />
-            </BackgroundDecorative>
+            <HeroSlideshow />
           </RightContent>
         </MainGrid>
 

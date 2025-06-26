@@ -239,3 +239,182 @@ export const SidebarProductName = styled.div`
     font-size: 0.875rem;
   }
 `;
+
+export const IngredientsSection = styled.section`
+  margin: 2.5rem auto 0 auto;
+  padding: 2rem;
+  background: ${({ theme }) => theme.semantic.surface};
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid ${({ theme }) => theme.semantic.border};
+  max-width: 700px;
+`;
+
+export const IngredientsTitle = styled.h3`
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.semantic.primary};
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+`;
+
+export const IngredientsList = styled.ul`
+  list-style: disc inside;
+  padding-left: 1.5rem;
+  color: ${({ theme }) => theme.semantic.text};
+`;
+
+export const IngredientItem = styled.li`
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+`;
+
+export const NutritionSection = styled.section`
+  margin: 2rem auto 0 auto;
+  padding: 2rem;
+  background: ${({ theme }) => theme.semantic.surface};
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid ${({ theme }) => theme.semantic.border};
+  max-width: 700px;
+`;
+
+export const NutritionTitle = styled.h3`
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.semantic.primary};
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+`;
+
+export const NutritionTable = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.5rem;
+`;
+
+export const NutritionRow = styled.div`
+  display: contents;
+`;
+
+export const NutritionLabel = styled.div`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.semantic.text};
+`;
+
+export const NutritionValue = styled.div`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.semantic.primary};
+  text-align: right;
+`;
+
+export const ProductBriefSection = styled.section`
+  margin: 2rem auto 0 auto;
+  padding: 2rem;
+  background: ${({ theme }) => theme.semantic.surface};
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid ${({ theme }) => theme.semantic.border};
+  max-width: 700px;
+`;
+
+export const ProductBriefTitle = styled.h3`
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.semantic.primary};
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+`;
+
+export const ProductBriefText = styled.p`
+  font-size: 1.05rem;
+  color: ${({ theme }) => theme.semantic.text};
+`;
+
+export const ProductInfoSection = styled.section`
+  margin: 3rem auto 0 auto;
+  padding: 2.5rem 2rem;
+  background: ${({ theme }) => theme.semantic.backgroundSecondary};
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  max-width: 1400px;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2.5rem;
+  align-items: flex-start;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 1rem;
+  }
+`;
+
+export const ProductInfoLeft = styled.div``;
+export const ProductInfoRight = styled.div``;
+
+export const ProductInfoTitle = styled.h2`
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.semantic.primary};
+  margin-bottom: 1rem;
+`;
+
+export const ProductInfoDescription = styled.p`
+  font-size: 1.1rem;
+  color: ${({ theme }) => theme.semantic.text};
+  margin-bottom: 1.5rem;
+`;
+
+export const ProductInfoIngredients = styled.div`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.semantic.text};
+  margin-bottom: 1.5rem;
+  & strong {
+    color: ${({ theme }) => theme.semantic.primary};
+  }
+`;
+
+export const ProductInfoNutritionBox = styled.div`
+  background: ${({ theme }) => theme.semantic.surface};
+  border: 1.5px solid ${({ theme }) => theme.semantic.border};
+  border-radius: 1rem;
+  padding: 1.5rem 1.25rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+`;
+
+export const ProductInfoNutritionTitle = styled.h3`
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.semantic.primary};
+  margin-bottom: 1rem;
+`;
+
+export const ProductInfoNutritionTable = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+  font-size: 0.98rem;
+`;
+
+export const ProductInfoFeatureRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+`;
+
+export const ProductInfoFeatureIcon = styled.div`
+  font-size: 2rem;
+  color: ${({ theme }) => theme.semantic.secondary};
+  display: flex;
+  justify-content: center;
+`;
+
+export const ProductInfoFeatureLabel = styled.div`
+  font-size: 0.95rem;
+  color: ${({ theme }) => theme.semantic.text};
+  text-align: center;
+  margin-top: 0.25rem;
+`;
