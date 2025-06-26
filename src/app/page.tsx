@@ -1,8 +1,8 @@
 "use client";
 
-import Navigation from "@/components/Navigation";
-import LandingPage from "@/components/LandingPage";
-import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation /Navigation";
+import LandingPage from "@/components/LandingPage/LandingPage";
+import Footer from "@/components/Footer/Footer";
 import styled from "styled-components";
 import { Analytics } from "@vercel/analytics/next";
 

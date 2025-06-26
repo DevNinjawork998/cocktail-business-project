@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Navigation from "@/components/Navigation";
-import Breadcrumb from "@/components/Breadcrumb";
-import FoundersSection from "@/components/FoundersSection";
-import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation /Navigation";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import FoundersSection from "@/components/FoundersSection/FoundersSection";
+import Footer from "@/components/Footer/Footer";
 import styled from "styled-components";
 
 const PageContainer = styled.div`

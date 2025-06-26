@@ -1,7 +1,7 @@
 "use client";
 
-import Navigation from "@/components/Navigation";
-import Breadcrumb from "@/components/Breadcrumb";
+import Navigation from "@/components/Navigation /Navigation";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import {
   ShopContainer,
   ShopHeader,
@@ -14,7 +14,15 @@ import {
   ProductName,
   ProductDescription,
 } from "./page.styles";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer/Footer";
+import dynamic from "next/dynamic";
+
+const HealthBenefits = dynamic(
+  () => import("@/components/HealthBenefits/HealthBenefits"),
+  {
+    ssr: false,
+  }
+);
 
 const products = [
   {
@@ -85,6 +93,7 @@ export default function ShopPage() {
           ))}
         </ProductsGrid>
       </ShopContainer>
+      <HealthBenefits />
       <Footer />
     </>
   );

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTheme, colors, tailwindColors } from "@/theme";
-import Footer from "./Footer";
+import Footer from "./Footer/Footer";
 
 interface ColorCardProps {
   name: string;

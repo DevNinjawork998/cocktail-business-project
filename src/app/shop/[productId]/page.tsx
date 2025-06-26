@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import ProductPageClient from "./ProductPageClient";
-import Navigation from "@/components/Navigation";
-import Breadcrumb from "@/components/Breadcrumb";
-import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation /Navigation";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Footer from "@/components/Footer/Footer";
 
 const products = {
   "tequila-sundown": {
