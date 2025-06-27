@@ -35,7 +35,7 @@ const ColorCard: React.FC<ColorCardProps> = ({
 );
 
 const ThemeShowcase: React.FC = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   const colorCards = [
     {
@@ -81,10 +81,7 @@ const ThemeShowcase: React.FC = () => {
           <p className="text-lg text-foreground-muted mb-6">
             A sophisticated color palette inspired by cocktail culture
           </p>
-          <button
-            onClick={toggleTheme}
-            className="px-6 py-3 bg-secondary text-white rounded-lg hover:opacity-90 transition-opacity"
-          >
+          <button className="px-6 py-3 bg-secondary text-white rounded-lg hover:opacity-90 transition-opacity">
             Switch to {theme === "light" ? "Dark" : "Light"} Mode
           </button>
         </div>

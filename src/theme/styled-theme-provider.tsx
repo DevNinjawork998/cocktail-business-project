@@ -12,20 +12,14 @@ interface StyledThemeWrapperProps {
 export function StyledThemeWrapper({ children }: StyledThemeWrapperProps) {
   const { theme } = useTheme();
 
-  // Create theme object with current theme mode
+  // Create theme object with light theme mode only
   const themeWithMode = {
     ...styledTheme,
     mode: theme,
-    // Dynamic semantic colors based on current theme
-    currentSemantic:
-      theme === "dark"
-        ? {
-            ...styledTheme.semantic,
-            ...styledTheme.darkMode,
-          }
-        : {
-            ...styledTheme.semantic,
-          },
+    // Always use light theme semantic colors
+    currentSemantic: {
+      ...styledTheme.semantic,
+    },
   };
 
   return (

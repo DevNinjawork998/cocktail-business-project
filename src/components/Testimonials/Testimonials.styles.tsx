@@ -106,14 +106,14 @@ export const TestimonialText = styled.p`
   font-style: italic;
 
   &::before {
-    content: "\201C";
+    content: '"';
     font-size: 1.5rem;
     color: ${({ theme }) => theme.colors.caramel.base};
     margin-right: 0.2em;
   }
 
   &::after {
-    content: "\201D";
+    content: '"';
     font-size: 1.5rem;
     color: ${({ theme }) => theme.colors.caramel.base};
     margin-left: 0.2em;
