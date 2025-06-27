@@ -15,15 +15,15 @@ const CartIcon: React.FC = () => {
   const { state } = useCart();
   const router = useRouter();
   const [showToast, setShowToast] = useState(false);
-  const [prevItemCount, setPrevItemCount] = useState(0);
+  const prevItemCount = React.useRef(state.itemCount);
 
   useEffect(() => {
-    if (state.itemCount > prevItemCount && prevItemCount > 0) {
+    if (state.itemCount > prevItemCount.current && prevItemCount.current > 0) {
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
     }
-    setPrevItemCount(state.itemCount);
-  }, [state.itemCount, prevItemCount]);
+    prevItemCount.current = state.itemCount;
+  }, [state.itemCount]);
 
   const handleCartClick = () => {
     router.push("/cart");
