@@ -18,10 +18,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <StyledComponentsRegistry>
-          <ThemeProvider
-            defaultTheme="light"
-            storageKey="cocktail-business-theme"
-          >
+          <ThemeProvider>
             <StyledThemeWrapper>{children}</StyledThemeWrapper>
           </ThemeProvider>
         </StyledComponentsRegistry>
