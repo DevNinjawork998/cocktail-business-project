@@ -1,6 +1,7 @@
 import React from "react";
-import { render, screen } from "@/__tests__/test-utils";
+import { render, screen } from "../../../__tests__/test-utils";
 import Footer from "../Footer";
+import "@jest/globals";
 
 describe("Footer", () => {
   it("renders all social links with correct href and aria-label", () => {

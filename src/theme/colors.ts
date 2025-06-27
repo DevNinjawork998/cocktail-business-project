@@ -45,6 +45,7 @@ export const semanticColors = {
     secondary: colors.royalOrange.base,
     accent: colors.caramel.base,
     danger: colors.bittersweetShimmer.base,
+    dangerDark: colors.bittersweetShimmer.dark,
 
     // Background colors
     background: '#ffffff',

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import CartIcon from "@/components/CartIcon/CartIcon";
 import {
   NavContainer,
   NavWrapper,
@@ -16,6 +17,7 @@ import {
   MobileMenu,
   MobileMenuLinks,
   MobileNavLink,
+  CartIconWrapper,
 } from "./Navigation.styles";
 
 // Icons
@@ -95,6 +97,11 @@ const Navigation: React.FC = () => {
               </Logo>
             </Link>
           </LogoContainer>
+
+          {/* Cart Icon - Right */}
+          <CartIconWrapper>
+            <CartIcon />
+          </CartIconWrapper>
         </NavContent>
 
         {/* Mobile Menu */}
@@ -107,6 +114,11 @@ const Navigation: React.FC = () => {
                 </MobileNavLink>
               </Link>
             ))}
+            <Link href="/cart">
+              <MobileNavLink onClick={() => setIsMobileMenuOpen(false)}>
+                Cart
+              </MobileNavLink>
+            </Link>
           </MobileMenuLinks>
         </MobileMenu>
       </NavWrapper>

@@ -104,7 +104,13 @@ export const LogoText = styled.div`
 `;
 
 export const LogoAccent = styled.span`
-  color: ${({ theme }) => theme.semantic.secondary};
+  color: ${({ theme }) => theme.colors.royalOrange.base};
+`;
+
+export const CartIconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const DesktopRightNav = styled.div`

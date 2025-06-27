@@ -1,13 +1,27 @@
 import React, { ReactElement } from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import { ThemeProvider } from "styled-components";
-import { styledTheme as baseStyledTheme } from "@/theme";
+import { styledTheme as baseStyledTheme } from "../theme/styled-theme";
+
+// Mock localStorage to prevent JSON parsing errors in tests
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+};
+
+Object.defineProperty(window, "localStorage", {
+  value: localStorageMock,
+  writable: true,
+});
 
 // Patch styledTheme for tests to include currentSemantic and mode
 const styledTheme = {
   ...baseStyledTheme,
   mode: "light" as const,
   currentSemantic: {
+    ...baseStyledTheme.semantic,
     borderLight: "#eee",
     surface: "#fff",
   },

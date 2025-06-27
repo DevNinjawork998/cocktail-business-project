@@ -1,6 +1,7 @@
 import React from "react";
-import { render, screen } from "@/__tests__/test-utils";
+import { render, screen } from "../../../__tests__/test-utils";
 import LandingPage from "../LandingPage";
+import "@jest/globals";
 
 describe("LandingPage", () => {
   it("renders hero section", () => {
