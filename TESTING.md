@@ -2,6 +2,24 @@
 
 This project uses **Jest** and **React Testing Library** for unit testing. The testing setup is configured to work seamlessly with Next.js, TypeScript, and styled-components.
 
+---
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Project Structure & Test Organization](#project-structure--test-organization)
+- [Writing Tests](#writing-tests)
+- [Testing Patterns](#testing-patterns)
+- [Test Utilities](#test-utilities)
+- [Best Practices](#best-practices)
+- [Coverage](#coverage)
+- [Debugging Tests](#debugging-tests)
+- [Continuous Integration](#continuous-integration)
+- [FAQ](#faq)
+- [Additional Resources](#additional-resources)
+
+---
+
 ## Quick Start
 
 ### Running Tests
@@ -27,7 +45,19 @@ npm run test:ci
 - `npm run test:coverage` - Run tests and generate coverage report
 - `npm run test:ci` - Run tests for CI/CD pipelines
 
-## Project Structure
+---
+
+## Project Structure & Test Organization
+
+**Where should tests live?**
+
+Tests are colocated with the components or utilities they test. This means each component or utility has its own `__tests__` folder nearby. This approach makes it easy to:
+
+- Find tests for a specific component
+- Update tests when the component changes
+- Keep tests focused and maintainable
+
+**Example Structure:**
 
 ```
 src/
@@ -43,6 +73,20 @@ src/
 │       └── utils.test.ts
 └── test-utils.tsx          # Custom test utilities
 ```
+
+**Why not one big test file?**
+
+- Keeping tests split by component scales better, is easier to debug, and is the industry standard for React/Next.js projects.
+- Test runners like Jest can run multiple files in parallel, making your test suite faster.
+- When a test fails, you know exactly which component or utility is affected.
+
+**Best Practice:**
+
+- One test file per component or utility.
+- Use `describe` blocks to group related tests.
+- For integration or workflow tests, you may have a separate file (e.g., `ProductList.integration.test.tsx`).
+
+---
 
 ## Writing Tests
 
@@ -87,6 +131,8 @@ describe("Price Utils", () => {
   });
 });
 ```
+
+---
 
 ## Testing Patterns
 
@@ -170,6 +216,8 @@ describe("Product List Integration", () => {
 });
 ```
 
+---
+
 ## Test Utilities
 
 ### Custom Render Function
@@ -198,6 +246,8 @@ const products = mockProducts;
 const testId = TEST_IDS.BUTTON;
 ```
 
+---
+
 ## Best Practices
 
 ### 1. Test Organization
@@ -205,6 +255,7 @@ const testId = TEST_IDS.BUTTON;
 - Group related tests using `describe` blocks
 - Use descriptive test names that explain the behavior
 - Keep tests focused on one piece of functionality
+- **Colocate tests with the code they test** for easier maintenance
 
 ### 2. Testing Priorities
 
@@ -237,7 +288,7 @@ const testId = TEST_IDS.BUTTON;
 expect(screen.getByRole("button")).toBeInTheDocument();
 
 // Bad - tests implementation
-expect(screen.getByTestId("submit-button")).toBeInTheDocument();
+enexpect(screen.getByTestId("submit-button")).toBeInTheDocument();
 ```
 
 ### 4. Mocking
@@ -262,6 +313,8 @@ jest.mock("next/router", () => ({
 }));
 ```
 
+---
+
 ## Coverage
 
 The project is configured with 70% coverage thresholds:
@@ -278,6 +331,8 @@ npm run test:coverage
 ```
 
 Coverage reports are generated in the `coverage/` directory.
+
+---
 
 ## Debugging Tests
 
@@ -303,6 +358,8 @@ npm test -- --verbose
 npm test -- --detectOpenHandles
 ```
 
+---
+
 ## Continuous Integration
 
 The `test:ci` script is designed for CI/CD pipelines:
@@ -316,6 +373,26 @@ The `test:ci` script is designed for CI/CD pipelines:
 - name: Run tests
   run: npm run test:ci
 ```
+
+---
+
+## FAQ
+
+### Q: Can I consolidate all tests into a single file?
+
+**A:** It is not recommended. Keeping tests split by component or utility:
+
+- Makes it easier to find and maintain tests
+- Scales better as your project grows
+- Allows for faster, parallel test runs
+
+If you have a very small project, you can use a single test file, but for anything larger, colocated tests are best practice.
+
+### Q: Should I move all `__tests__` folders to a top-level `__tests__` directory?
+
+**A:** You can, but colocating tests with their components is the modern standard for React/Next.js projects. It keeps related code and tests together.
+
+---
 
 ## Additional Resources
 
