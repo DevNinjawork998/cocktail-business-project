@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@/test-utils";
+import { render, screen } from "@/__tests__/test-utils";
 import FoundersSection from "../FoundersSection";
 
 describe("FoundersSection", () => {

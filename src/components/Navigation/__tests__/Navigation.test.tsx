@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@/test-utils";
+import { render, screen, fireEvent } from "@/__tests__/test-utils";
 import Navigation from "../NavigationMain/Navigation";
 import "@testing-library/jest-dom";
 
