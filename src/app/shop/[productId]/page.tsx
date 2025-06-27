@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import ProductPageClient from "./ProductPageClient";
-import Navigation from "@/components/Navigation /Navigation";
+import Navigation from "@/components/Navigation/NavigationMain/Navigation";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Footer from "@/components/Footer/Footer";
 

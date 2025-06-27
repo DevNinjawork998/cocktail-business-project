@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Navigation from "@/components/Navigation /Navigation";
+import Navigation from "@/components/Navigation/NavigationMain/Navigation";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import FoundersSection from "@/components/FoundersSection/FoundersSection";
 import Footer from "@/components/Footer/Footer";
