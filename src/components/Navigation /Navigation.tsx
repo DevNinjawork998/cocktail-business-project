@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useTheme } from "@/theme";
 import Link from "next/link";
 import {
   NavContainer,
@@ -14,9 +13,6 @@ import {
   Logo,
   LogoText,
   LogoAccent,
-  DesktopRightNav,
-  ThemeButton,
-  MobileIcons,
   MobileMenu,
   MobileMenuLinks,
   MobileNavLink,
@@ -60,7 +56,6 @@ const CloseIcon = ({ className }: { className?: string }) => (
 );
 
 const Navigation: React.FC = () => {
-  const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -100,20 +95,6 @@ const Navigation: React.FC = () => {
               </Logo>
             </Link>
           </LogoContainer>
-
-          {/* Right Navigation - Desktop */}
-          <DesktopRightNav>
-            <ThemeButton onClick={toggleTheme}>
-              {theme === "light" ? "🌙" : "☀️"}
-            </ThemeButton>
-          </DesktopRightNav>
-
-          {/* Mobile Icons */}
-          <MobileIcons>
-            <ThemeButton onClick={toggleTheme}>
-              {theme === "light" ? "🌙" : "☀️"}
-            </ThemeButton>
-          </MobileIcons>
         </NavContent>
 
         {/* Mobile Menu */}
