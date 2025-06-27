@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/theme/theme-provider";
 import { StyledThemeWrapper } from "@/theme/styled-theme-provider";
 import StyledComponentsRegistry from "./lib/registry";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Cocktail Business",
@@ -19,7 +20,10 @@ export default function RootLayout({
       <body>
         <StyledComponentsRegistry>
           <ThemeProvider>
-            <StyledThemeWrapper>{children}</StyledThemeWrapper>
+            <StyledThemeWrapper>
+              {children}
+              <Analytics debug={true} />
+            </StyledThemeWrapper>
           </ThemeProvider>
         </StyledComponentsRegistry>
       </body>
