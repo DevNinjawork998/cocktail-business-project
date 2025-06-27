@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/theme/theme-provider";
 import { StyledThemeWrapper } from "@/theme/styled-theme-provider";
 import StyledComponentsRegistry from "./lib/registry";
 import { Analytics } from "@vercel/analytics/next";
+import { CartProvider } from "@/contexts/CartContext";
 
 export const metadata: Metadata = {
   title: "Cocktail Business",
@@ -21,8 +22,10 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <ThemeProvider>
             <StyledThemeWrapper>
-              {children}
-              <Analytics debug={true} />
+              <CartProvider>
+                {children}
+                <Analytics debug={true} />
+              </CartProvider>
             </StyledThemeWrapper>
           </ThemeProvider>
         </StyledComponentsRegistry>

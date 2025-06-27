@@ -53,6 +53,8 @@ export const ProductsGrid = styled.div`
   }
 `;
 
+// ProductCard can be rendered as a link (default) or as a div/button using the 'as' prop.
+// Example: <ProductCard as="div">...</ProductCard> or <ProductCard href="...">...</ProductCard>
 export const ProductCard = styled(Link)`
   background: ${({ theme }) => theme.colors.caramel.light};
   border-radius: ${({ theme }) => theme.radii.xl};

@@ -1,6 +1,7 @@
 import React from "react";
-import { render, screen } from "@/__tests__/test-utils";
+import { render, screen } from "../../../__tests__/test-utils";
 import Breadcrumb from "../Breadcrumb";
+import "@jest/globals";
 
 describe("Breadcrumb", () => {
   const mockItems = [

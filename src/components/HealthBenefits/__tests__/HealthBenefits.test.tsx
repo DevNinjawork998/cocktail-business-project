@@ -1,6 +1,7 @@
 import React from "react";
-import { render, screen, fireEvent } from "@/__tests__/test-utils";
+import { render, screen, fireEvent } from "../../../__tests__/test-utils";
 import HealthBenefits from "../HealthBenefits";
+import "@jest/globals";
 
 describe("HealthBenefits", () => {
   it("renders all ingredients", () => {

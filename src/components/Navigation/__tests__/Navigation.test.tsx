@@ -1,7 +1,9 @@
 import React from "react";
-import { render, screen, fireEvent } from "@/__tests__/test-utils";
-import Navigation from "../NavigationMain/Navigation";
+import { render, screen, fireEvent } from "../../../__tests__/test-utils";
+import Navigation from "../Navigation";
+import { CartProvider } from "../../../contexts/CartContext";
 import "@testing-library/jest-dom";
+import "@jest/globals";
 
 describe("Navigation", () => {
   beforeEach(() => {
@@ -9,8 +11,16 @@ describe("Navigation", () => {
     jest.clearAllMocks();
   });
 
+  const renderNavigation = () => {
+    return render(
+      <CartProvider>
+        <Navigation />
+      </CartProvider>
+    );
+  };
+
   it("renders navigation component with logo", () => {
-    render(<Navigation />);
+    renderNavigation();
 
     // Check if logo is rendered
     expect(screen.getByText("COCKTAIL")).toBeInTheDocument();
@@ -18,7 +28,7 @@ describe("Navigation", () => {
   });
 
   it("renders all navigation links", () => {
-    render(<Navigation />);
+    renderNavigation();
 
     // Check if all navigation links are present (use getAllByText to handle multiple instances)
     const homeLinks = screen.getAllByText("Home");
@@ -31,14 +41,14 @@ describe("Navigation", () => {
   });
 
   it("renders mobile menu button", () => {
-    render(<Navigation />);
+    renderNavigation();
 
     const mobileMenuButton = screen.getByLabelText("Toggle mobile menu");
     expect(mobileMenuButton).toBeInTheDocument();
   });
 
   it("mobile menu button is clickable", () => {
-    render(<Navigation />);
+    renderNavigation();
 
     const mobileMenuButton = screen.getByLabelText("Toggle mobile menu");
     expect(mobileMenuButton).toBeInTheDocument();
@@ -48,7 +58,7 @@ describe("Navigation", () => {
   });
 
   it("has correct navigation links with proper hrefs", () => {
-    render(<Navigation />);
+    renderNavigation();
 
     // Use getAllByText and get the first instance for each link
     const homeLinks = screen.getAllByText("Home");
@@ -65,14 +75,14 @@ describe("Navigation", () => {
   });
 
   it("logo links to home page", () => {
-    render(<Navigation />);
+    renderNavigation();
 
     const logoLink = screen.getByText("COCKTAIL").closest("a");
     expect(logoLink).toHaveAttribute("href", "/");
   });
 
   it("has proper accessibility attributes", () => {
-    render(<Navigation />);
+    renderNavigation();
 
     const mobileMenuButton = screen.getByLabelText("Toggle mobile menu");
     expect(mobileMenuButton).toHaveAttribute(

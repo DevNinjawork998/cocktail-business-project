@@ -1,6 +1,6 @@
 "use client";
 
-import Navigation from "@/components/Navigation/NavigationMain/Navigation";
+import Navigation from "../../components/Navigation/Navigation";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import {
   ShopContainer,

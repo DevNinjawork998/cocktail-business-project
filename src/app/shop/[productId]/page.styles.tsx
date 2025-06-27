@@ -171,6 +171,37 @@ export const BuyNowButton = styled.button`
   }
 `;
 
+export const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md};
+
+  ${media.md} {
+    flex-direction: row;
+  }
+`;
+
+export const AddToCartButton = styled.button`
+  background: ${({ theme }) => theme.colors.chocolateKisses.base};
+  color: white;
+  padding: ${({ theme }) => theme.spacing.lg};
+  ${({ theme }) => theme.spacing["2xl"]};
+  border-radius: ${({ theme }) => theme.radii.full};
+  border: none;
+  font-weight: bold;
+  font-size: 1.125rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: ${({ theme }) => theme.shadows.lg};
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.xl};
+    background: ${({ theme }) => theme.colors.chocolateKisses.dark};
+  }
+`;
+
 export const Sidebar = styled.div`
   background: ${({ theme }) => theme.colors.caramel.light};
   border-radius: ${({ theme }) => theme.radii.xl};
@@ -417,4 +448,43 @@ export const ProductInfoFeatureLabel = styled.div`
   color: ${({ theme }) => theme.semantic.text};
   text-align: center;
   margin-top: 0.25rem;
+`;
+
+export const QuantitySelector = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
+`;
+
+export const QuantityButton = styled.button`
+  width: 36px;
+  height: 36px;
+  border: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  background: white;
+  color: ${({ theme }) => theme.currentSemantic.text};
+  border-radius: ${({ theme }) => theme.radii.md};
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.currentSemantic.primary};
+    color: white;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+export const QuantityInput = styled.input`
+  width: 48px;
+  height: 36px;
+  border: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.md};
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.currentSemantic.text};
+  background: white;
 `;

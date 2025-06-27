@@ -1,6 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { useCart } from "@/contexts/CartContext";
+import { Product } from "@/data/products";
 import {
   ProductPageContainer,
   ProductLayout,
@@ -16,7 +18,11 @@ import {
   PriceSection,
   Price,
   PriceSubtext,
-  BuyNowButton,
+  AddToCartButton,
+  ButtonGroup,
+  QuantitySelector,
+  QuantityButton,
+  QuantityInput,
   Sidebar,
   SidebarTitle,
   SidebarGrid,
@@ -37,38 +43,34 @@ import {
   ProductInfoFeatureLabel,
 } from "./page.styles";
 
-interface Product {
-  name: string;
-  subtitle: string;
-  description: string;
-  longDescription: string;
-  price: string;
-  priceSubtext: string;
-  imageColor: string;
-  features: Array<{ text: string; color: string }>;
-}
-
-interface OtherProduct {
-  id: string;
-  name: string;
-  imageColor: string;
-}
-
 interface ProductPageClientProps {
   product: Product;
-  otherProducts: OtherProduct[];
+  otherProducts: Product[];
 }
 
 export default function ProductPageClient({
   product,
   otherProducts,
 }: ProductPageClientProps) {
-  const handleBuyNow = () => {
-    const message = `Hi! I'd like to purchase ${product.name} (${product.price}). Can you help me with the order?`;
-    const whatsappUrl = `https://wa.me/1234567890?text=${encodeURIComponent(
-      message
-    )}`;
-    window.open(whatsappUrl, "_blank");
+  const { addItem } = useCart();
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = () => {
+    const price = parseFloat(product.price.replace("$", ""));
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: price,
+      imageColor: product.imageColor,
+      priceSubtext: product.priceSubtext,
+      quantity,
+    });
+  };
+
+  const handleQuantityChange = (val: number) => {
+    if (val < 1) setQuantity(1);
+    else if (val > 99) setQuantity(99);
+    else setQuantity(val);
   };
 
   // Example data for ingredients and nutrition
@@ -140,9 +142,32 @@ export default function ProductPageClient({
               <PriceSubtext>{product.priceSubtext}</PriceSubtext>
             </PriceSection>
 
-            <BuyNowButton onClick={handleBuyNow}>
-              Buy Now via WhatsApp
-            </BuyNowButton>
+            <ButtonGroup>
+              <QuantitySelector>
+                <QuantityButton
+                  onClick={() => handleQuantityChange(quantity - 1)}
+                  disabled={quantity <= 1}
+                >
+                  -
+                </QuantityButton>
+                <QuantityInput
+                  type="number"
+                  min={1}
+                  max={99}
+                  value={quantity}
+                  onChange={(e) => handleQuantityChange(Number(e.target.value))}
+                />
+                <QuantityButton
+                  onClick={() => handleQuantityChange(quantity + 1)}
+                  disabled={quantity >= 99}
+                >
+                  +
+                </QuantityButton>
+              </QuantitySelector>
+              <AddToCartButton onClick={handleAddToCart}>
+                Add to Cart
+              </AddToCartButton>
+            </ButtonGroup>
           </ProductDetailsSection>
         </MainContent>
         <Sidebar>
@@ -199,8 +224,7 @@ export default function ProductPageClient({
                   <div
                     style={{
                       textAlign: "right",
-                      fontWeight: fact.label === "Calories" ? 700 : 400,
-                      color: fact.label === "Calories" ? "#F89256" : undefined,
+                      fontWeight: "600",
                     }}
                   >
                     {fact.value}
