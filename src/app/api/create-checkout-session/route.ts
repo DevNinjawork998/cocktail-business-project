@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
             console.log(`📦 [${requestId}] Request body:`, {
                 itemsCount: items?.length,
                 customerInfo: customerInfo ? 'present' : 'missing',
-                items: items?.map(item => ({ name: item.name, price: item.price, quantity: item.quantity }))
+                items: items?.map((item: CartItem) => ({ name: item.name, price: item.price, quantity: item.quantity }))
             });
         }
 
