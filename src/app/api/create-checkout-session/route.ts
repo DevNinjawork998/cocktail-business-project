@@ -88,9 +88,9 @@ export async function POST(request: NextRequest) {
 
         // Create Stripe checkout session
         const sessionConfig = {
-            payment_method_types: ['card'],
+            payment_method_types: ['card' as const],
             line_items: lineItems,
-            mode: 'payment',
+            mode: 'payment' as const,
             success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout`,
             customer_email: customerInfo.email,
@@ -102,12 +102,12 @@ export async function POST(request: NextRequest) {
                 orderItems: JSON.stringify(items),
             },
             shipping_address_collection: {
-                allowed_countries: ['MY'], // Only Malaysia
+                allowed_countries: ['MY' as const], // Only Malaysia
             },
             shipping_options: [
                 {
                     shipping_rate_data: {
-                        type: 'fixed_amount',
+                        type: 'fixed_amount' as const,
                         fixed_amount: {
                             amount: 0, // Free shipping
                             currency: 'myr',
@@ -115,11 +115,11 @@ export async function POST(request: NextRequest) {
                         display_name: 'Free shipping',
                         delivery_estimate: {
                             minimum: {
-                                unit: 'business_day',
+                                unit: 'business_day' as const,
                                 value: 3,
                             },
                             maximum: {
-                                unit: 'business_day',
+                                unit: 'business_day' as const,
                                 value: 7,
                             },
                         },
