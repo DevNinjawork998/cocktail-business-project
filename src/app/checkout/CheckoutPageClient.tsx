@@ -82,6 +82,10 @@ const CheckoutPageClient: React.FC = () => {
     "stripe" | "whatsapp" | null
   >("stripe");
 
+  // Debug logging for development and preview environments
+  const isDev = process.env.NODE_ENV === "development";
+  const isPreview = process.env.VERCEL_ENV === "preview";
+
   const {
     register,
     handleSubmit,
@@ -101,22 +105,49 @@ const CheckoutPageClient: React.FC = () => {
   // Load Stripe on component mount
   useEffect(() => {
     const loadStripeInstance = async () => {
+      if (isDev || isPreview) {
+        console.log("🔄 Loading Stripe instance...");
+      }
+
       const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
       if (publishableKey) {
+        if (isDev || isPreview) {
+          console.log("✅ Stripe publishable key found, loading Stripe...");
+        }
         const stripeInstance = await loadStripe(publishableKey);
         setStripe(stripeInstance);
+
+        if (isDev || isPreview) {
+          console.log("✅ Stripe instance loaded:", !!stripeInstance);
+        }
+      } else {
+        if (isDev || isPreview) {
+          console.error("❌ Stripe publishable key not found");
+        }
       }
     };
     loadStripeInstance();
-  }, []);
+  }, [isDev, isPreview]);
 
   const handleStripeCheckout = async () => {
+    if (isDev || isPreview) {
+      console.log("🚀 Starting Stripe checkout...");
+      console.log("📦 Cart items:", state.items);
+    }
+
     if (!stripe) {
+      if (isDev || isPreview) {
+        console.error("❌ Stripe is not loaded");
+      }
       alert("Stripe is not loaded. Please try again.");
       return;
     }
     setLoading(true);
     try {
+      if (isDev || isPreview) {
+        console.log("📡 Creating checkout session...");
+      }
+
       const response = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: {
@@ -127,12 +158,31 @@ const CheckoutPageClient: React.FC = () => {
           customerInfo: {}, // No customer info, Stripe will collect
         }),
       });
+
+      if (isDev || isPreview) {
+        console.log("📡 Checkout session response status:", response.status);
+      }
+
       if (!response.ok) {
+        const errorText = await response.text();
+        if (isDev || isPreview) {
+          console.error("❌ Checkout session creation failed:", errorText);
+        }
         throw new Error("Failed to create checkout session");
       }
+
       const { sessionId } = await response.json();
+
+      if (isDev || isPreview) {
+        console.log("✅ Checkout session created:", sessionId);
+        console.log("🔄 Redirecting to Stripe checkout...");
+      }
+
       const { error } = await stripe.redirectToCheckout({ sessionId });
       if (error) {
+        if (isDev || isPreview) {
+          console.error("❌ Stripe redirect error:", error);
+        }
         throw error;
       }
     } catch (error) {
