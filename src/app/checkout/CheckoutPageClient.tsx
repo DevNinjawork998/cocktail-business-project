@@ -57,6 +57,12 @@ import {
 } from "./CheckoutPageClient.styles";
 import { formatCurrency } from "@/app/lib/stripe";
 
+// Payment method enum
+enum PaymentMethod {
+  STRIPE = "stripe",
+  WHATSAPP = "whatsapp",
+}
+
 const customerInfoSchema = z.object({
   name: z.string().min(1, "Full name is required"),
   email: z.string().email("Invalid email address"),
@@ -78,9 +84,9 @@ const CheckoutPageClient: React.FC = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [stripe, setStripe] = useState<Stripe | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<
-    "stripe" | "whatsapp" | null
-  >("stripe");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
+    PaymentMethod.STRIPE
+  );
 
   const {
     register,
@@ -127,10 +133,13 @@ const CheckoutPageClient: React.FC = () => {
           customerInfo: {}, // No customer info, Stripe will collect
         }),
       });
+
       if (!response.ok) {
         throw new Error("Failed to create checkout session");
       }
+
       const { sessionId } = await response.json();
+
       const { error } = await stripe.redirectToCheckout({ sessionId });
       if (error) {
         throw error;
@@ -166,7 +175,7 @@ const CheckoutPageClient: React.FC = () => {
           }\nNotes: ${customerInfo.notes || "None"}`
         : "";
 
-      const message = `🍹 *New Cocktail Order*\n\n*Order Summary:*\n${orderItems}\n\n*Total: $${state.total.toFixed(
+      const message = `🍹 *New Cocktail Order*\n\n*Order Summary:*\n${orderItems}\n\n*Total: RM${state.total.toFixed(
         2
       )}*\n${customerDetails}\n\nPlease confirm this order and provide payment instructions.`;
 
@@ -265,10 +274,10 @@ const CheckoutPageClient: React.FC = () => {
                 <PaymentOptionButton
                   type="button"
                   onClick={() => {
-                    setPaymentMethod("stripe");
+                    setPaymentMethod(PaymentMethod.STRIPE);
                     handleStripeCheckout();
                   }}
-                  $isSelected={paymentMethod === "stripe"}
+                  $isSelected={paymentMethod === PaymentMethod.STRIPE}
                   disabled={loading || !stripe}
                 >
                   {loading ? (
@@ -302,13 +311,13 @@ const CheckoutPageClient: React.FC = () => {
               <PaymentOption>
                 <PaymentOptionButton
                   type="button"
-                  onClick={() => setPaymentMethod("whatsapp")}
-                  $isSelected={paymentMethod === "whatsapp"}
+                  onClick={() => setPaymentMethod(PaymentMethod.WHATSAPP)}
+                  $isSelected={paymentMethod === PaymentMethod.WHATSAPP}
                   $variant="whatsapp"
                   disabled={loading}
                 >
                   <PaymentOptionIcon
-                    $isSelected={paymentMethod === "whatsapp"}
+                    $isSelected={paymentMethod === PaymentMethod.WHATSAPP}
                     $variant="whatsapp"
                   >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -317,14 +326,20 @@ const CheckoutPageClient: React.FC = () => {
                         cy="12"
                         r="12"
                         fill={
-                          paymentMethod === "whatsapp" ? "#25d366" : "white"
+                          paymentMethod === PaymentMethod.WHATSAPP
+                            ? "#25d366"
+                            : "white"
                         }
                         stroke="#25d366"
                         strokeWidth="2"
                       />
                       <path
                         d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"
-                        fill={paymentMethod === "whatsapp" ? "#fff" : "#25d366"}
+                        fill={
+                          paymentMethod === PaymentMethod.WHATSAPP
+                            ? "#fff"
+                            : "#25d366"
+                        }
                       />
                     </svg>
                   </PaymentOptionIcon>
@@ -339,7 +354,7 @@ const CheckoutPageClient: React.FC = () => {
             </PaymentOptions>
           </PaymentSection>
 
-          {paymentMethod === "whatsapp" && (
+          {paymentMethod === PaymentMethod.WHATSAPP && (
             <CustomerInfo>
               <CustomerInfoTitle>Customer Information</CustomerInfoTitle>
               <CustomerInfoForm

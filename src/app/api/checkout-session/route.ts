@@ -18,6 +18,23 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ session });
     } catch (error) {
         console.error('Error retrieving checkout session:', error);
+
+        if (error instanceof Error) {
+            if (error.message.includes('No such session')) {
+                return NextResponse.json(
+                    { error: 'Session not found' },
+                    { status: 404 }
+                );
+            }
+
+            if (error.message.includes('Invalid API key')) {
+                return NextResponse.json(
+                    { error: 'Payment service configuration error' },
+                    { status: 500 }
+                );
+            }
+        }
+
         return NextResponse.json(
             { error: 'Failed to retrieve checkout session' },
             { status: 500 }
