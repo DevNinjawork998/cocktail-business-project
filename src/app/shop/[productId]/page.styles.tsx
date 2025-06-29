@@ -487,4 +487,14 @@ export const QuantityInput = styled.input`
   font-weight: 600;
   color: ${({ theme }) => theme.currentSemantic.text};
   background: white;
+  /* Hide number input spinners for Chrome, Safari, Edge, Opera */
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Hide number input spinners for Firefox */
+  -moz-appearance: textfield;
+  /* Standard property for compatibility */
+  appearance: textfield;
 `;

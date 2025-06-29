@@ -31,6 +31,7 @@ import {
   CheckoutButton,
   CartItemImagePlaceholder,
 } from "./CartPageClient.styles";
+import { formatCurrency } from "@/app/lib/stripe";
 
 const CartPageClient: React.FC = () => {
   const { state, updateQuantity, removeItem } = useCart();
@@ -84,7 +85,9 @@ const CartPageClient: React.FC = () => {
 
               <CartItemDetails>
                 <CartItemName>{item.name}</CartItemName>
-                <CartItemPrice>${item.price.toFixed(2)}</CartItemPrice>
+                <CartItemPrice>
+                  {formatCurrency(item.price * 100)}
+                </CartItemPrice>
                 <CartItemSubtext>{item.priceSubtext}</CartItemSubtext>
               </CartItemDetails>
 
@@ -115,7 +118,7 @@ const CartPageClient: React.FC = () => {
               </CartItemQuantity>
 
               <CartItemPrice>
-                ${(item.price * item.quantity).toFixed(2)}
+                {formatCurrency(item.price * item.quantity * 100)}
               </CartItemPrice>
 
               <RemoveButton onClick={() => handleRemoveItem(item.id)}>
@@ -130,7 +133,7 @@ const CartPageClient: React.FC = () => {
 
           <SummaryRow>
             <SummaryLabel>Subtotal ({state.itemCount} items)</SummaryLabel>
-            <SummaryValue>${state.total.toFixed(2)}</SummaryValue>
+            <SummaryValue>{formatCurrency(state.total * 100)}</SummaryValue>
           </SummaryRow>
 
           <SummaryRow>
@@ -140,7 +143,7 @@ const CartPageClient: React.FC = () => {
 
           <SummaryTotal>
             <SummaryLabel>Total</SummaryLabel>
-            <SummaryValue>${state.total.toFixed(2)}</SummaryValue>
+            <SummaryValue>{formatCurrency(state.total * 100)}</SummaryValue>
           </SummaryTotal>
 
           <CheckoutButton onClick={handleCheckout}>

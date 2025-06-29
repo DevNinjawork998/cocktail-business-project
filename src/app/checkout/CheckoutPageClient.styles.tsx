@@ -254,6 +254,17 @@ export const WhatsAppButton = styled.button`
   &:hover {
     background: #128c7e;
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #bdbdbd !important;
+    color: white;
+  }
+  &:hover:disabled {
+    background: #bdbdbd !important;
+    color: white;
+  }
 `;
 
 export const WhatsAppIcon = styled.div`
@@ -292,5 +303,137 @@ export const BackToCartButton = styled.button`
 
   &:hover {
     background: ${({ theme }) => theme.currentSemantic.primaryDark};
+  }
+`;
+
+export const PaymentSection = styled.div`
+  grid-column: 1 / -1;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  text-align: center;
+`;
+
+export const PaymentTitle = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.currentSemantic.text};
+  margin: 0 0 1rem 0;
+`;
+
+export const PaymentDescription = styled.p`
+  color: ${({ theme }) => theme.currentSemantic.textSecondary};
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+`;
+
+export const PaymentOptions = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const PaymentOption = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const PaymentOptionButton = styled.button<{
+  $isSelected?: boolean;
+  $variant?: "whatsapp" | "stripe";
+}>`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 2px solid
+    ${({ theme, $isSelected, $variant }) =>
+      $variant === "whatsapp"
+        ? "#25d366"
+        : $isSelected
+        ? theme.currentSemantic.primary
+        : theme.currentSemantic.border};
+  border-radius: 8px;
+  background: ${({ $isSelected, $variant }) =>
+    $variant === "whatsapp"
+      ? $isSelected
+        ? "#25d366"
+        : "#f0f9f0"
+      : $isSelected
+      ? "rgba(59, 130, 246, 0.05)"
+      : "white"};
+  color: ${({ $isSelected, $variant, theme }) =>
+    $variant === "whatsapp"
+      ? $isSelected
+        ? "white"
+        : "#25d366"
+      : theme.currentSemantic.text};
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+
+  &:hover:not(:disabled) {
+    border-color: ${({ $variant, theme }) =>
+      $variant === "whatsapp" ? "#25d366" : theme.currentSemantic.primary};
+    background: ${({ $variant }) =>
+      $variant === "whatsapp" ? "#25d366" : "rgba(59, 130, 246, 0.05)"};
+    color: ${({ $variant, theme }) =>
+      $variant === "whatsapp" ? "white" : theme.currentSemantic.text};
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+`;
+
+export const PaymentOptionIcon = styled.div<{
+  $isSelected?: boolean;
+  $variant?: "whatsapp" | "stripe";
+}>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.currentSemantic.background};
+  color: ${({ $isSelected, $variant }) =>
+    $variant === "whatsapp" ? ($isSelected ? "white" : "#25d366") : "inherit"};
+`;
+
+export const PaymentOptionText = styled.span`
+  display: block;
+  font-weight: 600;
+  color: ${({ theme }) => theme.currentSemantic.text};
+  font-size: 1rem;
+`;
+
+export const PaymentOptionDescription = styled.span`
+  display: block;
+  color: ${({ theme }) => theme.currentSemantic.textSecondary};
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+`;
+
+export const LoadingSpinner = styled.div`
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid ${({ theme }) => theme.currentSemantic.primary};
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 `;

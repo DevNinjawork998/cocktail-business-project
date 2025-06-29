@@ -42,6 +42,7 @@ import {
   ProductInfoFeatureIcon,
   ProductInfoFeatureLabel,
 } from "./page.styles";
+import { formatCurrency } from "@/app/lib/stripe";
 
 interface ProductPageClientProps {
   product: Product;
@@ -56,11 +57,12 @@ export default function ProductPageClient({
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
-    const price = parseFloat(product.price.replace("$", ""));
+    // Parse price as number, removing any currency symbol (RM, $)
+    const priceNumber = Number(product.price.replace(/[^0-9.]/g, ""));
     addItem({
       id: product.id,
       name: product.name,
-      price: price,
+      price: priceNumber,
       imageColor: product.imageColor,
       priceSubtext: product.priceSubtext,
       quantity,
@@ -109,6 +111,8 @@ export default function ProductPageClient({
     { icon: "🚫🌽", label: "GMO Free" },
   ];
 
+  const priceNumber = Number(product.price.replace(/[^0-9.]/g, ""));
+
   return (
     <ProductPageContainer>
       <ProductLayout>
@@ -138,7 +142,7 @@ export default function ProductPageClient({
             />
 
             <PriceSection>
-              <Price>{product.price}</Price>
+              <Price>{formatCurrency(priceNumber * 100)}</Price>
               <PriceSubtext>{product.priceSubtext}</PriceSubtext>
             </PriceSection>
 
