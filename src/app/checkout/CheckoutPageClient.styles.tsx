@@ -155,6 +155,7 @@ export const CustomerInfo = styled.div`
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  margin-top: 1rem;
 `;
 
 export const CustomerInfoTitle = styled.h2`
@@ -166,7 +167,7 @@ export const CustomerInfoTitle = styled.h2`
   border-bottom: 1px solid ${({ theme }) => theme.currentSemantic.border};
 `;
 
-export const CustomerInfoForm = styled.div`
+export const CustomerInfoForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -376,13 +377,18 @@ export const PaymentOptionButton = styled.button<{
   text-align: left;
   width: 100%;
 
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
     border-color: ${({ $variant, theme }) =>
       $variant === "whatsapp" ? "#25d366" : theme.currentSemantic.primary};
     background: ${({ $variant }) =>
       $variant === "whatsapp" ? "#25d366" : "rgba(59, 130, 246, 0.05)"};
     color: ${({ $variant, theme }) =>
       $variant === "whatsapp" ? "white" : theme.currentSemantic.text};
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.currentSemantic.primary}33;
+    outline: 2px solid ${({ theme }) => theme.currentSemantic.primary};
+    outline-offset: 2px;
+    z-index: 1;
   }
 
   &:disabled {

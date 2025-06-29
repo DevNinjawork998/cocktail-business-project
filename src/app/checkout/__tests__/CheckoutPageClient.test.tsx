@@ -322,19 +322,56 @@ describe("CheckoutPageClient", () => {
       expect(whatsappButton).toBeInTheDocument();
     });
 
-    it("requires form fields to be filled before sending", () => {
+    it("requires form fields to be filled before sending", async () => {
       renderWithCart(<CheckoutPageClient />);
 
       // First select WhatsApp payment to show the form
       fireEvent.click(screen.getByText("Pay via WhatsApp"));
 
-      const whatsappButton = screen.getByText("Send Order via WhatsApp");
-
-      // Try to click without filling required fields
-      fireEvent.click(whatsappButton);
+      // Submit the form directly to trigger validation
+      fireEvent.submit(screen.getByRole("form"));
 
       // Should show validation errors instead of calling window.open
       expect(mockOpen).not.toHaveBeenCalled();
+      // Use findByText for error text
+      expect(
+        await screen.findByText(/Full name is required/i)
+      ).toBeInTheDocument();
+    });
+
+    it("submits WhatsApp order and opens WhatsApp with correct URL", async () => {
+      renderWithCart(<CheckoutPageClient />);
+      fireEvent.click(screen.getByText("Pay via WhatsApp"));
+
+      fireEvent.change(screen.getByLabelText("Full Name *"), {
+        target: { value: "Test User" },
+      });
+      fireEvent.change(screen.getByLabelText("Email Address *"), {
+        target: { value: "test@example.com" },
+      });
+      fireEvent.change(screen.getByLabelText("Phone Number *"), {
+        target: { value: "+60123456789" },
+      });
+      fireEvent.change(screen.getByLabelText("Delivery Address *"), {
+        target: { value: "Test Address" },
+      });
+      fireEvent.change(screen.getByLabelText("Special Instructions"), {
+        target: { value: "No peanuts" },
+      });
+
+      // Submit the form directly to ensure proper event
+      fireEvent.submit(screen.getByRole("form"));
+
+      await waitFor(() => {
+        expect(mockOpen).toHaveBeenCalled();
+        const calledUrl = mockOpen.mock.calls[0][0];
+        expect(calledUrl).toContain("https://wa.me/");
+        expect(calledUrl).toContain("Test%20User");
+        expect(calledUrl).toContain("test%40example.com");
+        expect(calledUrl).toContain("%2B60123456789");
+        expect(calledUrl).toContain("Test%20Address");
+        expect(calledUrl).toContain("No%20peanuts");
+      });
     });
   });
 
