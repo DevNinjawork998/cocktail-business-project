@@ -208,7 +208,13 @@ const SuccessPageClient: React.FC = () => {
   const searchParams = useSearchParams();
   const { clearCart } = useCart();
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [confettiArray, setConfettiArray] = useState<any[]>([]);
+  const [confettiArray, setConfettiArray] = useState<
+    {
+      emoji: string;
+      left: number;
+      delay: number;
+    }[]
+  >([]);
 
   useEffect(() => {
     const sessionIdParam = searchParams.get("session_id");
@@ -216,7 +222,7 @@ const SuccessPageClient: React.FC = () => {
       setSessionId(sessionIdParam);
     }
     clearCart();
-    const confetti = Array.from({ length: 18 }).map((_, i) => ({
+    const confetti = Array.from({ length: 18 }).map(() => ({
       emoji: funConfetti[Math.floor(Math.random() * funConfetti.length)],
       left: Math.random() * 100,
       delay: Math.random() * 2,
@@ -249,16 +255,16 @@ const SuccessPageClient: React.FC = () => {
           🍸
         </span>
         <br />
-        We're mixing your cocktails and getting them ready for delivery. Get
-        ready to sip, savor, and celebrate!
+        We&apos;re mixing your cocktails and getting them ready for delivery.
+        Get ready to sip, savor, and celebrate!
       </SuccessMessage>
       {sessionId && (
         <OrderDetails>
           <OrderId>Your Cocktail Order Code:</OrderId>
           <OrderIdValue>{sessionId}</OrderIdValue>
           <p style={{ color: "#6b7280", fontSize: "0.9rem", marginTop: 8 }}>
-            Please save this order code for your records. You'll also receive a
-            confirmation email shortly.
+            Please save this order code for your records. You&apos;ll also
+            receive a confirmation email shortly.
           </p>
         </OrderDetails>
       )}
@@ -266,13 +272,14 @@ const SuccessPageClient: React.FC = () => {
         <NextStepsTitle>What happens next?</NextStepsTitle>
         <NextStepsList>
           <NextStepsItem>
-            • You'll receive an order confirmation email within a few minutes
+            • You&apos;ll receive an order confirmation email within a few
+            minutes
           </NextStepsItem>
           <NextStepsItem>
             • Our team will review your order and begin preparation
           </NextStepsItem>
           <NextStepsItem>
-            • We'll contact you to arrange delivery or pickup
+            • We&apos;ll contact you to arrange delivery or pickup
           </NextStepsItem>
           <NextStepsItem>
             • Your cocktails will be delivered within 3–7 business days
