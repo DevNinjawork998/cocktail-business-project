@@ -184,6 +184,13 @@ export const QuantityInput = styled.input`
   border-radius: 4px;
   text-align: center;
   font-weight: 600;
+  /* Hide number input spinners for all browsers */
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  -moz-appearance: textfield;
 `;
 
 export const RemoveButton = styled.button`
