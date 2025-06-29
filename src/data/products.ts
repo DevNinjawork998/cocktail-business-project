@@ -21,7 +21,7 @@ export const products: Record<string, Product> = {
       <p>Our Tequila Sundown blend captures the essence of a perfect sunset celebration. With vibrant orange and cranberry flavors, this cocktail mix brings the party to life with every sip.</p>
       <p>Crafted with premium ingredients and natural fruit extracts, it delivers a smooth, refreshing taste that's perfect for any occasion.</p>
     `,
-        price: "$35.99",
+        price: "RM35.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#8B4513",
         features: [
@@ -40,7 +40,7 @@ export const products: Record<string, Product> = {
       <p>The Dark & Stormy is a classic with a twist. Our blend combines the warming spice of ginger with the bright acidity of lime for a perfectly balanced cocktail experience.</p>
       <p>Ideal for those who appreciate complexity and depth in their drinks, this mix delivers a sophisticated flavor profile that's both refreshing and warming.</p>
     `,
-        price: "$35.99",
+        price: "RM35.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#2F4F4F",
         features: [
@@ -59,7 +59,7 @@ export const products: Record<string, Product> = {
       <p>The Maca Martini combines the rich, earthy flavors of maca root with decadent coffee and chocolate notes. This sophisticated blend is perfect for the discerning cocktail enthusiast.</p>
       <p>With its unique combination of superfood ingredients and classic cocktail elements, this drink offers both indulgence and wellness in every sip.</p>
     `,
-        price: "$37.99",
+        price: "RM37.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#CD5C5C",
         features: [
@@ -78,7 +78,7 @@ export const products: Record<string, Product> = {
       <p>Transport yourself to a tropical paradise with our Tropical Twist blend. The sweet, juicy flavor of pineapple perfectly complements the creamy richness of coconut.</p>
       <p>This refreshing cocktail mix brings the vacation vibes to any setting, making every sip feel like a mini getaway.</p>
     `,
-        price: "$34.99",
+        price: "RM34.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#FF6347",
         features: [
@@ -97,7 +97,7 @@ export const products: Record<string, Product> = {
       <p>Our Berry Bliss blend combines the antioxidant power of mixed berries with the refreshing coolness of mint. This vibrant cocktail mix is perfect for health-conscious cocktail lovers.</p>
       <p>With its bright, fruity flavors and herbal finish, it's the perfect choice for summer gatherings and healthy indulgence.</p>
     `,
-        price: "$36.99",
+        price: "RM36.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#8A2BE2",
         features: [
@@ -116,7 +116,7 @@ export const products: Record<string, Product> = {
       <p>Wake up your taste buds with our Citrus Splash blend. The perfect combination of tart lemon and zesty lime creates an energizing cocktail experience that's both refreshing and invigorating.</p>
       <p>This classic citrus combination is ideal for those who love bright, clean flavors that refresh and revitalize.</p>
     `,
-        price: "$33.99",
+        price: "RM33.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#FFD700",
         features: [

@@ -294,3 +294,130 @@ export const BackToCartButton = styled.button`
     background: ${({ theme }) => theme.currentSemantic.primaryDark};
   }
 `;
+
+export const PaymentSection = styled.div`
+  grid-column: 1 / -1;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  text-align: center;
+`;
+
+export const PaymentTitle = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.currentSemantic.text};
+  margin: 0 0 1rem 0;
+`;
+
+export const PaymentDescription = styled.p`
+  color: ${({ theme }) => theme.currentSemantic.textSecondary};
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+`;
+
+export const PaymentOptions = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+export const PaymentOption = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const PaymentOptionButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  background: white;
+  color: ${({ theme }) => theme.currentSemantic.text};
+  padding: 1.5rem;
+  border: 2px solid ${({ theme }) => theme.currentSemantic.border};
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  min-height: 120px;
+  justify-content: center;
+
+  &:hover:not(:disabled) {
+    border-color: ${({ theme }) => theme.currentSemantic.primary};
+    background: ${({ theme }) => theme.currentSemantic.primaryLight};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:first-child {
+    border-color: ${({ theme }) => theme.colors.royalOrange.base};
+    background: ${({ theme }) => theme.colors.royalOrange.light};
+
+    &:hover:not(:disabled) {
+      background: ${({ theme }) => theme.colors.royalOrange.base};
+      color: white;
+    }
+  }
+
+  &:last-child {
+    border-color: #25d366;
+    background: #f0f9f0;
+
+    &:hover:not(:disabled) {
+      background: #25d366;
+      color: white;
+    }
+  }
+`;
+
+export const PaymentOptionIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+`;
+
+export const PaymentOptionText = styled.span`
+  font-size: 1.1rem;
+  font-weight: 700;
+`;
+
+export const PaymentOptionDescription = styled.span`
+  font-size: 0.9rem;
+  font-weight: 400;
+  opacity: 0.8;
+  text-align: center;
+`;
+
+export const LoadingSpinner = styled.div`
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
