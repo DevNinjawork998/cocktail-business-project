@@ -11,45 +11,25 @@ interface CartItem {
     // Add other fields if needed
 }
 
-// Debug logging for development and preview environments
-const isDev = process.env.NODE_ENV === 'development';
-const isPreview = process.env.VERCEL_ENV === 'preview';
-
 export async function POST(request: NextRequest) {
-    const requestId = Math.random().toString(36).substring(7);
-
-    if (isDev || isPreview) {
-        console.log(`🚀 [${requestId}] Checkout session creation started`);
-        console.log(`🔧 [${requestId}] Environment:`, { NODE_ENV: process.env.NODE_ENV, VERCEL_ENV: process.env.VERCEL_ENV });
-    }
-
     try {
         // Validate environment variables
         if (!process.env.NEXT_PUBLIC_APP_URL) {
-            console.error(`❌ [${requestId}] NEXT_PUBLIC_APP_URL environment variable is not set`);
             return NextResponse.json(
                 { error: 'Server configuration error' },
                 { status: 500 }
             );
         }
 
-        if (isDev || isPreview) {
-            console.log(`✅ [${requestId}] Environment variables validated`);
-        }
+        // Ensure URL has proper scheme
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL.startsWith('http')
+            ? process.env.NEXT_PUBLIC_APP_URL
+            : `https://${process.env.NEXT_PUBLIC_APP_URL}`;
 
         const body = await request.json();
         const { items, customerInfo } = body;
 
-        if (isDev || isPreview) {
-            console.log(`📦 [${requestId}] Request body:`, {
-                itemsCount: items?.length,
-                customerInfo: customerInfo ? 'present' : 'missing',
-                items: items?.map((item: CartItem) => ({ name: item.name, price: item.price, quantity: item.quantity }))
-            });
-        }
-
         if (!items || items.length === 0) {
-            console.warn(`⚠️ [${requestId}] No items in cart`);
             return NextResponse.json(
                 { error: 'No items in cart' },
                 { status: 400 }
@@ -57,7 +37,6 @@ export async function POST(request: NextRequest) {
         }
 
         if (!customerInfo) {
-            console.warn(`⚠️ [${requestId}] No customer information provided`);
             return NextResponse.json(
                 { error: 'Customer information is required' },
                 { status: 400 }
@@ -78,21 +57,13 @@ export async function POST(request: NextRequest) {
             quantity: item.quantity,
         }));
 
-        if (isDev || isPreview) {
-            console.log(`💰 [${requestId}] Line items created:`, lineItems.map(item => ({
-                name: item.price_data.product_data.name,
-                amount: item.price_data.unit_amount,
-                quantity: item.quantity
-            })));
-        }
-
         // Create Stripe checkout session
         const sessionConfig = {
             payment_method_types: ['card' as const],
             line_items: lineItems,
             mode: 'payment' as const,
-            success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout`,
+            success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${baseUrl}/checkout`,
             customer_email: customerInfo.email,
             metadata: {
                 customerName: customerInfo.name,
@@ -128,32 +99,15 @@ export async function POST(request: NextRequest) {
             ],
         };
 
-        if (isDev || isPreview) {
-            console.log(`🎯 [${requestId}] Creating Stripe session with config:`, {
-                success_url: sessionConfig.success_url,
-                cancel_url: sessionConfig.cancel_url,
-                customer_email: sessionConfig.customer_email,
-                items_count: sessionConfig.line_items.length
-            });
-        }
-
         const session = await stripe.checkout.sessions.create(sessionConfig);
-
-        if (isDev || isPreview) {
-            console.log(`✅ [${requestId}] Stripe session created successfully:`, {
-                sessionId: session.id,
-                url: session.url
-            });
-        }
 
         return NextResponse.json({ sessionId: session.id });
     } catch (error) {
-        console.error(`❌ [${requestId}] Error creating checkout session:`, error);
+        console.error('Error creating checkout session:', error);
 
         // Provide more specific error messages
         if (error instanceof Error) {
             if (error.message.includes('STRIPE_SECRET_KEY')) {
-                console.error(`🔑 [${requestId}] Stripe secret key configuration error`);
                 return NextResponse.json(
                     { error: 'Payment service configuration error' },
                     { status: 500 }
@@ -161,7 +115,6 @@ export async function POST(request: NextRequest) {
             }
 
             if (error.message.includes('Invalid API key')) {
-                console.error(`🔑 [${requestId}] Invalid Stripe API key`);
                 return NextResponse.json(
                     { error: 'Payment service configuration error' },
                     { status: 500 }
