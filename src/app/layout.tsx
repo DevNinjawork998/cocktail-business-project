@@ -5,7 +5,6 @@ import { StyledThemeWrapper } from "@/theme/styled-theme-provider";
 import StyledComponentsRegistry from "./lib/registry";
 import { Analytics } from "@vercel/analytics/next";
 import { CartProvider } from "@/contexts/CartContext";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Cocktail Business",
@@ -19,9 +18,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <Script src="https://js.stripe.com/v3/" strategy="beforeInteractive" />
-      </head>
       <body>
         <StyledComponentsRegistry>
           <ThemeProvider>

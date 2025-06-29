@@ -56,8 +56,7 @@ export default function ProductPageClient({
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
-    // Parse price as number, removing any currency symbol (RM, $)
-    const price = parseFloat(product.price.replace(/[^\d.]/g, ""));
+    const price = parseFloat(product.price.replace("$", ""));
     addItem({
       id: product.id,
       name: product.name,

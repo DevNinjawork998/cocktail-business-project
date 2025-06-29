@@ -76,55 +76,6 @@ describe("CheckoutPageClient", () => {
     });
   });
 
-  describe("Payment Method Selection", () => {
-    beforeEach(() => {
-      // Mock cart with items
-      const mockCartState = {
-        items: [
-          {
-            id: "1",
-            name: "Test Cocktail",
-            price: 29.99,
-            quantity: 2,
-            imageColor: "#ff0000",
-            priceSubtext: "Premium quality",
-          },
-        ],
-        total: 59.98,
-        itemCount: 2,
-      };
-
-      mockUseCart.mockReturnValue({
-        state: mockCartState,
-        clearCart: jest.fn(),
-      });
-    });
-
-    it("renders payment method selection by default", () => {
-      renderWithCart(<CheckoutPageClient />);
-
-      expect(screen.getByText("Checkout")).toBeInTheDocument();
-      expect(screen.getByText("Choose Payment Method")).toBeInTheDocument();
-      expect(screen.getByText("Pay with Card")).toBeInTheDocument();
-      expect(screen.getByText("Pay via WhatsApp")).toBeInTheDocument();
-    });
-
-    it("shows customer form when WhatsApp payment is selected", () => {
-      renderWithCart(<CheckoutPageClient />);
-
-      // Click on WhatsApp payment option
-      fireEvent.click(screen.getByText("Pay via WhatsApp"));
-
-      // Now the form should be visible
-      expect(screen.getByText("Customer Information")).toBeInTheDocument();
-      expect(screen.getByLabelText("Full Name *")).toBeInTheDocument();
-      expect(screen.getByLabelText("Email Address *")).toBeInTheDocument();
-      expect(screen.getByLabelText("Phone Number *")).toBeInTheDocument();
-      expect(screen.getByLabelText("Delivery Address *")).toBeInTheDocument();
-      expect(screen.getByLabelText("Special Instructions")).toBeInTheDocument();
-    });
-  });
-
   describe("Form Validation", () => {
     beforeEach(() => {
       // Mock cart with items
@@ -149,34 +100,32 @@ describe("CheckoutPageClient", () => {
       });
     });
 
+    it("renders checkout form with all required fields", () => {
+      renderWithCart(<CheckoutPageClient />);
+
+      expect(screen.getByText("Checkout")).toBeInTheDocument();
+      expect(screen.getByLabelText("Full Name *")).toBeInTheDocument();
+      expect(screen.getByLabelText("Email Address *")).toBeInTheDocument();
+      expect(screen.getByLabelText("Phone Number *")).toBeInTheDocument();
+      expect(screen.getByLabelText("Delivery Address *")).toBeInTheDocument();
+      expect(screen.getByLabelText("Special Instructions")).toBeInTheDocument();
+    });
+
     it("shows validation error for empty required fields", async () => {
       renderWithCart(<CheckoutPageClient />);
 
-      // First select WhatsApp payment to show the form
-      fireEvent.click(screen.getByText("Pay via WhatsApp"));
-
       const whatsappButton = screen.getByText("Send Order via WhatsApp");
-
-      // Submit the form without filling required fields
-      fireEvent.submit(screen.getByRole("form"));
+      fireEvent.click(whatsappButton);
 
       await waitFor(() => {
-        expect(screen.getByText("Full name is required")).toBeInTheDocument();
-        expect(screen.getByText("Invalid email address")).toBeInTheDocument();
-        expect(
-          screen.getByText("Phone number is required")
-        ).toBeInTheDocument();
-        expect(
-          screen.getByText("Delivery address is required")
-        ).toBeInTheDocument();
+        expect(window.alert).toHaveBeenCalledWith(
+          "Please fill in all required fields (Name, Email, Phone, Address)"
+        );
       });
     });
 
     it("validates email format", async () => {
       renderWithCart(<CheckoutPageClient />);
-
-      // First select WhatsApp payment to show the form
-      fireEvent.click(screen.getByText("Pay via WhatsApp"));
 
       const emailInput = screen.getByLabelText("Email Address *");
       fireEvent.change(emailInput, { target: { value: "invalid-email" } });
@@ -189,9 +138,6 @@ describe("CheckoutPageClient", () => {
 
     it("validates phone number format", async () => {
       renderWithCart(<CheckoutPageClient />);
-
-      // First select WhatsApp payment to show the form
-      fireEvent.click(screen.getByText("Pay via WhatsApp"));
 
       const phoneInput = screen.getByLabelText("Phone Number *");
       fireEvent.change(phoneInput, { target: { value: "123" } });
@@ -206,9 +152,6 @@ describe("CheckoutPageClient", () => {
 
     it("accepts valid phone number formats", async () => {
       renderWithCart(<CheckoutPageClient />);
-
-      // First select WhatsApp payment to show the form
-      fireEvent.click(screen.getByText("Pay via WhatsApp"));
 
       const phoneInput = screen.getByLabelText("Phone Number *");
       fireEvent.change(phoneInput, { target: { value: "+60123456789" } });
@@ -275,11 +218,11 @@ describe("CheckoutPageClient", () => {
     it("displays correct prices and totals", () => {
       renderWithCart(<CheckoutPageClient />);
 
-      expect(screen.getByText("RM 59.98")).toBeInTheDocument(); // Mojito x2
-      expect(screen.getByText("RM 34.99")).toBeInTheDocument(); // Margarita x1
+      expect(screen.getByText("$59.98")).toBeInTheDocument(); // Mojito x2
+      expect(screen.getByText("$34.99")).toBeInTheDocument(); // Margarita x1
       expect(screen.getByText("Subtotal (3 items)")).toBeInTheDocument();
       // Use getAllByText since there are multiple elements with the same total
-      const totalElements = screen.getAllByText("RM 94.97");
+      const totalElements = screen.getAllByText("$94.97");
       expect(totalElements.length).toBeGreaterThan(0);
     });
 
@@ -314,28 +257,30 @@ describe("CheckoutPageClient", () => {
       });
     });
 
-    it("displays WhatsApp button after selecting WhatsApp payment", () => {
+    it("displays WhatsApp button", () => {
       renderWithCart(<CheckoutPageClient />);
-
-      // First select WhatsApp payment to show the form
-      fireEvent.click(screen.getByText("Pay via WhatsApp"));
 
       const whatsappButton = screen.getByText("Send Order via WhatsApp");
       expect(whatsappButton).toBeInTheDocument();
     });
 
-    it("requires form fields to be filled before sending", () => {
+    it("shows WhatsApp description", () => {
       renderWithCart(<CheckoutPageClient />);
 
-      // First select WhatsApp payment to show the form
-      fireEvent.click(screen.getByText("Pay via WhatsApp"));
+      expect(
+        screen.getByText(/Click the button below to send your order/)
+      ).toBeInTheDocument();
+    });
+
+    it("requires form fields to be filled before sending", () => {
+      renderWithCart(<CheckoutPageClient />);
 
       const whatsappButton = screen.getByText("Send Order via WhatsApp");
 
       // Try to click without filling required fields
       fireEvent.click(whatsappButton);
 
-      // Should show validation errors instead of calling window.open
+      // Should not call window.open when required fields are empty
       expect(mockOpen).not.toHaveBeenCalled();
     });
   });
@@ -366,9 +311,6 @@ describe("CheckoutPageClient", () => {
     it("allows typing in all form fields", () => {
       renderWithCart(<CheckoutPageClient />);
 
-      // First select WhatsApp payment to show the form
-      fireEvent.click(screen.getByText("Pay via WhatsApp"));
-
       const nameInput = screen.getByLabelText("Full Name *");
       const emailInput = screen.getByLabelText("Email Address *");
       const phoneInput = screen.getByLabelText("Phone Number *");
@@ -390,9 +332,6 @@ describe("CheckoutPageClient", () => {
 
     it("limits notes to 200 characters", () => {
       renderWithCart(<CheckoutPageClient />);
-
-      // First select WhatsApp payment to show the form
-      fireEvent.click(screen.getByText("Pay via WhatsApp"));
 
       const notesInput = screen.getByLabelText("Special Instructions");
       expect(notesInput).toHaveAttribute("maxlength", "200");

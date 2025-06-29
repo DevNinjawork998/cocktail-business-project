@@ -103,7 +103,7 @@ describe("CartPageClient", () => {
 
       const productNameElements = screen.getAllByText("Test Cocktail");
       expect(productNameElements.length).toBeGreaterThan(0);
-      const priceElements = screen.getAllByText("RM 29.99");
+      const priceElements = screen.getAllByText("$29.99");
       expect(priceElements.length).toBeGreaterThan(0);
       expect(screen.getByText("Premium quality")).toBeInTheDocument();
     });
@@ -278,7 +278,7 @@ describe("CartPageClient", () => {
       renderCartPageClient([mockCartItem]);
 
       expect(screen.getByText("Subtotal (1 items)")).toBeInTheDocument();
-      const priceElements = screen.getAllByText("RM 29.99");
+      const priceElements = screen.getAllByText("$29.99");
       expect(priceElements.length).toBeGreaterThan(0);
     });
 
@@ -286,7 +286,7 @@ describe("CartPageClient", () => {
       renderCartPageClient(mockCartItems);
 
       expect(screen.getByText("Subtotal (2 items)")).toBeInTheDocument();
-      const priceElements = screen.getAllByText("RM 49.98");
+      const priceElements = screen.getAllByText("$49.98");
       expect(priceElements.length).toBeGreaterThan(0);
     });
 
@@ -301,7 +301,7 @@ describe("CartPageClient", () => {
       renderCartPageClient([mockCartItem]);
 
       expect(screen.getByText("Total")).toBeInTheDocument();
-      const priceElements = screen.getAllByText("RM 29.99");
+      const priceElements = screen.getAllByText("$29.99");
       expect(priceElements.length).toBeGreaterThan(0);
     });
 
@@ -312,7 +312,7 @@ describe("CartPageClient", () => {
       fireEvent.click(plusButton);
 
       await waitFor(() => {
-        const priceElements = screen.getAllByText("RM 59.98");
+        const priceElements = screen.getAllByText("$59.98");
         expect(priceElements.length).toBeGreaterThan(0);
       });
     });
@@ -344,7 +344,7 @@ describe("CartPageClient", () => {
     it("calculates item total correctly (price * quantity)", () => {
       renderCartPageClient([mockCartItem]);
 
-      const priceElements = screen.getAllByText("RM 29.99");
+      const priceElements = screen.getAllByText("$29.99");
       expect(priceElements.length).toBeGreaterThan(0);
     });
 
@@ -355,7 +355,7 @@ describe("CartPageClient", () => {
       fireEvent.click(plusButton);
 
       await waitFor(() => {
-        const priceElements = screen.getAllByText("RM 59.98");
+        const priceElements = screen.getAllByText("$59.98");
         expect(priceElements.length).toBeGreaterThan(0);
       });
     });
@@ -363,14 +363,14 @@ describe("CartPageClient", () => {
     it("handles multiple items with different quantities", async () => {
       renderCartPageClient(mockCartItems);
 
-      const priceElements = screen.getAllByText("RM 49.98");
+      const priceElements = screen.getAllByText("$49.98");
       expect(priceElements.length).toBeGreaterThan(0);
 
       const plusButtons = screen.getAllByText("+");
       fireEvent.click(plusButtons[0]);
 
       await waitFor(() => {
-        const newPriceElements = screen.getAllByText("RM 79.97");
+        const newPriceElements = screen.getAllByText("$79.97");
         expect(newPriceElements.length).toBeGreaterThan(0);
       });
     });

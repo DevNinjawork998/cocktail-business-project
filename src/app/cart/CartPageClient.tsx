@@ -3,7 +3,6 @@
 import React from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useRouter } from "next/navigation";
-import { formatCurrency } from "@/lib/stripe";
 import {
   CartContainer,
   CartHeader,
@@ -32,13 +31,6 @@ import {
   CheckoutButton,
   CartItemImagePlaceholder,
 } from "./CartPageClient.styles";
-
-const parsePrice = (price: number | string | null | undefined): number => {
-  if (typeof price === "number") return price;
-  if (typeof price === "string")
-    return parseFloat(price.replace(/[^\d.]/g, ""));
-  return 0; // fallback for null/undefined/other
-};
 
 const CartPageClient: React.FC = () => {
   const { state, updateQuantity, removeItem } = useCart();
@@ -84,62 +76,53 @@ const CartPageClient: React.FC = () => {
 
       <CartContent>
         <CartItems>
-          {state.items.map((item) => {
-            const unitPrice = parsePrice(item.price);
-            const totalPrice = unitPrice * item.quantity;
-            return (
-              <CartItem key={item.id}>
-                <CartItemImagePlaceholder $bgColor={item.imageColor}>
-                  {item.name}
-                </CartItemImagePlaceholder>
+          {state.items.map((item) => (
+            <CartItem key={item.id}>
+              <CartItemImagePlaceholder $bgColor={item.imageColor}>
+                {item.name}
+              </CartItemImagePlaceholder>
 
-                <CartItemDetails>
-                  <CartItemName>{item.name}</CartItemName>
-                  <CartItemPrice>
-                    {formatCurrency(unitPrice * 100)}
-                  </CartItemPrice>
-                  <CartItemSubtext>{item.priceSubtext}</CartItemSubtext>
-                </CartItemDetails>
+              <CartItemDetails>
+                <CartItemName>{item.name}</CartItemName>
+                <CartItemPrice>${item.price.toFixed(2)}</CartItemPrice>
+                <CartItemSubtext>{item.priceSubtext}</CartItemSubtext>
+              </CartItemDetails>
 
-                <CartItemQuantity>
-                  <QuantityButton
-                    onClick={() =>
-                      handleQuantityChange(item.id, item.quantity - 1)
-                    }
-                    disabled={item.quantity <= 1}
-                  >
-                    -
-                  </QuantityButton>
-                  <QuantityInput
-                    type="number"
-                    min="1"
-                    value={item.quantity}
-                    onChange={(e: { target: { value: string } }) =>
-                      handleQuantityChange(
-                        item.id,
-                        parseInt(e.target.value) || 0
-                      )
-                    }
-                  />
-                  <QuantityButton
-                    onClick={() =>
-                      handleQuantityChange(item.id, item.quantity + 1)
-                    }
-                  >
-                    +
-                  </QuantityButton>
-                </CartItemQuantity>
+              <CartItemQuantity>
+                <QuantityButton
+                  onClick={() =>
+                    handleQuantityChange(item.id, item.quantity - 1)
+                  }
+                  disabled={item.quantity <= 1}
+                >
+                  -
+                </QuantityButton>
+                <QuantityInput
+                  type="number"
+                  min="1"
+                  value={item.quantity}
+                  onChange={(e: { target: { value: string } }) =>
+                    handleQuantityChange(item.id, parseInt(e.target.value) || 0)
+                  }
+                />
+                <QuantityButton
+                  onClick={() =>
+                    handleQuantityChange(item.id, item.quantity + 1)
+                  }
+                >
+                  +
+                </QuantityButton>
+              </CartItemQuantity>
 
-                <CartItemPrice>
-                  {formatCurrency(totalPrice * 100)}
-                </CartItemPrice>
+              <CartItemPrice>
+                ${(item.price * item.quantity).toFixed(2)}
+              </CartItemPrice>
 
-                <RemoveButton onClick={() => handleRemoveItem(item.id)}>
-                  Remove
-                </RemoveButton>
-              </CartItem>
-            );
-          })}
+              <RemoveButton onClick={() => handleRemoveItem(item.id)}>
+                Remove
+              </RemoveButton>
+            </CartItem>
+          ))}
         </CartItems>
 
         <CartSummary>
@@ -147,7 +130,7 @@ const CartPageClient: React.FC = () => {
 
           <SummaryRow>
             <SummaryLabel>Subtotal ({state.itemCount} items)</SummaryLabel>
-            <SummaryValue>{formatCurrency(state.total * 100)}</SummaryValue>
+            <SummaryValue>${state.total.toFixed(2)}</SummaryValue>
           </SummaryRow>
 
           <SummaryRow>
@@ -157,7 +140,7 @@ const CartPageClient: React.FC = () => {
 
           <SummaryTotal>
             <SummaryLabel>Total</SummaryLabel>
-            <SummaryValue>{formatCurrency(state.total * 100)}</SummaryValue>
+            <SummaryValue>${state.total.toFixed(2)}</SummaryValue>
           </SummaryTotal>
 
           <CheckoutButton onClick={handleCheckout}>
