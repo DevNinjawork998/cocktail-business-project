@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Navigation from "../../components/Navigation/Navigation";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import {
@@ -16,6 +17,7 @@ import {
 } from "./page.styles";
 import Footer from "@/components/Footer/Footer";
 import dynamic from "next/dynamic";
+import { getAllProducts, Product } from "@/data/productService";
 
 const HealthBenefits = dynamic(
   () => import("@/components/HealthBenefits/HealthBenefits"),
@@ -24,47 +26,76 @@ const HealthBenefits = dynamic(
   }
 );
 
-const products = [
-  {
-    id: "tequila-sundown",
-    name: "Tequila Sundown",
-    description: "Orange & Cranberry - For the life of the party",
-    imageColor: "#8B4513",
-  },
-  {
-    id: "dark-stormy",
-    name: "Dark & Stormy",
-    description: "Ginger & Lime - For the smooth soul",
-    imageColor: "#2F4F4F",
-  },
-  {
-    id: "maca-martini",
-    name: "Maca Martini",
-    description: "Coffee & Chocolate - For the smooth operator",
-    imageColor: "#CD5C5C",
-  },
-  {
-    id: "tropical-twist",
-    name: "Tropical Twist",
-    description: "Pineapple & Coconut - For the island dreamer",
-    imageColor: "#FF6347",
-  },
-  {
-    id: "berry-bliss",
-    name: "Berry Bliss",
-    description: "Mixed Berries & Mint - For the fresh enthusiast",
-    imageColor: "#8A2BE2",
-  },
-  {
-    id: "citrus-splash",
-    name: "Citrus Splash",
-    description: "Lemon & Lime - For the zesty spirit",
-    imageColor: "#FFD700",
-  },
-];
-
 export default function ShopPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const breadcrumbItems = [{ label: "Shop" }];
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const productsData = await getAllProducts();
+        setProducts(productsData);
+      } catch (err) {
+        setError("Failed to load products");
+        console.error("Error fetching products:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <>
+        <Navigation />
+        <Breadcrumb items={breadcrumbItems} />
+        <ShopContainer>
+          <ShopHeader>
+            <ShopTitle>Explore Our Flavours</ShopTitle>
+            <ShopSubtitle>
+              Discover our premium collection of artisanal cocktail mixes,
+              crafted with the finest ingredients for the perfect drink
+              experience.
+            </ShopSubtitle>
+          </ShopHeader>
+          <div style={{ textAlign: "center", padding: "2rem" }}>
+            Loading products...
+          </div>
+        </ShopContainer>
+        <HealthBenefits />
+        <Footer />
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navigation />
+        <Breadcrumb items={breadcrumbItems} />
+        <ShopContainer>
+          <ShopHeader>
+            <ShopTitle>Explore Our Flavours</ShopTitle>
+            <ShopSubtitle>
+              Discover our premium collection of artisanal cocktail mixes,
+              crafted with the finest ingredients for the perfect drink
+              experience.
+            </ShopSubtitle>
+          </ShopHeader>
+          <div style={{ textAlign: "center", padding: "2rem", color: "red" }}>
+            {error}
+          </div>
+        </ShopContainer>
+        <HealthBenefits />
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
