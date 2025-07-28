@@ -19,7 +19,10 @@ export async function getAllProducts(): Promise<Product[]> {
                 createdAt: 'desc'
             }
         });
-        return products;
+        return products.map(product => ({
+            ...product,
+            features: product.features as Array<{ text: string; color: string }>
+        }));
     } catch (error) {
         console.error('Error fetching products:', error);
         throw error;
@@ -33,7 +36,11 @@ export async function getProductById(id: string): Promise<Product | null> {
                 id: id
             }
         });
-        return product;
+        if (!product) return null;
+        return {
+            ...product,
+            features: product.features as Array<{ text: string; color: string }>
+        };
     } catch (error) {
         console.error('Error fetching product:', error);
         throw error;

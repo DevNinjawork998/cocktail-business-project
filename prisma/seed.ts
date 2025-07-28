@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
+// Use regular client for seeding (works with both SQLite and PostgreSQL)
 const prisma = new PrismaClient()
 
 const products = [

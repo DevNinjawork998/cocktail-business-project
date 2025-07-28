@@ -1,0 +1,18 @@
+# Prisma Accelerate Configuration
+# This file configures Prisma Accelerate for your project
+
+[accelerate]
+# Your Prisma Accelerate connection string
+# Replace with your actual Prisma Accelerate URL
+url = "prisma://aws-us-east-1.prisma-data.com/__YOUR_ACCELERATE_URL__"
+
+# Optional: Configure connection pooling
+[accelerate.pool]
+# Maximum number of connections in the pool
+max_connections = 10
+# Minimum number of connections in the pool
+min_connections = 1
+# Connection timeout in seconds
+connect_timeout = 10
+# Idle timeout in seconds
+idle_timeout = 300 

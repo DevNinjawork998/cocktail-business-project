@@ -4,18 +4,23 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --watchAll=false",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "db:dev": "cp prisma/schema.dev.prisma prisma/schema.prisma && npx prisma generate && npx prisma migrate dev",
+    "db:prod": "cp prisma/schema.prod.prisma prisma/schema.prisma && npx prisma generate",
+    "build:prod": "npm run db:prod && npx prisma generate && next build",
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
     "@prisma/client": "^6.12.0",
+    "@prisma/extension-accelerate": "^2.0.2",
     "@stripe/stripe-js": "^7.4.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
