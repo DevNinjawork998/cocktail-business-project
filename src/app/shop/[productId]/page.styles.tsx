@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { media } from "@/theme/styled-theme";
 import Link from "next/link";
+import Image from "next/image";
 
 export const ProductPageContainer = styled.div`
   min-height: 100vh;
@@ -497,4 +498,245 @@ export const QuantityInput = styled.input`
   -moz-appearance: textfield;
   /* Standard property for compatibility */
   appearance: textfield;
+`;
+
+export const ProductImageContainer = styled.div`
+  position: relative;
+  width: 250px;
+  height: 350px;
+`;
+
+export const ProductImage = styled(Image)`
+  object-fit: cover;
+  border-radius: 12px;
+`;
+
+export const SidebarProductImageContainer = styled.div`
+  position: relative;
+  width: 50px;
+  height: 75px;
+  margin: 0 auto 8px;
+`;
+
+export const SidebarProductImageStyled = styled(Image)`
+  object-fit: cover;
+  border-radius: 6px;
+`;
+
+export const FeatureItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+`;
+
+export const NutritionFactValue = styled.div`
+  text-align: right;
+  font-weight: 600;
+`;
+
+export const LoadingContainer = styled.div`
+  min-height: 100vh;
+  background: ${({ theme }) => theme.currentSemantic.background};
+  padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.md};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${media.lg} {
+    padding: ${({ theme }) => theme.spacing["2xl"]};
+  }
+`;
+
+export const LoadingContent = styled.div`
+  max-width: 1400px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: ${({ theme }) => theme.spacing.xl};
+
+  ${media.lg} {
+    grid-template-columns: 1fr 300px;
+    gap: ${({ theme }) => theme.spacing["3xl"]};
+  }
+`;
+
+export const LoadingMainContent = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: ${({ theme }) => theme.spacing.xl};
+
+  ${media.md} {
+    grid-template-columns: 1fr 1fr;
+    gap: ${({ theme }) => theme.spacing["2xl"]};
+  }
+`;
+
+export const LoadingImageSection = styled.div`
+  background: ${({ theme }) => theme.colors.caramel.light};
+  border-radius: ${({ theme }) => theme.radii.xl};
+  padding: ${({ theme }) => theme.spacing["3xl"]};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  ${media.md} {
+    min-height: 500px;
+  }
+`;
+
+export const LoadingDetailsSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.lg};
+`;
+
+export const LoadingTitle = styled.div`
+  height: 3rem;
+  background: ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.md};
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  margin-bottom: ${({ theme }) => theme.spacing.sm};
+`;
+
+export const LoadingSubtitle = styled.div`
+  height: 1.125rem;
+  background: ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.md};
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  width: 60%;
+`;
+
+export const LoadingFeatures = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md};
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
+`;
+
+export const LoadingFeatureBadge = styled.div`
+  height: 2.5rem;
+  background: ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.full};
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  width: 200px;
+`;
+
+export const LoadingDescription = styled.div`
+  height: 8rem;
+  background: ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.md};
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
+`;
+
+export const LoadingPrice = styled.div`
+  height: 2rem;
+  background: ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.md};
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  margin-bottom: ${({ theme }) => theme.spacing.sm};
+  width: 40%;
+`;
+
+export const LoadingPriceSubtext = styled.div`
+  height: 0.875rem;
+  background: ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.md};
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  width: 30%;
+`;
+
+export const LoadingButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md};
+
+  ${media.md} {
+    flex-direction: row;
+  }
+`;
+
+export const LoadingQuantitySelector = styled.div`
+  height: 2.5rem;
+  background: ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.md};
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  width: 150px;
+`;
+
+export const LoadingAddToCartButton = styled.div`
+  height: 3rem;
+  background: ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.full};
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  flex: 1;
+`;
+
+export const LoadingSidebar = styled.div`
+  background: ${({ theme }) => theme.colors.caramel.light};
+  border-radius: ${({ theme }) => theme.radii.xl};
+  padding: ${({ theme }) => theme.spacing.xl};
+  height: fit-content;
+`;
+
+export const LoadingSidebarTitle = styled.div`
+  height: 1.5rem;
+  background: ${({ theme }) => theme.currentSemantic.border};
+  border-radius: ${({ theme }) => theme.radii.md};
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+`;
+
+export const LoadingSidebarGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: ${({ theme }) => theme.spacing.md};
+
+  ${media.lg} {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const LoadingSidebarCard = styled.div`
+  background: white;
+  border-radius: ${({ theme }) => theme.radii.lg};
+  padding: ${({ theme }) => theme.spacing.md};
+  height: 120px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+`;
+
+export const SidebarImageLoadingPlaceholder = styled.div`
+  width: 50px;
+  height: 75px;
+  margin: 0 auto 8px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+`;
+
+export const MainImageLoadingPlaceholder = styled.div`
+  width: 250px;
+  height: 350px;
+  background: #f3f4f6;
+  border-radius: 12px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  ${media.md} {
+    width: 250px;
+    height: 350px;
+  }
 `;

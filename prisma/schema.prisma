@@ -1,5 +1,5 @@
-// Development schema using SQLite
-// Copy this to schema.prisma for local development
+// Production schema using PostgreSQL with Prisma Accelerate
+// Copy this to schema.prisma for production deployment
 
 generator client {
   provider = "prisma-client-js"
@@ -7,8 +7,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Product {
@@ -20,7 +21,11 @@ model Product {
   price           String
   priceSubtext    String
   imageColor      String
+  imageUrl        String?  // URL to the product image
   features        Json     // Array of { text: string; color: string }
+  ingredients     Json?    // Array of ingredient strings
+  productBrief    String?  // Introduction/description of the drink
+  nutritionFacts  Json?    // Array of { label: string; value: string }
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 

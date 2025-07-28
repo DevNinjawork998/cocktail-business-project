@@ -270,7 +270,7 @@ const products = [
 ]
 
 async function main() {
-    console.log('Start seeding...')
+    console.log('Start seeding production database...')
 
     for (const product of products) {
         const result = await prisma.product.upsert({
@@ -294,7 +294,7 @@ async function main() {
         console.log(`Created/Updated product with id: ${result.id}`)
     }
 
-    console.log('Seeding finished.')
+    console.log('Production seeding finished.')
 }
 
 main()

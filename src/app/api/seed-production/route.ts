@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client'
-
-// Use regular client for seeding (works with both SQLite and PostgreSQL)
-const prisma = new PrismaClient()
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
 const products = [
     {
@@ -267,42 +265,48 @@ const products = [
             { label: "Vitamin C", value: "35%" },
         ],
     },
-]
+];
 
-async function main() {
-    console.log('Start seeding...')
+export async function POST() {
+    try {
+        console.log('Start seeding production database...');
 
-    for (const product of products) {
-        const result = await prisma.product.upsert({
-            where: { id: product.id },
-            update: {
-                name: product.name,
-                subtitle: product.subtitle,
-                description: product.description,
-                longDescription: product.longDescription,
-                price: product.price,
-                priceSubtext: product.priceSubtext,
-                imageColor: product.imageColor,
-                imageUrl: product.imageUrl,
-                features: product.features,
-                ingredients: product.ingredients,
-                productBrief: product.productBrief,
-                nutritionFacts: product.nutritionFacts,
-            },
-            create: product,
-        })
-        console.log(`Created/Updated product with id: ${result.id}`)
+        const results = [];
+        for (const product of products) {
+            const result = await prisma.product.upsert({
+                where: { id: product.id },
+                update: {
+                    name: product.name,
+                    subtitle: product.subtitle,
+                    description: product.description,
+                    longDescription: product.longDescription,
+                    price: product.price,
+                    priceSubtext: product.priceSubtext,
+                    imageColor: product.imageColor,
+                    imageUrl: product.imageUrl,
+                    features: product.features,
+                    ingredients: product.ingredients,
+                    productBrief: product.productBrief,
+                    nutritionFacts: product.nutritionFacts,
+                },
+                create: product,
+            });
+            results.push(result.id);
+            console.log(`Created/Updated product with id: ${result.id}`);
+        }
+
+        console.log('Production seeding finished.');
+
+        return NextResponse.json({
+            success: true,
+            message: 'Production database seeded successfully',
+            products: results
+        });
+    } catch (error) {
+        console.error('Error seeding production database:', error);
+        return NextResponse.json({
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown error'
+        }, { status: 500 });
     }
-
-    console.log('Seeding finished.')
-}
-
-main()
-    .then(async () => {
-        await prisma.$disconnect()
-    })
-    .catch(async (e) => {
-        console.error(e)
-        await prisma.$disconnect()
-        process.exit(1)
-    }) 
+} 

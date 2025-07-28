@@ -7,6 +7,7 @@ export interface Product {
     price: string;
     priceSubtext: string;
     imageColor: string;
+    imageUrl?: string; // Optional image URL
     features: Array<{ text: string; color: string }>;
 }
 

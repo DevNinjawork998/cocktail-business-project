@@ -12,6 +12,7 @@
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --watchAll=false",
     "db:seed": "tsx prisma/seed.ts",
+    "db:seed:prod": "tsx prisma/seed.prod.ts",
     "db:dev": "cp prisma/schema.dev.prisma prisma/schema.prisma && npx prisma generate && npx prisma migrate dev",
     "db:prod": "cp prisma/schema.prod.prisma prisma/schema.prisma && npx prisma generate",
     "build:prod": "npm run db:prod && npx prisma generate && next build",

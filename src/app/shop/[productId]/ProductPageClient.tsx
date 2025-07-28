@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
-import { Product } from "@/data/products";
+import { Product } from "@/data/serverProductService";
 import {
   ProductPageContainer,
   ProductLayout,
@@ -41,6 +41,12 @@ import {
   ProductInfoFeatureRow,
   ProductInfoFeatureIcon,
   ProductInfoFeatureLabel,
+  ProductImageContainer,
+  ProductImage,
+  SidebarProductImageContainer,
+  SidebarProductImageStyled,
+  FeatureItemContainer,
+  NutritionFactValue,
 } from "./page.styles";
 import { formatCurrency } from "@/app/lib/stripe";
 
@@ -75,32 +81,11 @@ export default function ProductPageClient({
     else setQuantity(val);
   };
 
-  // Example data for ingredients and nutrition
-  const ingredients = [
-    "Carbonated Water",
-    "OLISMART (Cassava Root Fiber, Chicory Root Inulin, Jerusalem Artichoke Inulin, Nopal Cactus, Marshmallow Root, Calendula Flower, Kudzu Root)",
-    "Clementine Juice Concentrate",
-    "Cassava Root Syrup",
-    "Mandarin Juice Concentrate",
-    "Apple Juice Concentrate",
-    "Lemon Juice Concentrate",
-    "Stevia Leaf",
-    "Himalayan Pink Salt",
-    "Natural Flavors",
-  ];
-  const nutritionFacts = [
-    { label: "Calories", value: "50" },
-    { label: "Total Fat", value: "0g" },
-    { label: "Sodium", value: "30mg" },
-    { label: "Total Carbohydrate", value: "17g" },
-    { label: "Dietary Fiber", value: "5g" },
-    { label: "Total Sugars", value: "5g" },
-    { label: "Includes Added Sugars", value: "0g" },
-    { label: "Protein", value: "0g" },
-    { label: "Vitamin C", value: "20%" },
-  ];
-  const productBrief =
-    "The summertime treat from your fave ice cream truck just got an upgrade. Creamy, vanilla goodness and a bright pop of tangerine and mandarin citrus join forces to bring back this iconic childhood flavor.";
+  // Data from Prisma database
+  const ingredients = product.ingredients;
+  const nutritionFacts = product.nutritionFacts;
+  const productBrief = product.productBrief;
+
   const features = [
     { icon: "🌾", label: "High Fiber" },
     { icon: "🍬", label: "Less Sugar*" },
@@ -118,9 +103,24 @@ export default function ProductPageClient({
       <ProductLayout>
         <MainContent>
           <ProductImageSection>
-            <ProductImagePlaceholder $bgColor={product.imageColor}>
-              {product.name}
-            </ProductImagePlaceholder>
+            {product.imageUrl ? (
+              <ProductImageContainer>
+                <ProductImage
+                  src={product.imageUrl}
+                  alt={product.name}
+                  fill
+                  style={{
+                    objectFit: "cover",
+                    borderRadius: "12px",
+                  }}
+                  sizes="(max-width: 768px) 200px, 250px"
+                />
+              </ProductImageContainer>
+            ) : (
+              <ProductImagePlaceholder $bgColor={product.imageColor}>
+                {product.name}
+              </ProductImagePlaceholder>
+            )}
           </ProductImageSection>
 
           <ProductDetailsSection>
@@ -182,9 +182,21 @@ export default function ProductPageClient({
                 key={sideProduct.id}
                 href={`/shop/${sideProduct.id}`}
               >
-                <SidebarProductImage $bgColor={sideProduct.imageColor}>
-                  {sideProduct.name}
-                </SidebarProductImage>
+                {sideProduct.imageUrl ? (
+                  <SidebarProductImageContainer>
+                    <SidebarProductImageStyled
+                      src={sideProduct.imageUrl}
+                      alt={sideProduct.name}
+                      fill
+                      style={{ objectFit: "cover", borderRadius: "6px" }}
+                      sizes="50px"
+                    />
+                  </SidebarProductImageContainer>
+                ) : (
+                  <SidebarProductImage $bgColor={sideProduct.imageColor}>
+                    {sideProduct.name}
+                  </SidebarProductImage>
+                )}
                 <SidebarProductName>{sideProduct.name}</SidebarProductName>
               </SidebarProductCard>
             ))}
@@ -195,24 +207,21 @@ export default function ProductPageClient({
       <ProductInfoSection>
         <ProductInfoLeft>
           <ProductInfoTitle>{product.name}</ProductInfoTitle>
-          <ProductInfoDescription>{productBrief}</ProductInfoDescription>
+          <ProductInfoDescription>
+            {productBrief || "Product description coming soon..."}
+          </ProductInfoDescription>
           <ProductInfoIngredients>
-            <strong>Ingredients:</strong> {ingredients.join(", ")}
+            <strong>Ingredients:</strong>{" "}
+            {ingredients && ingredients.length > 0
+              ? ingredients.join(", ")
+              : "Ingredients information coming soon..."}
           </ProductInfoIngredients>
           <ProductInfoFeatureRow>
             {features.map((f, idx) => (
-              <div
-                key={idx}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  minWidth: 70,
-                }}
-              >
+              <FeatureItemContainer key={idx}>
                 <ProductInfoFeatureIcon>{f.icon}</ProductInfoFeatureIcon>
                 <ProductInfoFeatureLabel>{f.label}</ProductInfoFeatureLabel>
-              </div>
+              </FeatureItemContainer>
             ))}
           </ProductInfoFeatureRow>
         </ProductInfoLeft>
@@ -222,19 +231,24 @@ export default function ProductPageClient({
               Nutrition Facts
             </ProductInfoNutritionTitle>
             <ProductInfoNutritionTable>
-              {nutritionFacts.map((fact, idx) => (
-                <React.Fragment key={idx}>
-                  <div>{fact.label}</div>
-                  <div
-                    style={{
-                      textAlign: "right",
-                      fontWeight: "600",
-                    }}
-                  >
-                    {fact.value}
-                  </div>
-                </React.Fragment>
-              ))}
+              {nutritionFacts && nutritionFacts.length > 0 ? (
+                nutritionFacts.map((fact, idx) => (
+                  <React.Fragment key={idx}>
+                    <div>{fact.label}</div>
+                    <NutritionFactValue>{fact.value}</NutritionFactValue>
+                  </React.Fragment>
+                ))
+              ) : (
+                <div
+                  style={{
+                    gridColumn: "1 / -1",
+                    textAlign: "center",
+                    color: "#666",
+                  }}
+                >
+                  Nutrition information coming soon...
+                </div>
+              )}
             </ProductInfoNutritionTable>
           </ProductInfoNutritionBox>
         </ProductInfoRight>

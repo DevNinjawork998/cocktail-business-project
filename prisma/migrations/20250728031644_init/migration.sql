@@ -9,6 +9,6 @@ CREATE TABLE "products" (
     "priceSubtext" TEXT NOT NULL,
     "imageColor" TEXT NOT NULL,
     "features" JSONB NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL
 );

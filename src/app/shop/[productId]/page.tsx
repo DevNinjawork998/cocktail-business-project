@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import ProductPageClient from "./ProductPageClient";
+import ProductPageWrapper from "./ProductPageWrapper";
 import Navigation from "../../../components/Navigation/Navigation";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Footer from "@/components/Footer/Footer";
@@ -32,7 +32,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <>
         <Navigation />
         <Breadcrumb items={breadcrumbItems} />
-        <ProductPageClient product={product} otherProducts={otherProducts} />
+        <ProductPageWrapper product={product} otherProducts={otherProducts} />
         <Footer />
       </>
     );
