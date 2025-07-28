@@ -182,4 +182,4 @@ npm run db:seed
 3. Deploy to production
 4. Monitor performance in Prisma Cloud dashboard
 
-For more information, visit: https://pris.ly/cli/accelerate
+For more information, visit: <https://pris.ly/cli/accelerate>

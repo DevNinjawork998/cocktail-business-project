@@ -48,7 +48,7 @@ vercel --prod           # Deploy to Vercel
 
 ## 🌐 Environment Variables
 
-### Required in Vercel:
+### Required in Vercel
 
 - `DATABASE_URL` - Prisma Accelerate connection
 - `DIRECT_URL` - Direct PostgreSQL connection

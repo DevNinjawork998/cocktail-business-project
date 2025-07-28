@@ -124,7 +124,7 @@ const transparentBackground = getColorWithOpacity("chocolateKisses", 0.1);
 
 ## File Structure
 
-```
+```text
 src/
   theme/
     ├── colors.ts          # Color definitions and utilities
