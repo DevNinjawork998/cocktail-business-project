@@ -1,0 +1,29 @@
+// Production schema using PostgreSQL with Prisma Accelerate
+// Copy this to schema.prisma for production deployment
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Product {
+  id              String   @id @default(cuid())
+  name            String
+  subtitle        String
+  description     String
+  longDescription String
+  price           String
+  priceSubtext    String
+  imageColor      String
+  features        Json     // Array of { text: string; color: string }
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("products")
+} 
