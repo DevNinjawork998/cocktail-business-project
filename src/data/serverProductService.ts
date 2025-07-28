@@ -19,10 +19,10 @@ export async function getAllProducts(): Promise<Product[]> {
                 createdAt: 'desc'
             }
         });
-        return products.map(product => ({
+        return products.map((product: { features: unknown;[key: string]: unknown }) => ({
             ...product,
             features: product.features as Array<{ text: string; color: string }>
-        }));
+        })) as Product[];
     } catch (error) {
         console.error('Error fetching products:', error);
         throw error;
