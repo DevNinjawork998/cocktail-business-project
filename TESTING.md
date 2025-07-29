@@ -10,6 +10,7 @@ This project uses **Jest** and **React Testing Library** for unit testing. The t
 - [Project Structure & Test Organization](#project-structure--test-organization)
 - [Writing Tests](#writing-tests)
 - [Testing Patterns](#testing-patterns)
+- [Testing New Features](#testing-new-features)
 - [Test Utilities](#test-utilities)
 - [Best Practices](#best-practices)
 - [Coverage](#coverage)
@@ -218,6 +219,274 @@ describe("Product List Integration", () => {
 
 ---
 
+## Testing New Features
+
+### 1. Loading States Testing
+
+**Testing skeleton loading components:**
+
+```tsx
+import { render, screen } from "@/test-utils";
+import ProductPageLoading from "../ProductPageLoading";
+
+describe("ProductPageLoading", () => {
+  it("renders skeleton loading elements", () => {
+    render(<ProductPageLoading />);
+
+    // Check for skeleton elements
+    expect(screen.getByTestId("loading-container")).toBeInTheDocument();
+    expect(screen.getByTestId("loading-image")).toBeInTheDocument();
+    expect(screen.getByTestId("loading-title")).toBeInTheDocument();
+    expect(screen.getByTestId("loading-description")).toBeInTheDocument();
+  });
+
+  it("shows loading placeholders with correct styling", () => {
+    render(<ProductPageLoading />);
+
+    const skeletonElements = screen.getAllByTestId(/loading-/);
+    expect(skeletonElements).toHaveLength(expect.any(Number));
+  });
+});
+```
+
+**Testing loading state transitions:**
+
+```tsx
+import { render, screen, waitFor } from "@/test-utils";
+import ProductPageWrapper from "../ProductPageWrapper";
+
+describe("ProductPageWrapper", () => {
+  it("shows loading state initially", () => {
+    render(<ProductPageWrapper product={mockProduct} />);
+
+    expect(screen.getByTestId("loading-container")).toBeInTheDocument();
+  });
+
+  it("transitions to product content after loading", async () => {
+    render(<ProductPageWrapper product={mockProduct} />);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
+
+    expect(screen.queryByTestId("loading-container")).not.toBeInTheDocument();
+  });
+});
+```
+
+### 2. Styled-components Testing
+
+**Testing styled components:**
+
+```tsx
+import { render } from "@/test-utils";
+import { StyledButton } from "../ComponentName.styles";
+
+describe("Styled Components", () => {
+  it("renders with correct theme colors", () => {
+    const { container } = render(<StyledButton>Test Button</StyledButton>);
+
+    const button = container.querySelector("button");
+    expect(button).toHaveStyle({
+      backgroundColor: expect.stringContaining("451515"), // chocolateKisses
+      color: expect.stringContaining("FFFFFF"), // text.onPrimary
+    });
+  });
+
+  it("applies variant styles correctly", () => {
+    const { container } = render(
+      <StyledButton variant="danger">Danger Button</StyledButton>
+    );
+
+    const button = container.querySelector("button");
+    expect(button).toHaveStyle({
+      backgroundColor: expect.stringContaining("C74C3D"), // bittersweetShimmer
+    });
+  });
+});
+```
+
+### 3. Enhanced Product Data Testing
+
+**Testing new product fields:**
+
+```tsx
+import { render, screen } from "@/test-utils";
+import ProductPageClient from "../ProductPageClient";
+
+describe("ProductPageClient with Enhanced Data", () => {
+  const productWithNewFields = {
+    ...mockProduct,
+    ingredients: ["Premium tequila", "Fresh lime juice", "Agave nectar"],
+    productBrief:
+      "A sophisticated blend of premium tequila with fresh citrus...",
+    nutritionFacts: [
+      { label: "Calories", value: "180" },
+      { label: "Sugar", value: "8g" },
+      { label: "Alcohol", value: "12%" },
+    ],
+  };
+
+  it("displays ingredients list", () => {
+    render(<ProductPageClient product={productWithNewFields} />);
+
+    expect(screen.getByText("Ingredients")).toBeInTheDocument();
+    expect(screen.getByText("Premium tequila")).toBeInTheDocument();
+    expect(screen.getByText("Fresh lime juice")).toBeInTheDocument();
+    expect(screen.getByText("Agave nectar")).toBeInTheDocument();
+  });
+
+  it("displays product brief", () => {
+    render(<ProductPageClient product={productWithNewFields} />);
+
+    expect(
+      screen.getByText(
+        "A sophisticated blend of premium tequila with fresh citrus..."
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("displays nutrition facts table", () => {
+    render(<ProductPageClient product={productWithNewFields} />);
+
+    expect(screen.getByText("Nutrition Facts")).toBeInTheDocument();
+    expect(screen.getByText("Calories")).toBeInTheDocument();
+    expect(screen.getByText("180")).toBeInTheDocument();
+    expect(screen.getByText("Sugar")).toBeInTheDocument();
+    expect(screen.getByText("8g")).toBeInTheDocument();
+  });
+
+  it("handles missing optional fields gracefully", () => {
+    const productWithoutNewFields = {
+      ...mockProduct,
+      ingredients: null,
+      productBrief: null,
+      nutritionFacts: null,
+    };
+
+    render(<ProductPageClient product={productWithoutNewFields} />);
+
+    // Should still render without errors
+    expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
+  });
+});
+```
+
+### 4. Database Service Testing
+
+**Testing enhanced data fetching:**
+
+```tsx
+import { getAllProducts, getProductById } from "../serverProductService";
+
+// Mock Prisma client
+jest.mock("@/lib/prisma", () => ({
+  prisma: {
+    product: {
+      findMany: jest.fn(),
+      findUnique: jest.fn(),
+    },
+  },
+}));
+
+describe("Server Product Service", () => {
+  it("maps new product fields correctly", async () => {
+    const mockPrismaProduct = {
+      id: "test-id",
+      name: "Test Product",
+      ingredients: ["ingredient1", "ingredient2"],
+      productBrief: "Test brief",
+      nutritionFacts: [{ label: "Calories", value: "100" }],
+      imageUrl: "test.jpg",
+      // ... other fields
+    };
+
+    const { prisma } = require("@/lib/prisma");
+    prisma.product.findUnique.mockResolvedValue(mockPrismaProduct);
+
+    const result = await getProductById("test-id");
+
+    expect(result.ingredients).toEqual(["ingredient1", "ingredient2"]);
+    expect(result.productBrief).toBe("Test brief");
+    expect(result.nutritionFacts).toEqual([
+      { label: "Calories", value: "100" },
+    ]);
+  });
+
+  it("handles null values for optional fields", async () => {
+    const mockPrismaProduct = {
+      id: "test-id",
+      name: "Test Product",
+      ingredients: null,
+      productBrief: null,
+      nutritionFacts: null,
+      imageUrl: null,
+      // ... other fields
+    };
+
+    const { prisma } = require("@/lib/prisma");
+    prisma.product.findUnique.mockResolvedValue(mockPrismaProduct);
+
+    const result = await getProductById("test-id");
+
+    expect(result.ingredients).toBeUndefined();
+    expect(result.productBrief).toBeUndefined();
+    expect(result.nutritionFacts).toBeUndefined();
+    expect(result.imageUrl).toBeUndefined();
+  });
+});
+```
+
+### 5. API Endpoint Testing
+
+**Testing new seeding endpoint:**
+
+```tsx
+import { createMocks } from "node-mocks-http";
+import { POST } from "../api/seed-production/route";
+
+describe("/api/seed-production", () => {
+  it("seeds production database successfully", async () => {
+    const { req, res } = createMocks({
+      method: "POST",
+    });
+
+    const response = await POST(req);
+
+    expect(response.status).toBe(200);
+
+    const data = await response.json();
+    expect(data.message).toContain("Production seeding finished");
+    expect(data.products).toHaveLength(6); // 6 products seeded
+  });
+
+  it("handles seeding errors gracefully", async () => {
+    // Mock Prisma to throw an error
+    jest.spyOn(require("@/lib/prisma"), "prisma").mockImplementation(() => ({
+      product: {
+        upsert: jest.fn().mockRejectedValue(new Error("Database error")),
+      },
+    }));
+
+    const { req, res } = createMocks({
+      method: "POST",
+    });
+
+    const response = await POST(req);
+
+    expect(response.status).toBe(500);
+
+    const data = await response.json();
+    expect(data.error).toContain("Database error");
+  });
+});
+```
+
+---
+
 ## Test Utilities
 
 ### Custom Render Function
@@ -235,15 +504,43 @@ import { render, screen, mockProduct } from "@/test-utils";
 render(<MyComponent product={mockProduct} />);
 ```
 
-### Common Test Data
+### Enhanced Test Data
 
 ```tsx
 import { mockProduct, mockProducts, TEST_IDS } from "@/test-utils";
 
-// Use predefined test data
-const product = mockProduct;
+// Use predefined test data with new fields
+const product = {
+  ...mockProduct,
+  ingredients: ["ingredient1", "ingredient2"],
+  productBrief: "Test product description",
+  nutritionFacts: [
+    { label: "Calories", value: "100" },
+    { label: "Sugar", value: "5g" },
+  ],
+};
+
 const products = mockProducts;
 const testId = TEST_IDS.BUTTON;
+```
+
+### Loading State Test Helpers
+
+```tsx
+// Helper to wait for loading states to complete
+export const waitForLoadingToComplete = async () => {
+  await waitFor(
+    () => {
+      expect(screen.queryByTestId("loading-container")).not.toBeInTheDocument();
+    },
+    { timeout: 2000 }
+  );
+};
+
+// Helper to check if loading state is shown
+export const expectLoadingState = () => {
+  expect(screen.getByTestId("loading-container")).toBeInTheDocument();
+};
 ```
 
 ---
@@ -265,12 +562,15 @@ const testId = TEST_IDS.BUTTON;
 - Critical business logic
 - Error handling
 - Accessibility features
+- **Loading states and transitions**
+- **New product data fields**
 
 **Medium Priority:**
 
 - Component rendering
 - Props handling
 - State management
+- **Styled-components styling**
 
 **Lower Priority:**
 
@@ -282,13 +582,16 @@ const testId = TEST_IDS.BUTTON;
 - Use semantic queries (`getByRole`, `getByLabelText`)
 - Avoid testing implementation details
 - Test behavior, not implementation
+- **Test loading state transitions**
+- **Test new data field displays**
 
 ```tsx
 // Good - tests behavior
 expect(screen.getByRole("button")).toBeInTheDocument();
+expect(screen.getByText("Ingredients")).toBeInTheDocument();
 
 // Bad - tests implementation
-enexpect(screen.getByTestId("submit-button")).toBeInTheDocument();
+expect(screen.getByTestId("submit-button")).toBeInTheDocument();
 ```
 
 ### 4. Mocking
@@ -296,6 +599,7 @@ enexpect(screen.getByTestId("submit-button")).toBeInTheDocument();
 - Mock external dependencies (APIs, third-party libraries)
 - Use `jest.fn()` for function mocks
 - Mock Next.js router and navigation
+- **Mock Prisma client for database operations**
 
 ```tsx
 // Mock API calls
@@ -310,6 +614,17 @@ jest.mock("next/router", () => ({
     query: {},
     pathname: "/",
   }),
+}));
+
+// Mock Prisma client
+jest.mock("@/lib/prisma", () => ({
+  prisma: {
+    product: {
+      findMany: jest.fn(),
+      findUnique: jest.fn(),
+      upsert: jest.fn(),
+    },
+  },
 }));
 ```
 
@@ -332,6 +647,13 @@ npm run test:coverage
 
 Coverage reports are generated in the `coverage/` directory.
 
+**New Coverage Requirements:**
+
+- **Loading state components**: 80%
+- **Styled-components**: 70%
+- **Enhanced product data handling**: 80%
+- **API endpoints**: 80%
+
 ---
 
 ## Debugging Tests
@@ -341,6 +663,8 @@ Coverage reports are generated in the `coverage/` directory.
 1. **Styled-components not rendering**: Ensure you're using the custom render function
 2. **Next.js router errors**: Check that router mocks are properly set up
 3. **TypeScript errors**: Verify that test files have proper type annotations
+4. **Loading state timing issues**: Use `waitFor` with appropriate timeouts
+5. **Prisma client errors**: Ensure Prisma client is properly mocked
 
 ### Debug Commands
 
@@ -349,13 +673,16 @@ Coverage reports are generated in the `coverage/` directory.
 npm test -- ComponentName.test.tsx
 
 # Run tests matching a pattern
-npm test -- --testNamePattern="button"
+npm test -- --testNamePattern="loading"
 
 # Run tests in verbose mode
 npm test -- --verbose
 
 # Debug failing tests
 npm test -- --detectOpenHandles
+
+# Run tests with coverage for specific files
+npm test -- --coverage --collectCoverageFrom="src/components/**/*.tsx"
 ```
 
 ---
@@ -392,6 +719,24 @@ If you have a very small project, you can use a single test file, but for anythi
 
 **A:** You can, but colocating tests with their components is the modern standard for React/Next.js projects. It keeps related code and tests together.
 
+### Q: How do I test loading states effectively?
+
+**A:**
+
+- Use `waitFor` with appropriate timeouts
+- Test both the loading and loaded states
+- Mock async operations to control timing
+- Use test IDs for reliable element selection
+
+### Q: How do I test styled-components?
+
+**A:**
+
+- Use the custom render function that includes theme provider
+- Test the rendered styles using `toHaveStyle`
+- Focus on testing the visual output, not the CSS-in-JS implementation
+- Use theme colors in your assertions
+
 ---
 
 ## Additional Resources
@@ -399,3 +744,5 @@ If you have a very small project, you can use a single test file, but for anythi
 - [React Testing Library Documentation](https://testing-library.com/docs/react-testing-library/intro/)
 - [Jest Documentation](https://jestjs.io/docs/getting-started)
 - [Testing Best Practices](https://kentcdodds.com/blog/common-mistakes-with-react-testing-library)
+- [Styled-components Testing](https://styled-components.com/docs/advanced#testing)
+- [Testing Async Components](https://testing-library.com/docs/dom-testing-library/api-async)
