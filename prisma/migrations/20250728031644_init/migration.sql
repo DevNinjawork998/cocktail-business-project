@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "products" (
-    "id" TEXT NOT NULL,
+    "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "subtitle" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -9,8 +9,6 @@ CREATE TABLE "products" (
     "priceSubtext" TEXT NOT NULL,
     "imageColor" TEXT NOT NULL,
     "features" JSONB NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "products_pkey" PRIMARY KEY ("id")
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL
 );

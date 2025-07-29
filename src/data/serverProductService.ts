@@ -9,7 +9,11 @@ export interface Product {
     price: string;
     priceSubtext: string;
     imageColor: string;
+    imageUrl?: string; // Optional image URL
     features: Array<{ text: string; color: string }>;
+    ingredients?: string[]; // Array of ingredient strings
+    productBrief?: string; // Introduction/description of the drink
+    nutritionFacts?: Array<{ label: string; value: string }>; // Array of nutrition facts
 }
 
 export async function getAllProducts(): Promise<Product[]> {
@@ -19,10 +23,16 @@ export async function getAllProducts(): Promise<Product[]> {
                 createdAt: 'desc'
             }
         });
-        return products.map((product: { features: unknown;[key: string]: unknown }) => ({
-            ...product,
-            features: product.features as Array<{ text: string; color: string }>
-        })) as Product[];
+        return products.map((product) => {
+            return {
+                ...product,
+                features: product.features as Array<{ text: string; color: string }>,
+                ingredients: (product as unknown as Product).ingredients as string[] | undefined,
+                nutritionFacts: (product as unknown as Product).nutritionFacts as Array<{ label: string; value: string }> | undefined,
+                imageUrl: product.imageUrl || undefined,
+                productBrief: (product as unknown as Product).productBrief || undefined,
+            };
+        }) as Product[];
     } catch (error) {
         console.error('Error fetching products:', error);
         throw error;
@@ -37,10 +47,17 @@ export async function getProductById(id: string): Promise<Product | null> {
             }
         });
         if (!product) return null;
-        return {
+
+        const mappedProduct = {
             ...product,
-            features: product.features as Array<{ text: string; color: string }>
+            features: product.features as Array<{ text: string; color: string }>,
+            ingredients: (product as unknown as Product).ingredients as string[] | undefined,
+            nutritionFacts: (product as unknown as Product).nutritionFacts as Array<{ label: string; value: string }> | undefined,
+            imageUrl: product.imageUrl || undefined,
+            productBrief: (product as unknown as Product).productBrief || undefined,
         };
+
+        return mappedProduct;
     } catch (error) {
         console.error('Error fetching product:', error);
         throw error;

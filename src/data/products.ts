@@ -7,7 +7,11 @@ export interface Product {
     price: string;
     priceSubtext: string;
     imageColor: string;
+    imageUrl?: string; // Optional image URL
     features: Array<{ text: string; color: string }>;
+    ingredients?: string[]; // Array of ingredient strings
+    productBrief?: string; // Introduction/description of the drink
+    nutritionFacts?: Array<{ label: string; value: string }>; // Array of nutrition facts
 }
 
 export const products: Record<string, Product> = {
@@ -24,6 +28,7 @@ export const products: Record<string, Product> = {
         price: "$35.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#8B4513",
+        imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center",
         features: [
             { text: "Premium Quality", color: "#FF6B6B" },
             { text: "Natural Ingredients", color: "#4ECDC4" },
@@ -43,6 +48,7 @@ export const products: Record<string, Product> = {
         price: "$35.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#2F4F4F",
+        imageUrl: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=400&fit=crop&crop=center",
         features: [
             { text: "Spiced Ginger", color: "#FF6B6B" },
             { text: "Fresh Lime", color: "#4ECDC4" },
@@ -62,6 +68,7 @@ export const products: Record<string, Product> = {
         price: "$37.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#CD5C5C",
+        imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=center",
         features: [
             { text: "Superfood Maca", color: "#FF6B6B" },
             { text: "Rich Coffee", color: "#4ECDC4" },
@@ -81,6 +88,7 @@ export const products: Record<string, Product> = {
         price: "$34.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#FF6347",
+        imageUrl: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=400&fit=crop&crop=center",
         features: [
             { text: "Sweet Pineapple", color: "#FF6B6B" },
             { text: "Creamy Coconut", color: "#4ECDC4" },
@@ -100,6 +108,7 @@ export const products: Record<string, Product> = {
         price: "$36.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#8A2BE2",
+        imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center",
         features: [
             { text: "Antioxidant Rich", color: "#FF6B6B" },
             { text: "Fresh Mint", color: "#4ECDC4" },
@@ -119,6 +128,7 @@ export const products: Record<string, Product> = {
         price: "$33.99",
         priceSubtext: "12 cans delivered one time",
         imageColor: "#FFD700",
+        imageUrl: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=400&fit=crop&crop=center",
         features: [
             { text: "Tart Lemon", color: "#FF6B6B" },
             { text: "Zesty Lime", color: "#4ECDC4" },

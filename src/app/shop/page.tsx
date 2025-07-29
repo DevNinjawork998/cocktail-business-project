@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Navigation from "../../components/Navigation/Navigation";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Image from "next/image";
 import {
   ShopContainer,
   ShopHeader,
@@ -114,9 +115,27 @@ export default function ShopPage() {
           {products.map((product) => (
             <ProductCard key={product.id} href={`/shop/${product.id}`}>
               <ProductImageContainer>
-                <ProductImage $bgColor={product.imageColor}>
-                  {product.name}
-                </ProductImage>
+                {product.imageUrl ? (
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "80px",
+                      height: "120px",
+                    }}
+                  >
+                    <Image
+                      src={product.imageUrl}
+                      alt={product.name}
+                      fill
+                      style={{ objectFit: "cover", borderRadius: "8px" }}
+                      sizes="80px"
+                    />
+                  </div>
+                ) : (
+                  <ProductImage $bgColor={product.imageColor}>
+                    {product.name}
+                  </ProductImage>
+                )}
               </ProductImageContainer>
               <ProductName>{product.name}</ProductName>
               <ProductDescription>{product.description}</ProductDescription>

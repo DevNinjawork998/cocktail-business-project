@@ -1,50 +1,69 @@
-# Next.js Project Documentation
+# Cocktail Business Project
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+A modern Next.js e-commerce application for a cocktail business, featuring dynamic product pages, shopping cart functionality, and Stripe payment integration.
 
 ## 🚀 Tech Stack
 
 ### Core Technologies
 
-- **Next.js 14** - React framework with App Router
+- **Next.js 15** - React framework with App Router
 - **React 18** - UI library
 - **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS** - Utility-first CSS framework
+- **Styled-components** - CSS-in-JS styling solution
+- **Prisma** - Database ORM with PostgreSQL
+- **Stripe** - Payment processing
 
 ### Development Tools
 
 - **ESLint** - Code linting
-- **Prettier** - Code formatting
+- **Jest** - Testing framework
 - **PostCSS** - CSS processing
 - **Autoprefixer** - CSS vendor prefixing
+
+### Database & Infrastructure
+
+- **PostgreSQL** - Production database
+- **SQLite** - Development database
+- **Prisma Accelerate** - Database connection pooling and caching
+- **Vercel** - Deployment platform
 
 ### Fonts & Icons
 
 - **Geist Font** - Optimized font family by Vercel
 - **next/font** - Font optimization
 
-### Build & Deployment
-
-- **Vercel** - Recommended deployment platform
-- **Node.js** - JavaScript runtime
-
 ## 📁 Project Structure
 
-```
-├── app/                    # App Router directory
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout component
-│   ├── page.tsx           # Home page component
-│   └── favicon.ico        # Favicon
-├── public/                # Static assets
-├── .eslintrc.json         # ESLint configuration
-├── .gitignore            # Git ignore rules
-├── next.config.js        # Next.js configuration
-├── package.json          # Dependencies and scripts
-├── postcss.config.js     # PostCSS configuration
-├── tailwind.config.ts    # Tailwind CSS configuration
-├── tsconfig.json         # TypeScript configuration
-└── README.md             # Project documentation
+```text
+├── src/
+│   ├── app/                    # App Router directory
+│   │   ├── api/               # API routes
+│   │   ├── cart/              # Shopping cart pages
+│   │   ├── checkout/          # Checkout flow
+│   │   ├── shop/              # Product pages
+│   │   ├── globals.css        # Global styles
+│   │   ├── layout.tsx         # Root layout component
+│   │   └── page.tsx           # Home page component
+│   ├── components/            # Reusable components
+│   │   ├── CartIcon/          # Shopping cart icon
+│   │   ├── Navigation/        # Navigation components
+│   │   ├── ProductPage/       # Product display components
+│   │   └── ...                # Other components
+│   ├── contexts/              # React contexts
+│   ├── data/                  # Data fetching services
+│   ├── lib/                   # Utility libraries
+│   ├── theme/                 # Styled-components theme
+│   ├── types/                 # TypeScript type definitions
+│   └── utils/                 # Utility functions
+├── prisma/                    # Database configuration
+│   ├── migrations/            # Database migrations
+│   ├── schema.prisma          # Database schema
+│   ├── schema.dev.prisma      # Development schema
+│   ├── schema.prod.prisma     # Production schema
+│   └── seed.ts                # Database seeding
+├── public/                    # Static assets
+├── __tests__/                 # Test files
+└── ...                        # Configuration files
 ```
 
 ## 🛠️ Getting Started
@@ -53,6 +72,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 - Node.js 18.17 or later
 - npm, yarn, pnpm, or bun package manager
+- PostgreSQL database (for production)
 
 ### Installation
 
@@ -60,103 +80,206 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
    ```bash
    git clone <repository-url>
-   cd <project-name>
+   cd cocktail-business-project
    ```
 
 2. **Install dependencies**
 
    ```bash
    npm install
-   # or
-   yarn install
-   # or
-   pnpm install
-   # or
-   bun install
    ```
 
-3. **Run the development server**
+3. **Set up environment variables**
+
+   Create `.env.local` for development:
+
+   ```env
+   DATABASE_URL="file:./dev.db"
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="your_stripe_public_key"
+   STRIPE_SECRET_KEY="your_stripe_secret_key"
+   ```
+
+4. **Set up the database**
+
+   ```bash
+   # For development (SQLite)
+   npm run db:dev
+   npm run db:seed
+
+   # For production (PostgreSQL)
+   npm run db:prod
+   npx prisma migrate deploy
+   npm run db:seed:prod
+   ```
+
+5. **Run the development server**
 
    ```bash
    npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   # or
-   bun dev
    ```
 
-4. **Open your browser**
+6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000) to see the result.
 
 ## 📝 Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
+- `npm run build:prod` - Build for production with production database
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
+- `npm run test` - Run tests
+- `npm run db:dev` - Switch to development database (SQLite)
+- `npm run db:prod` - Switch to production database (PostgreSQL)
+- `npm run db:seed` - Seed development database
+- `npm run db:seed:prod` - Seed production database
 
-## 🎨 Styling
+## 🎨 Styling & Theming
 
-This project uses **Tailwind CSS** for styling. The configuration is in `tailwind.config.ts` and includes:
+This project uses **Styled-components** for styling with a comprehensive theme system:
 
-- Custom color palette
-- Responsive design utilities
-- Dark mode support (if configured)
-- Custom component classes
+### Theme Structure
 
-## 🔧 Configuration Files
+- **Colors**: Primary, secondary, accent colors with light/dark variants
+- **Typography**: Font families, sizes, weights, and line heights
+- **Spacing**: Consistent spacing scale
+- **Breakpoints**: Responsive design breakpoints
+- **Shadows**: Elevation and depth system
 
-### `next.config.js`
+### Component Styling
 
-Next.js configuration for:
+- Each component has its own `.styles.tsx` file
+- Styled-components provide CSS-in-JS with TypeScript support
+- Theme-aware components that adapt to light/dark modes
+- Responsive design with mobile-first approach
 
-- Image optimization
-- Environment variables
-- Custom webpack configuration
+## 🗄️ Database Schema
 
-### `tailwind.config.ts`
+### Product Model
 
-Tailwind CSS configuration for:
+```prisma
+model Product {
+  id              String   @id @default(cuid())
+  name            String
+  subtitle        String
+  description     String
+  longDescription String
+  price           String
+  priceSubtext    String
+  imageColor      String
+  imageUrl        String?
+  features        Json
+  ingredients     Json?    // Array of ingredient strings
+  productBrief    String?  // Product introduction
+  nutritionFacts  Json?    // Array of nutrition facts
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-- Content paths
-- Theme customization
-- Plugin configuration
+  @@map("products")
+}
+```
 
-### `tsconfig.json`
+### Key Features
 
-TypeScript configuration for:
-
-- Compiler options
-- Path mapping
-- Strict type checking
+- **Ingredients**: JSON array of ingredient lists
+- **Product Brief**: Detailed product descriptions
+- **Nutrition Facts**: Nutritional information tables
+- **Image Management**: Color placeholders with optional image URLs
+- **Features**: Product feature badges and highlights
 
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
 
-The easiest way to deploy your Next.js app is using the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+1. **Push your code to GitHub**
+2. **Import your project to Vercel**
+3. **Configure environment variables**:
+   - `DATABASE_URL` - Prisma Accelerate connection
+   - `DIRECT_URL` - Direct PostgreSQL connection
+   - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` - Stripe public key
+   - `STRIPE_SECRET_KEY` - Stripe secret key
+4. **Deploy automatically on every push**
 
-1. Push your code to GitHub
-2. Import your project to Vercel
-3. Deploy automatically on every push
+### Production Database Setup
 
-### Other Platforms
+```bash
+# Deploy to production
+vercel --prod
 
-You can also deploy to other platforms like:
+# Seed production database
+npm run db:seed:prod
+```
 
-- Netlify
-- AWS Amplify
-- Railway
-- DigitalOcean App Platform
+## 🧪 Testing
+
+The project includes comprehensive testing with Jest:
+
+- **Unit Tests**: Component and utility function tests
+- **Integration Tests**: API route and data service tests
+- **Test Utilities**: Custom test helpers and mocks
+
+```bash
+npm run test          # Run all tests
+npm run test:watch    # Run tests in watch mode
+npm run test:coverage # Run tests with coverage
+```
+
+## 📊 API Endpoints
+
+- `GET /api/products` - Get all products
+- `GET /api/products/[id]` - Get specific product
+- `POST /api/create-checkout-session` - Create Stripe checkout session
+- `POST /api/checkout-session` - Handle checkout completion
+- `POST /api/seed-production` - Seed production database
+
+## 🎯 Key Features
+
+### Product Pages
+
+- **Dynamic Loading**: Skeleton loading states for better UX
+- **Rich Information**: Ingredients, nutrition facts, and product briefs
+- **Image Management**: Color placeholders with fallback images
+- **Responsive Design**: Mobile-first approach
+
+### Shopping Experience
+
+- **Cart Management**: Add/remove items with quantity controls
+- **Checkout Flow**: Seamless Stripe integration
+- **Order Confirmation**: Success pages with order details
+
+### Performance
+
+- **Database Optimization**: Prisma Accelerate for connection pooling
+- **Image Optimization**: Next.js Image component with optimization
+- **Code Splitting**: Automatic route-based code splitting
+- **Caching**: Intelligent caching strategies
+
+## 🔧 Configuration Files
+
+### `next.config.ts`
+
+- Image optimization settings
+- Environment variable configuration
+- Custom webpack configuration
+
+### `prisma/schema.prisma`
+
+- Database schema definition
+- Prisma client configuration
+- Migration settings
+
+### `tsconfig.json`
+
+- TypeScript compiler options
+- Path mapping configuration
+- Strict type checking
 
 ## 📚 Learning Resources
 
 - [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API
-- [Learn Next.js](https://nextjs.org/learn) - Interactive Next.js tutorial
-- [React Documentation](https://react.dev) - Learn React fundamentals
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs) - Learn Tailwind CSS
+- [Styled-components Documentation](https://styled-components.com/docs) - Learn Styled-components
+- [Prisma Documentation](https://www.prisma.io/docs) - Learn Prisma ORM
+- [Stripe Documentation](https://stripe.com/docs) - Learn Stripe integration
 - [TypeScript Documentation](https://www.typescriptlang.org/docs) - Learn TypeScript
 
 ## 🤝 Contributing

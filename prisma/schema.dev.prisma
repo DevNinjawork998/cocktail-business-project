@@ -21,6 +21,9 @@ model Product {
   priceSubtext    String
   imageColor      String
   features        Json     // Array of { text: string; color: string }
+  ingredients     Json?    // Array of ingredient strings
+  productBrief    String?  // Introduction/description of the drink
+  nutritionFacts  Json?    // Array of { label: string; value: string }
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 

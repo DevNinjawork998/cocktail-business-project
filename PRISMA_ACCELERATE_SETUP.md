@@ -17,7 +17,7 @@ Prisma Accelerate is a global database connection pooler and caching layer that:
 
 The project is now configured to use Prisma Accelerate with the edge client. You'll need to:
 
-1. **Sign up for Prisma Accelerate** at https://cloud.prisma.io
+1. **Sign up for Prisma Accelerate** at <https://cloud.prisma.io>
 2. **Create a new project** in Prisma Cloud
 3. **Set up a database** (PostgreSQL recommended)
 4. **Get your connection strings**
@@ -38,7 +38,7 @@ DIRECT_URL="postgresql://username:password@host:port/database"
 
 Run the following commands to set up your database:
 
-#### For Development (SQLite):
+#### For Development (SQLite)
 
 ```bash
 # Switch to development configuration
@@ -48,7 +48,7 @@ npm run db:dev
 npm run db:seed
 ```
 
-#### For Production (PostgreSQL + Accelerate):
+#### For Production (PostgreSQL + Accelerate)
 
 ```bash
 # Switch to production configuration
@@ -58,7 +58,7 @@ npm run db:prod
 npx prisma migrate deploy
 
 # Seed the database with initial product data
-npm run db:seed
+npm run db:seed:prod
 ```
 
 ### 4. Production Deployment
@@ -83,6 +83,26 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+}
+
+model Product {
+  id              String   @id @default(cuid())
+  name            String
+  subtitle        String
+  description     String
+  longDescription String
+  price           String
+  priceSubtext    String
+  imageColor      String
+  imageUrl        String?
+  features        Json
+  ingredients     Json?    // Array of ingredient strings
+  productBrief    String?  // Product introduction
+  nutritionFacts  Json?    // Array of nutrition facts
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("products")
 }
 ```
 
@@ -119,6 +139,40 @@ import { PrismaClient } from "@prisma/client";
 
 // Use regular client for seeding (works with both SQLite and PostgreSQL)
 const prisma = new PrismaClient();
+
+// Sample product data with enhanced information
+const products = [
+  {
+    id: "tequila-sundown",
+    name: "Tequila Sundown",
+    subtitle: "Premium Tequila Blend",
+    description: "A sophisticated blend of premium tequila with fresh citrus",
+    longDescription:
+      "Experience the perfect balance of premium tequila with hand-picked citrus fruits...",
+    price: "$24.99",
+    priceSubtext: "per bottle",
+    imageColor: "#FF6B35",
+    features: [
+      { text: "Premium Quality", color: "#4CAF50" },
+      { text: "Natural Ingredients", color: "#2196F3" },
+      { text: "Craft Distilled", color: "#FF9800" },
+    ],
+    ingredients: [
+      "Premium tequila",
+      "Fresh lime juice",
+      "Agave nectar",
+      "Orange bitters",
+    ],
+    productBrief:
+      "A sophisticated blend of premium tequila with fresh citrus, creating a smooth and refreshing cocktail experience.",
+    nutritionFacts: [
+      { label: "Calories", value: "180" },
+      { label: "Sugar", value: "8g" },
+      { label: "Alcohol", value: "12%" },
+    ],
+  },
+  // ... more products
+];
 ```
 
 ## Benefits of Prisma Accelerate
@@ -149,6 +203,7 @@ const prisma = new PrismaClient();
 1. **Connection Timeouts**: Check your `DIRECT_URL` configuration
 2. **Migration Failures**: Ensure `DIRECT_URL` points to your actual database
 3. **Performance Issues**: Monitor connection pool settings
+4. **Schema Mismatches**: Run `npx prisma generate` after schema changes
 
 ### Commands
 
@@ -173,6 +228,33 @@ npx prisma migrate reset
 
 # Seed database
 npm run db:seed
+
+# Seed production database
+npm run db:seed:prod
+```
+
+## Database Schema Evolution
+
+### Recent Schema Updates
+
+The database schema has been enhanced with additional product information:
+
+- **ingredients**: JSON array of ingredient lists for each product
+- **productBrief**: Detailed product descriptions and introductions
+- **nutritionFacts**: Nutritional information tables
+- **imageUrl**: Optional image URLs with color fallbacks
+
+### Migration Process
+
+```bash
+# Apply migrations to production
+npx prisma migrate deploy
+
+# Resolve any failed migrations
+npx prisma migrate resolve --applied <migration_name>
+
+# Seed with new data structure
+npm run db:seed:prod
 ```
 
 ## Next Steps
@@ -181,5 +263,6 @@ npm run db:seed
 2. Configure your database connection strings
 3. Deploy to production
 4. Monitor performance in Prisma Cloud dashboard
+5. Update product data with enhanced information
 
-For more information, visit: https://pris.ly/cli/accelerate
+For more information, visit: <https://pris.ly/cli/accelerate>
