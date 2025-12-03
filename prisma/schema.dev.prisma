@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -20,6 +19,7 @@ model Product {
   price           String
   priceSubtext    String
   imageColor      String
+  imageUrl        String?  // URL to the product image
   features        Json     // Array of { text: string; color: string }
   ingredients     Json?    // Array of ingredient strings
   productBrief    String?  // Introduction/description of the drink
