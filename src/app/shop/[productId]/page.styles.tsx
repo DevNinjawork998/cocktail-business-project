@@ -467,7 +467,9 @@ export const QuantityButton = styled.button`
   font-size: 1.25rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
   &:hover:not(:disabled) {
     background: ${({ theme }) => theme.currentSemantic.primary};
     color: white;

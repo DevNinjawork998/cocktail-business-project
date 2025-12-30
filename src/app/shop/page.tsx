@@ -24,7 +24,7 @@ const HealthBenefits = dynamic(
   () => import("@/components/HealthBenefits/HealthBenefits"),
   {
     ssr: false,
-  }
+  },
 );
 
 export default function ShopPage() {

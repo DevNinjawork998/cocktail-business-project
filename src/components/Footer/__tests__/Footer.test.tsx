@@ -25,7 +25,7 @@ describe("Footer", () => {
   it("renders main tagline", () => {
     render(<Footer />);
     expect(
-      screen.getByText(/catch the vibe, not the hangover/i)
+      screen.getByText(/catch the vibe, not the hangover/i),
     ).toBeInTheDocument();
   });
 

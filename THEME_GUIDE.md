@@ -147,8 +147,8 @@ export const Button = styled.button<{
   }};
   color: ${(props) => props.theme.colors.text.onPrimary};
   border: none;
-  padding: ${(props) => props.theme.spacing.small} ${(props) =>
-      props.theme.spacing.medium};
+  padding: ${(props) => props.theme.spacing.small}
+    ${(props) => props.theme.spacing.medium};
   border-radius: ${(props) => props.theme.borderRadius.small};
   font-size: ${(props) => props.theme.typography.sizes.medium};
   font-weight: ${(props) => props.theme.typography.weights.medium};
@@ -360,8 +360,8 @@ export const StyledButton = styled.button<{
   }};
   color: ${(props) => props.theme.colors.text.onPrimary};
   border: none;
-  padding: ${(props) => props.theme.spacing.small} ${(props) =>
-      props.theme.spacing.medium};
+  padding: ${(props) => props.theme.spacing.small}
+    ${(props) => props.theme.spacing.medium};
   border-radius: ${(props) => props.theme.borderRadius.small};
   font-size: ${(props) => props.theme.typography.sizes.medium};
   font-weight: ${(props) => props.theme.typography.weights.medium};

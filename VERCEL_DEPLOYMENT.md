@@ -11,13 +11,11 @@ This guide will help you deploy your cocktail business application to Vercel wit
 ## Step 1: Set Up Prisma Cloud
 
 1. **Create Prisma Cloud Account**:
-
    - Visit https://cloud.prisma.io
    - Sign up with your GitHub account
    - Create a new project
 
 2. **Set Up Database**:
-
    - Choose PostgreSQL as your database
    - Follow the setup wizard
    - Note down your connection strings
@@ -63,19 +61,16 @@ This guide will help you deploy your cocktail business application to Vercel wit
 ### Option B: Using Vercel Dashboard
 
 1. **Connect Repository**:
-
    - Go to https://vercel.com/dashboard
    - Click "New Project"
    - Import your GitHub repository
 
 2. **Configure Project**:
-
    - Framework: Next.js
    - Build Command: `npm run build`
    - Output Directory: `.next`
 
 3. **Add Environment Variables**:
-
    - Go to Project Settings → Environment Variables
    - Add:
      - `DATABASE_URL`: Your Prisma Accelerate URL
@@ -134,12 +129,10 @@ NODE_ENV="production"
 ### Common Issues
 
 1. **Build Failures**:
-
    - Check that all dependencies are in `package.json`
    - Ensure Prisma client is generated: `npx prisma generate`
 
 2. **Database Connection Issues**:
-
    - Verify environment variables are set correctly
    - Check Prisma Cloud dashboard for connection status
 

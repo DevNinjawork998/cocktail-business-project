@@ -71,7 +71,7 @@ const customerInfoSchema = z.object({
     .min(1, "Phone number is required")
     .refine(
       (val) => /^\+?[0-9\-\s\(\)]{7,20}$/.test(val),
-      "Please enter a valid phone number"
+      "Please enter a valid phone number",
     ),
   address: z.string().min(1, "Delivery address is required"),
   notes: z.string().max(200, "Notes must be 200 characters or less").optional(),
@@ -85,7 +85,7 @@ const CheckoutPageClient: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [stripe, setStripe] = useState<Stripe | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
-    PaymentMethod.STRIPE
+    PaymentMethod.STRIPE,
   );
 
   const {
@@ -163,7 +163,7 @@ const CheckoutPageClient: React.FC = () => {
           (item) =>
             `• ${item.name} x${item.quantity} - $${(
               item.price * item.quantity
-            ).toFixed(2)}`
+            ).toFixed(2)}`,
         )
         .join("\n");
 
@@ -176,20 +176,20 @@ const CheckoutPageClient: React.FC = () => {
         : "";
 
       const message = `🍹 *New Cocktail Order*\n\n*Order Summary:*\n${orderItems}\n\n*Total: RM${state.total.toFixed(
-        2
+        2,
       )}*\n${customerDetails}\n\nPlease confirm this order and provide payment instructions.`;
 
       // Ensure phone number has country code
       const phoneNumber = "60146491165";
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-        message
+        message,
       )}`;
 
       console.log("Opening WhatsApp URL:", whatsappUrl);
       const newWindow = window.open(whatsappUrl, "_blank");
       if (!newWindow) {
         console.log(
-          "window.open was blocked, falling back to window.location.href"
+          "window.open was blocked, falling back to window.location.href",
         );
         window.location.href = whatsappUrl;
       }

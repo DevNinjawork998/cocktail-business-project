@@ -82,7 +82,9 @@ export const IngredientDropdown = styled.div<{ open: boolean }>`
   max-height: ${({ open }) => (open ? "200px" : "0")};
   opacity: ${({ open }) => (open ? 1 : 0)};
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+  transition:
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s;
   background: ${({ theme }) => theme.semantic.backgroundSecondary};
   padding: ${({ open }) => (open ? "1rem 1.5rem" : "0 1.5rem")};
 `;

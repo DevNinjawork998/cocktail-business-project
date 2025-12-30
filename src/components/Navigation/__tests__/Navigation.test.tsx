@@ -15,7 +15,7 @@ describe("Navigation", () => {
     return render(
       <CartProvider>
         <Navigation />
-      </CartProvider>
+      </CartProvider>,
     );
   };
 
@@ -87,7 +87,7 @@ describe("Navigation", () => {
     const mobileMenuButton = screen.getByLabelText("Toggle mobile menu");
     expect(mobileMenuButton).toHaveAttribute(
       "aria-label",
-      "Toggle mobile menu"
+      "Toggle mobile menu",
     );
   });
 });

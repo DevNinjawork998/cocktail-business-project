@@ -1,0 +1,13 @@
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+.next
+coverage
+dist
+build
+package-lock.json
+*.min.js
+*.min.css
+prisma/migrations
+prisma/dev.db

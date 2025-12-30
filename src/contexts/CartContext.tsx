@@ -36,14 +36,14 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case "ADD_ITEM": {
       const existingItem = state.items.find(
-        (item) => item.id === action.payload.id
+        (item) => item.id === action.payload.id,
       );
 
       if (existingItem) {
         const updatedItems = state.items.map((item) =>
           item.id === action.payload.id
             ? { ...item, quantity: item.quantity + action.payload.quantity }
-            : item
+            : item,
         );
 
         return {
@@ -51,7 +51,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
           items: updatedItems,
           total: updatedItems.reduce(
             (sum, item) => sum + item.price * item.quantity,
-            0
+            0,
           ),
           itemCount: updatedItems.reduce((sum, item) => sum + item.quantity, 0),
         };
@@ -64,7 +64,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
           items: updatedItems,
           total: updatedItems.reduce(
             (sum, item) => sum + item.price * item.quantity,
-            0
+            0,
           ),
           itemCount: updatedItems.reduce((sum, item) => sum + item.quantity, 0),
         };
@@ -73,7 +73,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 
     case "REMOVE_ITEM": {
       const updatedItems = state.items.filter(
-        (item) => item.id !== action.payload
+        (item) => item.id !== action.payload,
       );
 
       return {
@@ -81,7 +81,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         items: updatedItems,
         total: updatedItems.reduce(
           (sum, item) => sum + item.price * item.quantity,
-          0
+          0,
         ),
         itemCount: updatedItems.reduce((sum, item) => sum + item.quantity, 0),
       };
@@ -92,7 +92,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         .map((item) =>
           item.id === action.payload.id
             ? { ...item, quantity: Math.max(0, action.payload.quantity) }
-            : item
+            : item,
         )
         .filter((item) => item.quantity > 0);
 
@@ -101,7 +101,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         items: updatedItems,
         total: updatedItems.reduce(
           (sum, item) => sum + item.price * item.quantity,
-          0
+          0,
         ),
         itemCount: updatedItems.reduce((sum, item) => sum + item.quantity, 0),
       };
@@ -132,7 +132,7 @@ export const CartProvider: React.FC<{
       items: [],
       total: 0,
       itemCount: 0,
-    }
+    },
   );
 
   // Load cart from localStorage on mount

@@ -355,8 +355,8 @@ export const PaymentOptionButton = styled.button<{
       $variant === "whatsapp"
         ? "#25d366"
         : $isSelected
-        ? theme.currentSemantic.primary
-        : theme.currentSemantic.border};
+          ? theme.currentSemantic.primary
+          : theme.currentSemantic.border};
   border-radius: 8px;
   background: ${({ $isSelected, $variant }) =>
     $variant === "whatsapp"
@@ -364,8 +364,8 @@ export const PaymentOptionButton = styled.button<{
         ? "#25d366"
         : "#f0f9f0"
       : $isSelected
-      ? "rgba(59, 130, 246, 0.05)"
-      : "white"};
+        ? "rgba(59, 130, 246, 0.05)"
+        : "white"};
   color: ${({ $isSelected, $variant, theme }) =>
     $variant === "whatsapp"
       ? $isSelected

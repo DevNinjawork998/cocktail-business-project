@@ -269,7 +269,7 @@ describe("ProductPageWrapper", () => {
       () => {
         expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
       },
-      { timeout: 1000 }
+      { timeout: 1000 },
     );
 
     expect(screen.queryByTestId("loading-container")).not.toBeInTheDocument();
@@ -298,7 +298,7 @@ describe("Styled Components", () => {
 
   it("applies variant styles correctly", () => {
     const { container } = render(
-      <StyledButton variant="danger">Danger Button</StyledButton>
+      <StyledButton variant="danger">Danger Button</StyledButton>,
     );
 
     const button = container.querySelector("button");
@@ -344,8 +344,8 @@ describe("ProductPageClient with Enhanced Data", () => {
 
     expect(
       screen.getByText(
-        "A sophisticated blend of premium tequila with fresh citrus..."
-      )
+        "A sophisticated blend of premium tequila with fresh citrus...",
+      ),
     ).toBeInTheDocument();
   });
 
@@ -533,7 +533,7 @@ export const waitForLoadingToComplete = async () => {
     () => {
       expect(screen.queryByTestId("loading-container")).not.toBeInTheDocument();
     },
-    { timeout: 2000 }
+    { timeout: 2000 },
   );
 };
 
