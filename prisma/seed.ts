@@ -1,7 +1,11 @@
 import { PrismaClient } from "@prisma/client";
+import { PrismaLibSql } from "@prisma/adapter-libsql";
+import path from "path";
 
-// Use regular client for seeding (works with both SQLite and PostgreSQL)
-const prisma = new PrismaClient();
+// Use SQLite adapter for development seeding
+const dbPath = path.join(__dirname, "dev.db");
+const adapter = new PrismaLibSql({ url: `file:${dbPath}` });
+const prisma = new PrismaClient({ adapter });
 
 const products = [
   {
