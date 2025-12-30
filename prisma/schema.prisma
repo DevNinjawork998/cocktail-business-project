@@ -1,12 +1,12 @@
-// Development schema using SQLite
-// Copy this to schema.prisma for local development
+// Production schema using PostgreSQL with Prisma Accelerate
+// Copy this to schema.prisma for production deployment
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Product {
@@ -27,4 +27,4 @@ model Product {
   updatedAt       DateTime @updatedAt
 
   @@map("products")
-} 
+}
