@@ -37,7 +37,7 @@ describe("CartPage", () => {
     return render(
       <CartProvider>
         <CartPage />
-      </CartProvider>
+      </CartProvider>,
     );
   };
 
@@ -68,15 +68,15 @@ describe("CartPage", () => {
     // Check that elements are rendered in the correct order
     expect(
       navigation.compareDocumentPosition(breadcrumb) &
-        Node.DOCUMENT_POSITION_FOLLOWING
+        Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
     expect(
       breadcrumb.compareDocumentPosition(cartClient) &
-        Node.DOCUMENT_POSITION_FOLLOWING
+        Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
     expect(
       cartClient.compareDocumentPosition(footer) &
-        Node.DOCUMENT_POSITION_FOLLOWING
+        Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 });

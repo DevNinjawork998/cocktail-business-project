@@ -7,6 +7,7 @@
     "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier --write .",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -50,6 +51,7 @@
     "eslint-config-next": "15.3.4",
     "jest": "^30.0.3",
     "jest-environment-jsdom": "^30.0.2",
+    "prettier": "3.7.4",
     "prisma": "6.19.0",
     "tsx": "^4.20.3",
     "typescript": "^5"

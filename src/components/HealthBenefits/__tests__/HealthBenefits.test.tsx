@@ -20,7 +20,7 @@ describe("HealthBenefits", () => {
     render(<HealthBenefits />);
     expect(screen.getByText(/health benefits/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/ever wonder how we made mocktails/i)
+      screen.getByText(/ever wonder how we made mocktails/i),
     ).toBeInTheDocument();
   });
 
@@ -45,13 +45,13 @@ describe("HealthBenefits", () => {
     const macaButton = screen.getAllByRole("button", { name: /maca/i })[0];
     fireEvent.click(ashwagandhaButton);
     const ashwagandhaDesc = screen.getByText(
-      /ashwagandha is a powerful adaptogen/i
+      /ashwagandha is a powerful adaptogen/i,
     );
     expect(ashwagandhaDesc).toBeInTheDocument();
     fireEvent.click(macaButton);
     expect(ashwagandhaDesc).not.toBeVisible();
     expect(
-      screen.getByText(/maca root helps boost stamina/i)
+      screen.getByText(/maca root helps boost stamina/i),
     ).toBeInTheDocument();
   });
 });

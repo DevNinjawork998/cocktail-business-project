@@ -70,7 +70,7 @@ const renderCartContext = () => {
   return render(
     <CartProvider>
       <TestCartComponent />
-    </CartProvider>
+    </CartProvider>,
   );
 };
 
@@ -115,7 +115,7 @@ describe("CartContext", () => {
       expect(screen.getByTestId("total")).toHaveTextContent("$39.98");
       expect(screen.getByTestId("items-count")).toHaveTextContent("1");
       expect(screen.getByTestId("item-1")).toHaveTextContent(
-        "Saved Cocktail - Qty: 2 - $19.99"
+        "Saved Cocktail - Qty: 2 - $19.99",
       );
     });
 
@@ -140,7 +140,7 @@ describe("CartContext", () => {
         expect(screen.getByTestId("total")).toHaveTextContent("$29.99");
         expect(screen.getByTestId("items-count")).toHaveTextContent("1");
         expect(screen.getByTestId("item-1")).toHaveTextContent(
-          "Test Cocktail - Qty: 1 - $29.99"
+          "Test Cocktail - Qty: 1 - $29.99",
         );
       });
     });
@@ -156,7 +156,7 @@ describe("CartContext", () => {
         expect(screen.getByTestId("item-count")).toHaveTextContent("2");
         expect(screen.getByTestId("total")).toHaveTextContent("$59.98");
         expect(screen.getByTestId("item-1")).toHaveTextContent(
-          "Test Cocktail - Qty: 2 - $29.99"
+          "Test Cocktail - Qty: 2 - $29.99",
         );
       });
     });
@@ -202,7 +202,7 @@ describe("CartContext", () => {
         expect(screen.getByTestId("item-count")).toHaveTextContent("3");
         expect(screen.getByTestId("total")).toHaveTextContent("$89.97");
         expect(screen.getByTestId("item-1")).toHaveTextContent(
-          "Test Cocktail - Qty: 3 - $29.99"
+          "Test Cocktail - Qty: 3 - $29.99",
         );
       });
     });
@@ -227,7 +227,7 @@ describe("CartContext", () => {
             <TestCartComponent />
             <TestQuantityZero />
           </>
-        </CartProvider>
+        </CartProvider>,
       );
 
       // First add an item
@@ -264,7 +264,7 @@ describe("CartContext", () => {
             <TestCartComponent />
             <TestNegativeQuantity />
           </>
-        </CartProvider>
+        </CartProvider>,
       );
 
       // First add an item
@@ -354,7 +354,7 @@ describe("CartContext", () => {
             items: [],
             total: 0,
             itemCount: 0,
-          })
+          }),
         );
       });
     });

@@ -46,10 +46,10 @@ describe("LandingPage", () => {
   it("renders all CTA links", () => {
     render(<LandingPage />);
     expect(
-      screen.getByRole("link", { name: /start your journey/i })
+      screen.getByRole("link", { name: /start your journey/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /meet our founders/i })
+      screen.getByRole("link", { name: /meet our founders/i }),
     ).toBeInTheDocument();
   });
 });

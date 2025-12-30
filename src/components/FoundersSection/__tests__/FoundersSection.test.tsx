@@ -27,7 +27,7 @@ describe("FoundersSection", () => {
     render(<FoundersSection />);
     expect(screen.getByText(/our core values/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/premium, ethically-sourced ingredients/i)
+      screen.getByText(/premium, ethically-sourced ingredients/i),
     ).toBeInTheDocument();
   });
 

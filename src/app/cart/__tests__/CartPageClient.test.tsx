@@ -68,7 +68,7 @@ describe("CartPageClient", () => {
       <TestWrapper>
         {items.length > 0 && <CartHelper items={items} />}
         <CartPageClient />
-      </TestWrapper>
+      </TestWrapper>,
     );
   };
 
@@ -78,7 +78,7 @@ describe("CartPageClient", () => {
 
       expect(screen.getByText("Your cart is empty")).toBeInTheDocument();
       expect(
-        screen.getByText(/Looks like you haven't added any items/)
+        screen.getByText(/Looks like you haven't added any items/),
       ).toBeInTheDocument();
     });
 

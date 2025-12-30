@@ -56,8 +56,8 @@ describe("CheckoutPageClient", () => {
       expect(screen.getByText("Your cart is empty")).toBeInTheDocument();
       expect(
         screen.getByText(
-          "You need to add items to your cart before proceeding to checkout."
-        )
+          "You need to add items to your cart before proceeding to checkout.",
+        ),
       ).toBeInTheDocument();
       expect(screen.getByText("Back to Cart")).toBeInTheDocument();
     });
@@ -162,10 +162,10 @@ describe("CheckoutPageClient", () => {
         expect(screen.getByText("Full name is required")).toBeInTheDocument();
         expect(screen.getByText("Invalid email address")).toBeInTheDocument();
         expect(
-          screen.getByText("Phone number is required")
+          screen.getByText("Phone number is required"),
         ).toBeInTheDocument();
         expect(
-          screen.getByText("Delivery address is required")
+          screen.getByText("Delivery address is required"),
         ).toBeInTheDocument();
       });
     });
@@ -197,7 +197,7 @@ describe("CheckoutPageClient", () => {
 
       await waitFor(() => {
         expect(
-          screen.getByText("Please enter a valid phone number")
+          screen.getByText("Please enter a valid phone number"),
         ).toBeInTheDocument();
       });
     });
@@ -214,7 +214,7 @@ describe("CheckoutPageClient", () => {
 
       await waitFor(() => {
         expect(
-          screen.queryByText("Please enter a valid phone number")
+          screen.queryByText("Please enter a valid phone number"),
         ).not.toBeInTheDocument();
       });
     });
@@ -335,7 +335,7 @@ describe("CheckoutPageClient", () => {
       expect(mockOpen).not.toHaveBeenCalled();
       // Use findByText for error text
       expect(
-        await screen.findByText(/Full name is required/i)
+        await screen.findByText(/Full name is required/i),
       ).toBeInTheDocument();
     });
 

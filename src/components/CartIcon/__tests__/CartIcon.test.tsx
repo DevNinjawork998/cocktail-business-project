@@ -30,12 +30,12 @@ describe("CartIcon", () => {
   });
 
   const renderCartIcon = (
-    initialCartState: CartState = { items: [], itemCount: 0, total: 0 }
+    initialCartState: CartState = { items: [], itemCount: 0, total: 0 },
   ) => {
     return render(
       <CartProvider initialState={initialCartState}>
         <CartIcon />
-      </CartProvider>
+      </CartProvider>,
     );
   };
 
@@ -47,7 +47,7 @@ describe("CartIcon", () => {
     initial: CartState;
     children: (
       cart: CartState,
-      setCart: React.Dispatch<React.SetStateAction<CartState>>
+      setCart: React.Dispatch<React.SetStateAction<CartState>>,
     ) => React.ReactNode;
   }) => {
     const [cart, setCart] = React.useState(initial);
@@ -184,7 +184,7 @@ describe("CartIcon", () => {
           {(cart, setCart) => (
             <CartIconTestToast cart={cart} setCart={setCart} />
           )}
-        </CartTestWrapper>
+        </CartTestWrapper>,
       );
     });
 
@@ -254,7 +254,7 @@ describe("CartIcon", () => {
       rerender(
         <CartProvider initialState={mockCartStateReduced}>
           <CartIcon />
-        </CartProvider>
+        </CartProvider>,
       );
 
       await waitFor(() => {
@@ -283,7 +283,7 @@ describe("CartIcon", () => {
           {(cart, setCart) => (
             <CartIconTestToast cart={cart} setCart={setCart} />
           )}
-        </CartTestWrapper>
+        </CartTestWrapper>,
       );
       await waitFor(() => {
         expect(screen.queryByTestId("cart-toast")).not.toBeInTheDocument();
