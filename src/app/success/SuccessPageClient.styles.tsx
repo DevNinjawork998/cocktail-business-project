@@ -74,7 +74,7 @@ export const OrderItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: ${({ theme }) => theme.spacing.md};
-  background: white;
+  background: ${({ theme }) => theme.currentSemantic.background};
   border-radius: ${({ theme }) => theme.radii.md};
   box-shadow: ${({ theme }) => theme.shadows.sm};
 `;

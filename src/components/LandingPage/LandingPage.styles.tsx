@@ -274,7 +274,7 @@ export const ProductContainer = styled.div`
 `;
 
 export const ProductInner = styled.div`
-  background-color: white;
+  background-color: ${({ theme }) => theme.currentSemantic.background};
   border-radius: 1rem;
   padding: ${({ theme }) => theme.spacing.xl};
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
@@ -375,7 +375,7 @@ export const GlassHighlight = styled.div`
   right: ${({ theme }) => theme.spacing.sm};
   width: 0.5rem;
   height: 0.5rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.currentSemantic.background};
   border-radius: ${({ theme }) => theme.radii.full};
   opacity: 0.6;
 `;
@@ -561,7 +561,7 @@ export const Badge = styled.div`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.xs};
-  background-color: white;
+  background-color: ${({ theme }) => theme.currentSemantic.background};
   padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
   border-radius: ${({ theme }) => theme.radii.md};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
