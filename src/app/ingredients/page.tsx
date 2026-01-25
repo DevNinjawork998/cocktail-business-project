@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import Navigation from "@/components/Navigation/Navigation";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Footer from "@/components/Footer/Footer";
@@ -10,10 +11,6 @@ import {
   HeroTitle,
   HeroSubtitle,
   IngredientsSection,
-  FeaturedIngredient,
-  FeaturedTitle,
-  FeaturedCaption,
-  FeaturedBenefit,
   CarouselContainer,
   CarouselTrack,
   CarouselCardWrapper,
@@ -68,7 +65,6 @@ export default function IngredientsPage() {
   }, []);
 
   // Baobab is the featured ingredient
-  const featuredIngredient = ingredients.find((ing) => ing.name === "Baobab");
   const otherIngredients = ingredients.filter((ing) => ing.name !== "Baobab");
 
   const breadcrumbItems = [{ label: "Ingredients" }];
@@ -150,13 +146,15 @@ export default function IngredientsPage() {
                         <IngredientCard>
                           {ingredient.imageUrl && !imageErrors.has(ingredient.id) ? (
                             <IngredientImage>
-                              <img
+                              <Image
                                 src={ingredient.imageUrl}
                                 alt={ingredient.name}
+                                fill
+                                sizes="(max-width: 768px) 150px, 200px"
+                                style={{ objectFit: "cover", pointerEvents: "none" }}
                                 onError={() => {
                                   setImageErrors((prev) => new Set(prev).add(ingredient.id));
                                 }}
-                                style={{ pointerEvents: "none" }}
                               />
                             </IngredientImage>
                           ) : (

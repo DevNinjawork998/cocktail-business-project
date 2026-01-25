@@ -38,10 +38,6 @@ const CTABanner = dynamic(() => import("@/components/CTABanner/CTABanner"), {
   ssr: false,
 });
 
-const Community = dynamic(() => import("@/components/Community/Community"), {
-  ssr: false,
-});
-
 const FounderStory = dynamic(
   () => import("@/components/FounderStory/FounderStory"),
   {

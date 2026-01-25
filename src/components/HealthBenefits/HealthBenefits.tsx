@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   Section,
   Headline,
@@ -34,6 +35,7 @@ const HealthBenefits = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [loading, setLoading] = useState(true);
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -68,17 +70,7 @@ const HealthBenefits = () => {
     );
   }
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    // Prevent infinite loop - if already using fallback, use placeholder
-    const currentSrc = e.currentTarget.src;
-    if (currentSrc.includes("unsplash.com") || currentSrc.includes("data:")) {
-      // Already using fallback, use a transparent placeholder to stop errors
-      e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23f0f0f0' width='400' height='300'/%3E%3C/svg%3E";
-      return;
-    }
-    // Fallback to Unsplash placeholder
-    e.currentTarget.src = "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=400&h=300&fit=crop&q=80";
-  };
+  const fallbackImageUrl = "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=400&h=300&fit=crop&q=80";
 
   return (
     <Section>
@@ -127,11 +119,19 @@ const HealthBenefits = () => {
                 <CardFront>
                   <IngredientCard>
                     <IngredientImage>
-                      <img
-                        src={ingredient.imageUrl || "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=400&h=300&fit=crop&q=80"}
+                      <Image
+                        src={
+                          imageErrors.has(ingredient.id)
+                            ? fallbackImageUrl
+                            : ingredient.imageUrl || fallbackImageUrl
+                        }
                         alt={ingredient.name}
-                        onError={handleImageError}
-                        style={{ pointerEvents: "none" }}
+                        fill
+                        sizes="(max-width: 768px) 200px, 300px"
+                        style={{ objectFit: "cover", pointerEvents: "none" }}
+                        onError={() => {
+                          setImageErrors((prev) => new Set(prev).add(ingredient.id));
+                        }}
                       />
                     </IngredientImage>
                     <IngredientContent>

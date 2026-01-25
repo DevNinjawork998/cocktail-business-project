@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import * as S from "./ProductShowcase.styles";
 import { getAllProducts, Product } from "@/data/productService";
 
@@ -58,9 +59,12 @@ const ProductShowcase: React.FC = () => {
             <S.ProductCard key={product.id} href={`/shop/${product.id}`} as={Link}>
               <S.ProductImage>
                 {product.imageUrl ? (
-                  <img 
+                  <Image 
                     src={product.imageUrl} 
-                    alt={product.name} 
+                    alt={product.name}
+                    fill
+                    sizes="(max-width: 768px) 200px, 300px"
+                    style={{ objectFit: "contain" }}
                   />
                 ) : (
                   <S.ProductImagePlaceholder $bgColor={product.imageColor}>

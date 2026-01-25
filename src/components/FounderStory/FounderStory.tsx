@@ -7,7 +7,6 @@ import {
   Container,
   ContentGrid,
   ImageContainer,
-  FounderImage,
   ContentContainer,
   Label,
   Title,
