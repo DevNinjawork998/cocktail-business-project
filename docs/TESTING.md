@@ -120,15 +120,16 @@ describe("MyComponent", () => {
 Pure functions should be tested for various inputs and edge cases:
 
 ```tsx
-import { formatPrice, calculatePriceWithTax } from "../utils";
-
-describe("Price Utils", () => {
-  it("formats price correctly", () => {
-    expect(formatPrice(29.99)).toBe("$29.99");
+// Example: Testing a utility function
+describe("Utility Function", () => {
+  it("handles valid input correctly", () => {
+    const result = utilityFunction(validInput);
+    expect(result).toBe(expectedOutput);
   });
 
-  it("calculates tax correctly", () => {
-    expect(calculatePriceWithTax(100)).toBe(108);
+  it("handles edge cases", () => {
+    const result = utilityFunction(edgeCaseInput);
+    expect(result).toBeDefined();
   });
 });
 ```

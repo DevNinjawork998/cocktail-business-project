@@ -1,165 +1,157 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   Section,
   Headline,
   Intro,
-  IngredientList,
-  IngredientItem,
-  IngredientHeader,
-  IngredientIcon,
+  IngredientsGrid,
+  IngredientCard,
+  IngredientImage,
+  IngredientContent,
   IngredientName,
-  IngredientDropdown,
-  IngredientDescription,
-  ChevronIcon,
+  IngredientSubtitle,
+  FlipCardContainer,
+  FlipCard,
+  CardFront,
+  CardBack,
+  BackContent,
+  BackTitle,
+  BackSubtitle,
+  BackDescription,
 } from "./HealthBenefits.styles";
 
-const ingredients = [
-  {
-    icon: "🪷",
-    name: "Ashwagandha",
-    subtitle: "Promotes relaxation",
-    description:
-      "Ashwagandha is a powerful adaptogen used to reduce stress and support hormonal balance.",
-    type: "Adaptogen",
-  },
-  {
-    icon: "🥄",
-    name: "Maca",
-    subtitle: "Fosters vitality",
-    description:
-      "Maca root helps boost stamina and naturally balance hormones without caffeine.",
-    type: "Adaptogen",
-  },
-  {
-    icon: "🌳",
-    name: "Baobab",
-    subtitle: "Supplies vitamin C",
-    description:
-      "Baobab is rich in antioxidants and fiber, promoting healthy digestion and immune strength.",
-    type: "Adaptogen",
-  },
-  {
-    icon: "🫚",
-    name: "Ginger",
-    subtitle: "Aids digestion",
-    description:
-      "Ginger soothes the digestive tract and has anti-inflammatory effects.",
-    type: "Adaptogen",
-  },
-  {
-    icon: "🍊",
-    name: "Orange",
-    subtitle: "High in antioxidants",
-    description:
-      "Oranges are a natural source of Vitamin C and bioflavonoids to boost immunity.",
-    type: "Fruit",
-  },
-  {
-    icon: "🍏",
-    name: "Apple",
-    subtitle: "Good source of fiber",
-    description:
-      "Apples contain fiber and plant nutrients that support digestion and heart health.",
-    type: "Fruit",
-  },
-  {
-    icon: "🫐",
-    name: "Cranberry",
-    subtitle: "Supports immunity",
-    description:
-      "Cranberries help prevent UTIs and provide polyphenols that reduce inflammation.",
-    type: "Fruit",
-  },
-  {
-    icon: "🍫",
-    name: "Cacao",
-    subtitle: "Contains polyphenols",
-    description: "Cacao is rich in mood-lifting flavonoids and magnesium.",
-    type: "Natural Flavor",
-  },
-  {
-    icon: "☕️",
-    name: "Coffee",
-    subtitle: "Provides a bold taste",
-    description: "Coffee is a natural stimulant loaded with antioxidants.",
-    type: "Natural Flavor",
-  },
-  {
-    icon: "🌰",
-    name: "Cinnamon",
-    subtitle: "Flavored with spice",
-    description:
-      "Cinnamon helps regulate blood sugar and adds warmth to drinks.",
-    type: "Natural Flavor",
-  },
-  {
-    icon: "🍯",
-    name: "Honey",
-    subtitle: "Naturally sweet",
-    description:
-      "Honey is a natural sweetener with antibacterial and antioxidant benefits.",
-    type: "Natural Flavor",
-  },
-];
-
-const typeColors = {
-  Adaptogen: "#fff", // white
-  Fruit: "#FFE9A7", // yellow
-  "Natural Flavor": "#DFF5D8", // green
-};
+interface Ingredient {
+  id: string;
+  name: string;
+  icon: string;
+  imageUrl?: string | null;
+  subtitle: string;
+  description: string;
+  type: string;
+  order: number;
+}
 
 const HealthBenefits = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
 
-  const handleToggle = (idx: number) => {
-    setOpenIndex(openIndex === idx ? null : idx);
-  };
+  useEffect(() => {
+    const fetchIngredients = async () => {
+      try {
+        const response = await fetch("/api/ingredients");
+        if (!response.ok) {
+          throw new Error("Failed to fetch ingredients");
+        }
+        const data = await response.json();
+        setIngredients(data);
+      } catch (error) {
+        console.error("Error fetching ingredients:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchIngredients();
+  }, []);
+
+  if (loading) {
+    return (
+      <Section>
+        <Headline>Real Ingredients. Real Results.</Headline>
+        <Intro>
+          We source the finest fruits from sustainable farms. No concentrates, no shortcuts.
+        </Intro>
+        <div style={{ textAlign: "center", padding: "2rem" }}>
+          Loading ingredients...
+        </div>
+      </Section>
+    );
+  }
+
+  const fallbackImageUrl = "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=400&h=300&fit=crop&q=80";
 
   return (
     <Section>
-      <Headline>Health Benefits</Headline>
+      <Headline>Real Ingredients. Real Results.</Headline>
       <Intro>
-        <strong>
-          Ever wonder how we made mocktails taste this good and still be good
-          for you?
-        </strong>
-        <br />
-        &quot;It&apos;s no accident. We carefully chose ingredients backed by
-        science and tradition. Adaptogens for stress, antioxidants for glow, and
-        botanicals to keep your gut happy. Every sip works as hard as you
-        do.&quot;
+        We source the finest fruits from sustainable farms. No concentrates, no shortcuts.
       </Intro>
-      <IngredientList>
-        {ingredients.map((ingredient, idx) => (
-          <IngredientItem
-            key={ingredient.name}
-            $typecolor={typeColors[ingredient.type as keyof typeof typeColors]}
-          >
-            <IngredientHeader onClick={() => handleToggle(idx)}>
-              <IngredientIcon>{ingredient.icon}</IngredientIcon>
-              <IngredientName>
-                {ingredient.name}
-                <br />
-                <span
-                  style={{
-                    fontWeight: 400,
-                    fontStyle: "italic",
-                    fontSize: "0.95em",
-                  }}
-                >
-                  {ingredient.subtitle}
-                </span>
-              </IngredientName>
-              <ChevronIcon open={openIndex === idx}>▼</ChevronIcon>
-            </IngredientHeader>
-            <IngredientDropdown open={openIndex === idx}>
-              <IngredientDescription>
-                {ingredient.description}
-              </IngredientDescription>
-            </IngredientDropdown>
-          </IngredientItem>
-        ))}
-      </IngredientList>
+      <IngredientsGrid>
+        {ingredients.map((ingredient) => {
+          const isFlipped = flippedCards.has(ingredient.id);
+          
+          return (
+            <FlipCardContainer key={ingredient.id}>
+              <FlipCard
+                $isFlipped={isFlipped}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setFlippedCards((prev) => {
+                    const newSet = new Set(prev);
+                    if (newSet.has(ingredient.id)) {
+                      newSet.delete(ingredient.id);
+                    } else {
+                      newSet.add(ingredient.id);
+                    }
+                    return newSet;
+                  });
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setFlippedCards((prev) => {
+                      const newSet = new Set(prev);
+                      if (newSet.has(ingredient.id)) {
+                        newSet.delete(ingredient.id);
+                      } else {
+                        newSet.add(ingredient.id);
+                      }
+                      return newSet;
+                    });
+                  }
+                }}
+              >
+                <CardFront>
+                  <IngredientCard>
+                    <IngredientImage>
+                      <Image
+                        src={
+                          imageErrors.has(ingredient.id)
+                            ? fallbackImageUrl
+                            : ingredient.imageUrl || fallbackImageUrl
+                        }
+                        alt={ingredient.name}
+                        fill
+                        sizes="(max-width: 768px) 200px, 300px"
+                        style={{ objectFit: "cover", pointerEvents: "none" }}
+                        onError={() => {
+                          setImageErrors((prev) => new Set(prev).add(ingredient.id));
+                        }}
+                      />
+                    </IngredientImage>
+                    <IngredientContent>
+                      <IngredientName>{ingredient.name}</IngredientName>
+                      <IngredientSubtitle>{ingredient.subtitle}</IngredientSubtitle>
+                    </IngredientContent>
+                  </IngredientCard>
+                </CardFront>
+                <CardBack>
+                  <BackContent>
+                    <BackTitle>{ingredient.name}</BackTitle>
+                    <BackSubtitle>{ingredient.subtitle}</BackSubtitle>
+                    <BackDescription>{ingredient.description}</BackDescription>
+                  </BackContent>
+                </CardBack>
+              </FlipCard>
+            </FlipCardContainer>
+          );
+        })}
+      </IngredientsGrid>
     </Section>
   );
 };

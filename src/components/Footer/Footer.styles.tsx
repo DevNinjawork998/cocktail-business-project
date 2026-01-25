@@ -21,10 +21,88 @@ export const FooterWrapper = styled.div`
 `;
 
 export const FooterContent = styled.div`
-  text-align: center;
   display: flex;
   flex-direction: column;
+  gap: ${({ theme }) => theme.spacing["3xl"]};
+`;
+
+export const FooterTop = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
   gap: ${({ theme }) => theme.spacing["2xl"]};
+  text-align: center;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      grid-template-columns: 2fr 1fr 1fr;
+      text-align: left;
+      gap: ${theme.spacing["3xl"]};
+    }
+  `}
+`;
+
+export const BrandSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md};
+`;
+
+export const BrandLogo = styled.h3`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.caramel.base};
+  margin-bottom: ${({ theme }) => theme.spacing.sm};
+`;
+
+export const BrandDescription = styled.p`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.mauvelous.base};
+  line-height: 1.6;
+  max-width: 400px;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      margin: 0;
+    }
+  `}
+`;
+
+export const NavigationColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md};
+`;
+
+export const ColumnTitle = styled.h4`
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.caramel.base};
+  margin-bottom: ${({ theme }) => theme.spacing.sm};
+`;
+
+export const NavLinksList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm};
+`;
+
+export const NavLinkItem = styled.li`
+  margin: 0;
+`;
+
+export const NavLink = styled.a`
+  color: ${({ theme }) => theme.colors.mauvelous.base};
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.caramel.base};
+  }
 `;
 
 export const TaglineSection = styled.div`
@@ -155,22 +233,65 @@ export const DividerLine = styled.div`
   margin: ${({ theme }) => theme.spacing.md} 0;
 `;
 
+export const FooterBottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md};
+  align-items: center;
+  padding-top: ${({ theme }) => theme.spacing.lg};
+  border-top: 1px solid rgba(234, 157, 174, 0.2);
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  `}
+`;
+
 export const CopyrightSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
+  gap: ${({ theme }) => theme.spacing.xs};
   align-items: center;
+  text-align: center;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      align-items: flex-start;
+      text-align: left;
+    }
+  `}
 `;
 
 export const CopyrightText = styled.p`
-  color: ${({ theme }) => theme.colors.mauvelous.base};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   font-size: 0.875rem;
-  opacity: 0.8;
+  margin: 0;
 `;
 
-export const BrandText = styled.div`
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.caramel.base};
-  opacity: 0.6;
-  font-weight: 500;
+export const LegalLinks = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.lg};
+  flex-wrap: wrap;
+  justify-content: center;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      justify-content: flex-end;
+    }
+  `}
+`;
+
+export const LegalLink = styled.a`
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.caramel.base};
+    opacity: 1;
+  }
 `;

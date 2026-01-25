@@ -6,20 +6,32 @@ import "@jest/globals";
 describe("Footer", () => {
   it("renders all social links with correct href and aria-label", () => {
     render(<Footer />);
-    const links = screen.getAllByRole("link");
-    // Check at least 4 social links
-    expect(links.length).toBeGreaterThanOrEqual(4);
-    links.forEach((link) => {
-      expect(link).toHaveAttribute("href");
-      expect(link).toHaveAttribute("aria-label");
-      expect(link).toHaveAttribute("target", "_blank");
-      expect(link).toHaveAttribute("rel", "noopener noreferrer");
-    });
+    // Get social links specifically by their aria-labels
+    const instagramLink = screen.getByLabelText("Follow us on Instagram");
+    const tiktokLink = screen.getByLabelText("Follow us on TikTok");
+    const whatsappLink = screen.getByLabelText("Contact us on WhatsApp");
+
+    expect(instagramLink).toHaveAttribute("href");
+    expect(instagramLink).toHaveAttribute("aria-label", "Follow us on Instagram");
+    expect(instagramLink).toHaveAttribute("target", "_blank");
+    expect(instagramLink).toHaveAttribute("rel", "noopener noreferrer");
+
+    expect(tiktokLink).toHaveAttribute("href");
+    expect(tiktokLink).toHaveAttribute("aria-label", "Follow us on TikTok");
+    expect(tiktokLink).toHaveAttribute("target", "_blank");
+    expect(tiktokLink).toHaveAttribute("rel", "noopener noreferrer");
+
+    expect(whatsappLink).toHaveAttribute("href");
+    expect(whatsappLink).toHaveAttribute("aria-label", "Contact us on WhatsApp");
+    expect(whatsappLink).toHaveAttribute("target", "_blank");
+    expect(whatsappLink).toHaveAttribute("rel", "noopener noreferrer");
   });
 
   it("renders copyright text", () => {
     render(<Footer />);
-    expect(screen.getByText(/© 2024 Cocktail Business/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/© 2025 Mocktails On the Go. All rights reserved./i),
+    ).toBeInTheDocument();
   });
 
   it("renders main tagline", () => {
@@ -32,5 +44,34 @@ describe("Footer", () => {
   it("renders social section title", () => {
     render(<Footer />);
     expect(screen.getByText(/connect with us/i)).toBeInTheDocument();
+  });
+
+  it("renders navigation columns", () => {
+    render(<Footer />);
+    expect(screen.getByText("Shop")).toBeInTheDocument();
+    expect(screen.getByText("Company")).toBeInTheDocument();
+  });
+
+  it("renders shop navigation links", () => {
+    render(<Footer />);
+    expect(screen.getByText("All Products")).toBeInTheDocument();
+    expect(screen.getByText("Best Sellers")).toBeInTheDocument();
+    expect(screen.getByText("New Arrivals")).toBeInTheDocument();
+    expect(screen.getByText("Subscriptions")).toBeInTheDocument();
+  });
+
+  it("renders company navigation links", () => {
+    render(<Footer />);
+    expect(screen.getByText("About Us")).toBeInTheDocument();
+    expect(screen.getByText("Our Story")).toBeInTheDocument();
+    expect(screen.getByText("Contact")).toBeInTheDocument();
+    expect(screen.getByText("Careers")).toBeInTheDocument();
+  });
+
+  it("renders legal links", () => {
+    render(<Footer />);
+    expect(screen.getByText("Privacy Policy")).toBeInTheDocument();
+    expect(screen.getByText("Terms of Service")).toBeInTheDocument();
+    expect(screen.getByText("Shipping")).toBeInTheDocument();
   });
 });

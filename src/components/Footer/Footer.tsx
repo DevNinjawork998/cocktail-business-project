@@ -1,22 +1,34 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import {
   FooterContainer,
   FooterWrapper,
   FooterContent,
+  FooterTop,
+  BrandSection,
+  BrandLogo,
+  BrandDescription,
   TaglineSection,
   MainTagline,
   SubTagline,
+  NavigationColumn,
+  ColumnTitle,
+  NavLinksList,
+  NavLinkItem,
+  NavLink,
   SocialSection,
   SocialTitle,
   SocialLinksContainer,
   SocialLinkButton,
   SocialIcon,
   DividerLine,
+  FooterBottom,
   CopyrightSection,
   CopyrightText,
-  BrandText,
+  LegalLinks,
+  LegalLink,
 } from "./Footer.styles";
 
 // Social Media Icons as SVG components
@@ -56,18 +68,6 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const XIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{ width: "100%", height: "100%" }}
-  >
-    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-  </svg>
-);
-
 interface SocialLinkProps {
   href: string;
   icon: React.ReactNode;
@@ -88,7 +88,7 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, label }) => (
 const Footer: React.FC = () => {
   const socialLinks = [
     {
-      href: "https://instagram.com",
+      href: "https://instagram.com/mocktailsonthego",
       icon: <InstagramIcon />,
       label: "Follow us on Instagram",
     },
@@ -102,18 +102,73 @@ const Footer: React.FC = () => {
       icon: <WhatsAppIcon />,
       label: "Contact us on WhatsApp",
     },
-    {
-      href: "https://x.com",
-      icon: <XIcon />,
-      label: "Follow us on X",
-    },
+  ];
+
+  const shopLinks = [
+    { label: "All Products", href: "/shop" },
+    { label: "Best Sellers", href: "/shop#best-sellers" },
+    { label: "New Arrivals", href: "/shop#new-arrivals" },
+    { label: "Subscriptions", href: "/shop#subscriptions" },
+  ];
+
+  const companyLinks = [
+    { label: "About Us", href: "/founders" },
+    { label: "Our Story", href: "/founders" },
+    { label: "Contact", href: "/contact" },
+    { label: "Careers", href: "/careers" },
+  ];
+
+  const legalLinks = [
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
+    { label: "Shipping", href: "/shipping" },
   ];
 
   return (
     <FooterContainer>
       <FooterWrapper>
         <FooterContent>
-          {/* Main tagline */}
+          {/* Top Section with Brand and Navigation */}
+          <FooterTop>
+            {/* Brand Section */}
+            <BrandSection>
+              <BrandLogo>Mocktails On the Go</BrandLogo>
+              <BrandDescription>
+                Crafting the future of functional beverages. Fresh fruits,
+                adaptogens, and zero compromise on taste.
+              </BrandDescription>
+            </BrandSection>
+
+            {/* Shop Links */}
+            <NavigationColumn>
+              <ColumnTitle>Shop</ColumnTitle>
+              <NavLinksList>
+                {shopLinks.map((link, index) => (
+                  <NavLinkItem key={index}>
+                    <NavLink as={Link} href={link.href}>
+                      {link.label}
+                    </NavLink>
+                  </NavLinkItem>
+                ))}
+              </NavLinksList>
+            </NavigationColumn>
+
+            {/* Company Links */}
+            <NavigationColumn>
+              <ColumnTitle>Company</ColumnTitle>
+              <NavLinksList>
+                {companyLinks.map((link, index) => (
+                  <NavLinkItem key={index}>
+                    <NavLink as={Link} href={link.href}>
+                      {link.label}
+                    </NavLink>
+                  </NavLinkItem>
+                ))}
+              </NavLinksList>
+            </NavigationColumn>
+          </FooterTop>
+
+          {/* Tagline Section */}
           <TaglineSection>
             <MainTagline>Catch the vibe, not the hangover.</MainTagline>
             <SubTagline>
@@ -140,15 +195,21 @@ const Footer: React.FC = () => {
           {/* Divider */}
           <DividerLine />
 
-          {/* Copyright section */}
-          <CopyrightSection>
-            <CopyrightText>
-              © 2024 Cocktail Business. All rights reserved.
-            </CopyrightText>
-            <BrandText>
-              Crafted with ♥ for premium cocktail experiences
-            </BrandText>
-          </CopyrightSection>
+          {/* Bottom Section with Copyright and Legal */}
+          <FooterBottom>
+            <CopyrightSection>
+              <CopyrightText>
+                © 2025 Mocktails On the Go. All rights reserved.
+              </CopyrightText>
+            </CopyrightSection>
+            <LegalLinks>
+              {legalLinks.map((link, index) => (
+                <LegalLink key={index} as={Link} href={link.href}>
+                  {link.label}
+                </LegalLink>
+              ))}
+            </LegalLinks>
+          </FooterBottom>
         </FooterContent>
       </FooterWrapper>
     </FooterContainer>

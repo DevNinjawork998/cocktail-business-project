@@ -1,9 +1,18 @@
 import styled from "styled-components";
 
 export const BreadcrumbContainer = styled.nav`
-  padding: ${({ theme }) => theme.spacing.md} 0;
-  border-bottom: 1px solid ${({ theme }) => theme.currentSemantic.borderLight};
-  background-color: ${({ theme }) => theme.currentSemantic.surface};
+  padding: 12px 0;
+  border-top: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  border-bottom: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  background-color: ${({ theme }) => theme.currentSemantic.background};
+  position: relative;
+  z-index: 40;
+  width: 100%;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 40px;
+  box-sizing: border-box;
 `;
 
 export const BreadcrumbWrapper = styled.div`
@@ -13,40 +22,53 @@ export const BreadcrumbWrapper = styled.div`
 `;
 
 export const BreadcrumbList = styled.ol`
-  display: flex;
+  display: flex !important;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
+  gap: 8px;
   list-style: none;
   margin: 0;
   padding: 0;
+  visibility: visible !important;
 `;
 
 export const BreadcrumbItem = styled.li`
-  display: flex;
+  display: flex !important;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
+  gap: 8px;
+  visibility: visible !important;
 `;
 
 export const BreadcrumbLink = styled.div`
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  color: #451515;
   text-decoration: none;
   font-size: 0.875rem;
   cursor: pointer;
   transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
 
   &:hover {
-    color: ${({ theme }) => theme.semantic.secondary};
+    color: #3a1111;
+  }
+  
+  svg {
+    color: #451515;
   }
 `;
 
 export const BreadcrumbCurrent = styled.span`
-  color: ${({ theme }) => theme.currentSemantic.foreground};
+  color: #451515;
   font-size: 0.875rem;
   font-weight: 500;
 `;
 
 export const BreadcrumbSeparator = styled.span`
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  color: #A0A0A0;
   font-size: 0.875rem;
-  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  
+  svg {
+    color: #A0A0A0;
+  }
 `;

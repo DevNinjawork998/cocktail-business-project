@@ -36,25 +36,25 @@ export const LandingSection = styled.section`
 
 export const GradientBackground = styled.div`
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: linear-gradient(
     135deg,
-    ${({ theme }) => theme.colors.caramel.base} 0%,
-    ${({ theme }) => theme.colors.mauvelous.base} 50%,
-    ${({ theme }) => theme.colors.royalOrange.base} 100%
+    #FFE5E5 0%,
+    #FFD4C4 50%,
+    #FFB88C 100%
   );
-  opacity: 0.2;
+  opacity: 1;
+  z-index: 0;
+  pointer-events: none;
 `;
 
 export const OverlayBackground = styled.div`
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    ${({ theme }) => theme.currentSemantic.background} 0%,
-    transparent 50%,
-    transparent 100%
-  );
+  background: transparent;
 `;
 
 export const Container = styled.div`
@@ -118,12 +118,12 @@ export const Title = styled.h1`
 `;
 
 export const TitleAccent = styled.span`
-  color: ${({ theme }) => theme.semantic.secondary};
+  color: #F7941D;
 `;
 
 export const Subtitle = styled.p`
   font-size: 1.25rem;
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   line-height: 1.6;
   max-width: 32rem;
 
@@ -135,11 +135,15 @@ export const Subtitle = styled.p`
 `;
 
 export const CTAContainer = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.md};
+  flex-wrap: wrap;
+  align-items: center;
   padding-top: ${({ theme }) => theme.spacing.md};
 `;
 
 export const CTAButton = styled.div`
-  background-color: ${({ theme }) => theme.semantic.secondary};
+  background-color: #451515;
   color: white;
   padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
   border-radius: ${({ theme }) => theme.radii.full};
@@ -153,7 +157,7 @@ export const CTAButton = styled.div`
   display: inline-block;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.bittersweetShimmer.base};
+    background-color: #3a1111;
     transform: scale(1.05);
     box-shadow: ${({ theme }) => theme.shadows.xl};
   }
@@ -163,6 +167,28 @@ export const CTAContent = styled.span`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
+`;
+
+export const CTAButtonSecondary = styled(CTAButton)`
+  background: transparent;
+  border: 2px solid ${({ theme }) => theme.colors.chocolateKisses.base};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  box-shadow: none;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.chocolateKisses.base};
+    color: white;
+    transform: scale(1.05);
+    box-shadow: ${({ theme }) => theme.shadows.xl};
+  }
+`;
+
+export const CTAContentSecondary = styled(CTAContent)`
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+
+  ${CTAButtonSecondary}:hover & {
+    color: white;
+  }
 `;
 
 export const CTAIcon = styled.svg`
@@ -176,23 +202,22 @@ export const CTAIcon = styled.svg`
 `;
 
 export const FeaturesGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: ${({ theme }) => theme.spacing.lg};
+  display: flex;
+  flex-direction: row;
+  gap: ${({ theme }) => theme.spacing.xl};
   padding-top: ${({ theme }) => theme.spacing.xl};
+  align-items: flex-start;
+  flex-wrap: wrap;
 `;
 
 export const FeatureCard = styled.div`
-  text-align: center;
-  padding: ${({ theme }) => theme.spacing.md};
-  background-color: ${({ theme }) => theme.currentSemantic.surface};
-  border-radius: ${({ theme }) => theme.radii.lg};
-  border: 1px solid ${({ theme }) => theme.currentSemantic.borderLight};
-  transition: box-shadow 0.3s ease;
-
-  &:hover {
-    box-shadow: ${({ theme }) => theme.shadows.md};
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ${({ theme }) => theme.spacing.xs};
+  padding: 0;
+  background: transparent;
+  border: none;
 `;
 
 export const FeatureIcon = styled.div`
@@ -204,6 +229,18 @@ export const FeatureText = styled.div`
   font-size: 0.875rem;
   font-weight: 500;
   color: ${({ theme }) => theme.currentSemantic.foreground};
+  
+  &:first-child {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #451515;
+    line-height: 1.2;
+  }
+  
+  &:not(:first-child) {
+    font-size: 0.875rem;
+    color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  }
 `;
 
 export const RightContent = styled.div`
@@ -237,7 +274,7 @@ export const ProductContainer = styled.div`
 `;
 
 export const ProductInner = styled.div`
-  background-color: white;
+  background-color: ${({ theme }) => theme.currentSemantic.background};
   border-radius: 1rem;
   padding: ${({ theme }) => theme.spacing.xl};
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
@@ -338,7 +375,7 @@ export const GlassHighlight = styled.div`
   right: ${({ theme }) => theme.spacing.sm};
   width: 0.5rem;
   height: 0.5rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.currentSemantic.background};
   border-radius: ${({ theme }) => theme.radii.full};
   opacity: 0.6;
 `;
@@ -417,100 +454,6 @@ export const DecorativeElement2 = styled.div`
   filter: blur(3rem);
 `;
 
-export const FoundersSection = styled.div`
-  margin-top: 5rem;
-  padding-top: 4rem;
-  border-top: 1px solid ${({ theme }) => theme.currentSemantic.border};
-`;
-
-export const FoundersContainer = styled.div`
-  position: relative;
-  border-radius: 1.5rem;
-  padding: ${({ theme }) => theme.spacing.xl};
-  background-color: ${({ theme }) => theme.currentSemantic.surface};
-  border: 1px solid ${({ theme }) => theme.currentSemantic.borderLight};
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to right,
-      ${({ theme }) => theme.colors.mauvelous.base} 0%,
-      ${({ theme }) => theme.colors.caramel.base} 50%,
-      ${({ theme }) => theme.colors.royalOrange.base} 100%
-    );
-    opacity: 0.1;
-    border-radius: 1.5rem;
-    z-index: -1;
-  }
-
-  ${({ theme }) => `
-    @media (min-width: ${theme.breakpoints.md}) {
-      padding: ${theme.spacing["3xl"]};
-    }
-  `}
-`;
-
-export const FoundersContent = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg};
-`;
-
-export const FoundersHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
-`;
-
-export const FoundersTitle = styled.h2`
-  font-size: 1.875rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.semantic.primary};
-
-  ${({ theme }) => `
-    @media (min-width: ${theme.breakpoints.md}) {
-      font-size: 2.25rem;
-    }
-  `}
-`;
-
-export const FoundersDescription = styled.p`
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
-  max-width: 42rem;
-  margin: 0 auto;
-`;
-
-export const FoundersButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-top: ${({ theme }) => theme.spacing.md};
-`;
-
-export const FoundersButton = styled.div`
-  background-color: ${({ theme }) => theme.semantic.primary};
-  color: white;
-  padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
-  border-radius: ${({ theme }) => theme.radii.full};
-  font-weight: 600;
-  font-size: 1.125rem;
-  transition: all 0.3s ease;
-  transform: scale(1);
-  box-shadow: ${({ theme }) => theme.shadows.lg};
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.semantic.secondary};
-    transform: scale(1.05);
-    box-shadow: ${({ theme }) => theme.shadows.xl};
-  }
-`;
-
 export const PreviewCards = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -581,7 +524,7 @@ export const CardTitle = styled.h3`
 
 export const CardDescription = styled.p`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
 `;
 
 export const StatsSection = styled.div`
@@ -611,5 +554,24 @@ export const StatNumber = styled.div`
 
 export const StatLabel = styled.div`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+`;
+
+export const Badge = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xs};
+  background-color: ${({ theme }) => theme.currentSemantic.background};
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
+  border-radius: ${({ theme }) => theme.radii.md};
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  box-shadow: ${({ theme }) => theme.shadows.sm};
+  width: fit-content;
+  
+  &::before {
+    content: "✨";
+    font-size: 1rem;
+  }
 `;

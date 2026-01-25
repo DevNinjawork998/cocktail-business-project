@@ -3,53 +3,76 @@ import { render, screen } from "../../../__tests__/test-utils";
 import LandingPage from "../LandingPage";
 import "@jest/globals";
 
+// Mock dynamic imports
+jest.mock("../../RunningBanner/RunningBanner", () => {
+  return function MockRunningBanner() {
+    return <div data-testid="running-banner">Running Banner</div>;
+  };
+});
+
+jest.mock("../../HeroSlideshow/HeroSlideshow", () => {
+  return function MockHeroSlideshow() {
+    return <div data-testid="hero-slideshow">Hero Slideshow</div>;
+  };
+});
+
 describe("LandingPage", () => {
-  it("renders hero section", () => {
+  it("renders badge text", () => {
     render(<LandingPage />);
-    expect(screen.getByText(/premium meets/i)).toBeInTheDocument();
+    expect(screen.getByText(/Fresh. Functional. Delicious./i)).toBeInTheDocument();
   });
 
-  it("renders features section", () => {
+  it("renders main title", () => {
     render(<LandingPage />);
-    const premiumIngredients = screen.getAllByText(/premium ingredients/i);
-    const fastDelivery = screen.getAllByText(/fast delivery/i);
-    expect(premiumIngredients.length).toBeGreaterThan(0);
-    expect(fastDelivery.length).toBeGreaterThan(0);
+    expect(screen.getByText(/Mocktails that fuel/i)).toBeInTheDocument();
+    expect(screen.getByText(/your day/i)).toBeInTheDocument();
   });
 
-  it("renders founders section", () => {
-    render(<LandingPage />);
-    expect(screen.getByText(/meet the visionaries/i)).toBeInTheDocument();
-    const alexElements = screen.getAllByText(/alex/i);
-    const marcusElements = screen.getAllByText(/marcus/i);
-    expect(alexElements.length).toBeGreaterThan(0);
-    expect(marcusElements.length).toBeGreaterThan(0);
-  });
-
-  it("renders stats section", () => {
-    render(<LandingPage />);
-    const happyCustomers = screen.getAllByText(/happy customers/i);
-    const cocktailRecipes = screen.getAllByText(/cocktail recipes/i);
-    const averageRating = screen.getAllByText(/average rating/i);
-    const support = screen.getAllByText(/support/i);
-    expect(happyCustomers.length).toBeGreaterThan(0);
-    expect(cocktailRecipes.length).toBeGreaterThan(0);
-    expect(averageRating.length).toBeGreaterThan(0);
-    expect(support.length).toBeGreaterThan(0);
-  });
-
-  it("renders testimonials section", () => {
-    render(<LandingPage />);
-    expect(screen.getByText(/testimonials/i)).toBeInTheDocument();
-  });
-
-  it("renders all CTA links", () => {
+  it("renders subtitle", () => {
     render(<LandingPage />);
     expect(
-      screen.getByRole("link", { name: /start your journey/i }),
+      screen.getByText(
+        /Crafted with the freshest fruits and powered by adaptogens/i,
+      ),
     ).toBeInTheDocument();
+  });
+
+  it("renders CTA buttons", () => {
+    render(<LandingPage />);
+    expect(screen.getByRole("link", { name: /Shop Now/i })).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /meet our founders/i }),
+      screen.getByRole("link", { name: /Explore Flavors/i }),
     ).toBeInTheDocument();
+  });
+
+  it("CTA buttons link to shop page", () => {
+    render(<LandingPage />);
+    const shopNowLink = screen.getByRole("link", { name: /Shop Now/i });
+    const exploreFlavorsLink = screen.getByRole("link", {
+      name: /Explore Flavors/i,
+    });
+
+    expect(shopNowLink).toHaveAttribute("href", "/shop");
+    expect(exploreFlavorsLink).toHaveAttribute("href", "/shop");
+  });
+
+  it("renders features grid", () => {
+    render(<LandingPage />);
+    expect(screen.getByText("5g")).toBeInTheDocument();
+    expect(screen.getByText("Sugar or Less")).toBeInTheDocument();
+    expect(screen.getByText("100%")).toBeInTheDocument();
+    expect(screen.getByText("Fresh Fruit")).toBeInTheDocument();
+    expect(screen.getByText("0")).toBeInTheDocument();
+    expect(screen.getByText("Artificial")).toBeInTheDocument();
+  });
+
+  it("renders hero slideshow component", () => {
+    render(<LandingPage />);
+    expect(screen.getByTestId("hero-slideshow")).toBeInTheDocument();
+  });
+
+  it("renders running banner component", () => {
+    render(<LandingPage />);
+    expect(screen.getByTestId("running-banner")).toBeInTheDocument();
   });
 });

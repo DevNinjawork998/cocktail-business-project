@@ -23,21 +23,23 @@ describe("Navigation", () => {
     renderNavigation();
 
     // Check if logo is rendered
-    expect(screen.getByText("COCKTAIL")).toBeInTheDocument();
-    expect(screen.getByText("CO")).toBeInTheDocument();
+    expect(screen.getByText("Mocktails")).toBeInTheDocument();
+    expect(screen.getByText("On the Go")).toBeInTheDocument();
   });
 
   it("renders all navigation links", () => {
     renderNavigation();
 
     // Check if all navigation links are present (use getAllByText to handle multiple instances)
-    const homeLinks = screen.getAllByText("Home");
     const shopLinks = screen.getAllByText("Shop");
-    const foundersLinks = screen.getAllByText("Founders");
+    const ingredientsLinks = screen.getAllByText("Ingredients");
+    const communityLinks = screen.getAllByText("Community");
+    const founderLinks = screen.getAllByText("Our Founder");
 
-    expect(homeLinks.length).toBeGreaterThan(0);
     expect(shopLinks.length).toBeGreaterThan(0);
-    expect(foundersLinks.length).toBeGreaterThan(0);
+    expect(ingredientsLinks.length).toBeGreaterThan(0);
+    expect(communityLinks.length).toBeGreaterThan(0);
+    expect(founderLinks.length).toBeGreaterThan(0);
   });
 
   it("renders mobile menu button", () => {
@@ -61,23 +63,26 @@ describe("Navigation", () => {
     renderNavigation();
 
     // Use getAllByText and get the first instance for each link
-    const homeLinks = screen.getAllByText("Home");
     const shopLinks = screen.getAllByText("Shop");
-    const foundersLinks = screen.getAllByText("Founders");
+    const ingredientsLinks = screen.getAllByText("Ingredients");
+    const communityLinks = screen.getAllByText("Community");
+    const founderLinks = screen.getAllByText("Our Founder");
 
-    const homeLink = homeLinks[0].closest("a");
     const shopLink = shopLinks[0].closest("a");
-    const foundersLink = foundersLinks[0].closest("a");
+    const ingredientsLink = ingredientsLinks[0].closest("a");
+    const communityLink = communityLinks[0].closest("a");
+    const founderLink = founderLinks[0].closest("a");
 
-    expect(homeLink).toHaveAttribute("href", "/");
     expect(shopLink).toHaveAttribute("href", "/shop");
-    expect(foundersLink).toHaveAttribute("href", "/founders");
+    expect(ingredientsLink).toHaveAttribute("href", "/ingredients");
+    expect(communityLink).toHaveAttribute("href", "/your-buddies");
+    expect(founderLink).toHaveAttribute("href", "/founders");
   });
 
   it("logo links to home page", () => {
     renderNavigation();
 
-    const logoLink = screen.getByText("COCKTAIL").closest("a");
+    const logoLink = screen.getByText("Mocktails").closest("a");
     expect(logoLink).toHaveAttribute("href", "/");
   });
 

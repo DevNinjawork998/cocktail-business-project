@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Section = styled.section`
   margin: 2rem auto 0 auto;
-  max-width: 1200px;
-  padding: 3rem;
+  max-width: 1400px;
+  padding: 3rem 1.5rem;
   background: ${({ theme }) => theme.semantic.background};
   border-radius: 1.5rem;
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
@@ -16,81 +16,177 @@ export const Headline = styled.h2`
   color: ${({ theme }) => theme.semantic.primary};
   margin-bottom: 1.5rem;
   text-align: center;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      font-size: 3rem;
+    }
+  `}
 `;
 
 export const Intro = styled.p`
   font-size: 1.1rem;
   color: ${({ theme }) => theme.semantic.text};
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+export const IngredientsGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.sm}) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: ${theme.breakpoints.md}) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @media (min-width: ${theme.breakpoints.lg}) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  `}
+`;
+
+export const IngredientCard = styled.div`
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const IngredientImage = styled.div`
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f5f5f5;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+
+`;
+
+export const IngredientContent = styled.div`
+  padding: 1.25rem;
   text-align: center;
 `;
 
-export const IngredientList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  max-width: 600px;
+export const IngredientName = styled.h3`
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.semantic.primary};
+  margin-bottom: 0.5rem;
 `;
 
-export const IngredientItem = styled.li<{ $typecolor: string }>`
-  margin-bottom: 1rem;
-  border-radius: 0.75rem;
-  background: ${({ $typecolor }) => $typecolor};
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+export const IngredientSubtitle = styled.p`
+  font-size: 0.95rem;
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  line-height: 1.5;
+  margin: 0;
+`;
+
+export const CardFace = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 16px;
   overflow: hidden;
 `;
 
-export const IngredientHeader = styled.button`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 1rem 1.5rem;
-  cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.semantic.primary};
-  transition: background 0.2s;
-  &:hover {
-    background: ${({ theme }) => theme.semantic.backgroundSecondary};
+export const CardFront = styled(CardFace)`
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+`;
+
+export const FlipCardContainer = styled.div`
+  perspective: 1000px;
+  height: 100%;
+  min-height: 300px;
+  
+  &:hover ${CardFront} {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), 0 6px 12px rgba(0, 0, 0, 0.1);
   }
 `;
 
-export const IngredientIcon = styled.span`
-  font-size: 2rem;
-  margin-right: 1rem;
+export const FlipCard = styled.div<{ $isFlipped: boolean }>`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  transition: transform 0.6s, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  transform: ${({ $isFlipped }) => ($isFlipped ? "rotateY(180deg)" : "rotateY(0)")};
+  cursor: pointer;
+  
+  &:hover {
+    transform: ${({ $isFlipped }) => ($isFlipped ? "rotateY(180deg) scale(1.02)" : "rotateY(0) scale(1.02)")};
+  }
 `;
 
-export const IngredientName = styled.span`
-  flex: 1;
-  text-align: left;
+export const CardBack = styled(CardFace)`
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.mauvelous.base} 0%,
+    ${({ theme }) => theme.colors.royalOrange.base} 100%
+  );
+  transform: rotateY(180deg);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
 `;
 
-export const ChevronIcon = styled.span<{ open: boolean }>`
-  font-size: 1.2rem;
-  margin-left: 1rem;
-  transition: transform 0.3s;
-  ${({ open }) =>
-    open &&
-    css`
-      transform: rotate(180deg);
-    `}
+export const BackContent = styled.div`
+  text-align: center;
+  width: 100%;
 `;
 
-export const IngredientDropdown = styled.div<{ open: boolean }>`
-  max-height: ${({ open }) => (open ? "200px" : "0")};
-  opacity: ${({ open }) => (open ? 1 : 0)};
-  overflow: hidden;
-  transition:
-    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s;
-  background: ${({ theme }) => theme.semantic.backgroundSecondary};
-  padding: ${({ open }) => (open ? "1rem 1.5rem" : "0 1.5rem")};
+export const BackTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.75rem;
+  font-family: serif;
 `;
 
-export const IngredientDescription = styled.p`
-  margin: 0;
-  color: ${({ theme }) => theme.semantic.textSecondary};
+export const BackSubtitle = styled.p`
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+`;
+
+export const BackDescription = styled.p`
   font-size: 1rem;
+  line-height: 1.6;
+  color: white;
+  text-align: center;
+  margin: 0;
 `;
+
