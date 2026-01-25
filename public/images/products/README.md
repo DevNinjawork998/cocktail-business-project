@@ -28,10 +28,13 @@ If you want to use local images instead, name them exactly as the product ID wit
 
 1. **Add your images** to this folder with the correct naming
 2. **Update the database** by changing the `imageUrl` in `prisma/seed.ts`:
+
    ```typescript
    imageUrl: "/images/products/tequila-sundown.jpg";
    ```
+
 3. **Reseed the database**:
+
    ```bash
    npm run db:seed
    ```
@@ -53,7 +56,7 @@ If no image is found, the system will show a colored placeholder based on the pr
 
 ## Example
 
-```
+```markdown
 public/images/products/
 ├── tequila-sundown.jpg
 ├── dark-stormy.jpg

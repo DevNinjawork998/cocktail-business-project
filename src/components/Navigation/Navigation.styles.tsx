@@ -17,15 +17,24 @@ export const NavWrapper = styled.div`
 `;
 
 export const NavContent = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing.lg};
   height: 4rem;
+  
+  ${({ theme }) => `
+    @media (max-width: ${theme.breakpoints.md}) {
+      display: flex;
+      justify-content: space-between;
+    }
+  `}
 `;
 
 export const DesktopNavLinks = styled.div`
   display: none;
   align-items: center;
+  justify-content: center;
   gap: ${({ theme }) => theme.spacing.xl};
 
   ${({ theme }) =>
@@ -72,15 +81,13 @@ export const MobileMenuButton = styled.button`
 `;
 
 export const LogoContainer = styled.div`
-  flex: 1;
   display: flex;
-  justify-content: center;
-
-  ${({ theme }) =>
-    theme.breakpoints.md &&
-    `
-    @media (min-width: ${theme.breakpoints.md}) {
-      flex: none;
+  align-items: center;
+  
+  ${({ theme }) => `
+    @media (max-width: ${theme.breakpoints.md}) {
+      flex: 1;
+      justify-content: center;
     }
   `}
 `;
@@ -98,9 +105,10 @@ export const Logo = styled.div`
 `;
 
 export const LogoText = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.25rem;
+  font-weight: 600;
   color: ${({ theme }) => theme.semantic.primary};
+  white-space: nowrap;
 `;
 
 export const LogoAccent = styled.span`

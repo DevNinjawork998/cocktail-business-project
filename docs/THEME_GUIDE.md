@@ -317,7 +317,7 @@ src/
     ├── styled-theme-provider.tsx    # Styled-components theme provider
     └── theme-provider.tsx           # React context for theme management
   components/
-    └── ThemeShowcase.tsx            # Example component demonstrating theme usage
+    └── (various component directories)
   app/
     ├── globals.css                  # Global styles and CSS variables
     └── layout.tsx                   # Theme provider integration

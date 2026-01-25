@@ -56,36 +56,42 @@ export const ProductsGrid = styled.div`
 // ProductCard can be rendered as a link (default) or as a div/button using the 'as' prop.
 // Example: <ProductCard as="div">...</ProductCard> or <ProductCard href="...">...</ProductCard>
 export const ProductCard = styled(Link)`
-  background: ${({ theme }) => theme.colors.caramel.light};
+  background: ${({ theme }) => theme.currentSemantic.surface};
   border-radius: ${({ theme }) => theme.radii.xl};
-  padding: ${({ theme }) => theme.spacing.xl};
+  padding: ${({ theme }) => theme.spacing.lg};
   text-decoration: none;
   transition: all 0.3s ease;
-  border: 3px solid transparent;
+  border: 1px solid ${({ theme }) => theme.currentSemantic.borderLight};
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: ${({ theme }) => theme.shadows.sm};
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: ${({ theme }) => theme.shadows.xl};
+    transform: translateY(-4px);
+    box-shadow: ${({ theme }) => theme.shadows.lg};
     border-color: ${({ theme }) => theme.colors.royalOrange.base};
   }
 `;
 
 export const ProductImageContainer = styled.div`
-  background: ${({ theme }) => theme.colors.chocolateKisses.light};
+  background: ${({ theme }) => theme.currentSemantic.backgroundSecondary};
   border-radius: ${({ theme }) => theme.radii.lg};
-  padding: ${({ theme }) => theme.spacing.xl};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
+  aspect-ratio: 3 / 4;
   position: relative;
   overflow: hidden;
+  padding: ${({ theme }) => theme.spacing.lg};
 `;
 
 export const ProductImage = styled.div<{ $bgColor: string }>`
-  width: 80px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
+  max-width: 200px;
+  max-height: 300px;
   background: ${({ $bgColor }) => $bgColor};
   border-radius: ${({ theme }) => theme.radii.md};
   display: flex;
@@ -93,22 +99,23 @@ export const ProductImage = styled.div<{ $bgColor: string }>`
   justify-content: center;
   color: white;
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   text-align: center;
   box-shadow: ${({ theme }) => theme.shadows.md};
 `;
 
 export const ProductName = styled.h3`
   font-size: 1.25rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.chocolateKisses.dark};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
+  font-weight: 600;
+  color: ${({ theme }) => theme.currentSemantic.text};
+  margin-bottom: ${({ theme }) => theme.spacing.xs};
   text-align: center;
 `;
 
 export const ProductDescription = styled.p`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  color: ${({ theme }) => theme.currentSemantic.textSecondary};
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.6;
+  flex: 1;
 `;

@@ -27,6 +27,28 @@ const HealthBenefits = dynamic(
   },
 );
 
+const WhyMocktails = dynamic(
+  () => import("@/components/WhyMocktails/WhyMocktails"),
+  {
+    ssr: false,
+  },
+);
+
+const CTABanner = dynamic(() => import("@/components/CTABanner/CTABanner"), {
+  ssr: false,
+});
+
+const Community = dynamic(() => import("@/components/Community/Community"), {
+  ssr: false,
+});
+
+const FounderStory = dynamic(
+  () => import("@/components/FounderStory/FounderStory"),
+  {
+    ssr: false,
+  },
+);
+
 export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -104,10 +126,9 @@ export default function ShopPage() {
       <Breadcrumb items={breadcrumbItems} />
       <ShopContainer>
         <ShopHeader>
-          <ShopTitle>Explore Our Flavours</ShopTitle>
+          <ShopTitle>Our Signature Collection</ShopTitle>
           <ShopSubtitle>
-            Discover our premium collection of artisanal cocktail mixes, crafted
-            with the finest ingredients for the perfect drink experience.
+            Each flavor is thoughtfully crafted with premium ingredients and functional adaptogens.
           </ShopSubtitle>
         </ShopHeader>
 
@@ -119,16 +140,19 @@ export default function ShopPage() {
                   <div
                     style={{
                       position: "relative",
-                      width: "80px",
-                      height: "120px",
+                      width: "100%",
+                      height: "100%",
+                      maxWidth: "200px",
+                      maxHeight: "300px",
+                      margin: "0 auto",
                     }}
                   >
                     <Image
                       src={product.imageUrl}
                       alt={product.name}
                       fill
-                      style={{ objectFit: "cover", borderRadius: "8px" }}
-                      sizes="80px"
+                      style={{ objectFit: "contain", borderRadius: "8px" }}
+                      sizes="(max-width: 768px) 150px, 200px"
                     />
                   </div>
                 ) : (
@@ -144,6 +168,9 @@ export default function ShopPage() {
         </ProductsGrid>
       </ShopContainer>
       <HealthBenefits />
+      <WhyMocktails />
+      <CTABanner />
+      <FounderStory />
       <Footer />
     </>
   );

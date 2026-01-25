@@ -98,3 +98,5 @@ logs
 
 # turbo
 .turbo
+
+.cursor

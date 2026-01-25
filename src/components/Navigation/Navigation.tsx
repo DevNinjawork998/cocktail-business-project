@@ -61,16 +61,28 @@ const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: "Home", href: "/" },
     { label: "Shop", href: "/shop" },
-    { label: "Founders", href: "/founders" },
+    { label: "Ingredients", href: "/ingredients" },
+    { label: "Community", href: "/your-buddies" },
+    { label: "Our Founder", href: "/founders" },
   ];
 
   return (
     <NavContainer>
       <NavWrapper>
         <NavContent>
-          {/* Left Navigation - Desktop */}
+          {/* Logo - Left */}
+          <LogoContainer>
+            <Link href="/">
+              <Logo>
+                <LogoText>
+                  Mocktails <LogoAccent>On the Go</LogoAccent>
+                </LogoText>
+              </Logo>
+            </Link>
+          </LogoContainer>
+
+          {/* Center Navigation - Desktop */}
           <DesktopNavLinks>
             {navLinks.map((link) => (
               <Link key={link.label} href={link.href}>
@@ -86,17 +98,6 @@ const Navigation: React.FC = () => {
           >
             {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </MobileMenuButton>
-
-          {/* Logo - Center */}
-          <LogoContainer>
-            <Link href="/">
-              <Logo>
-                <LogoText>
-                  COCKTAIL<LogoAccent>CO</LogoAccent>
-                </LogoText>
-              </Logo>
-            </Link>
-          </LogoContainer>
 
           {/* Cart Icon - Right */}
           <CartIconWrapper>

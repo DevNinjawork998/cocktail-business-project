@@ -13,82 +13,34 @@ const products = [
   {
     id: "tequila-sundown",
     name: "Tequila Sundown",
-    subtitle: "Really party.",
-    description: "Orange & Cranberry - For the life of the party",
+    subtitle: "Refreshing, tart and citrusy",
+    description: "Very refreshing, tart and citrusy. Perfect for a hot weather",
     longDescription: `
-      <h3>Perfect for Celebrations</h3>
-      <p>Our Tequila Sundown blend captures the essence of a perfect sunset celebration. With vibrant orange and cranberry flavors, this cocktail mix brings the party to life with every sip.</p>
-      <p>Crafted with premium ingredients and natural fruit extracts, it delivers a smooth, refreshing taste that's perfect for any occasion.</p>
+      <h3>Immunity & Glowing Skin</h3>
+      <p>Fresh orange, cranberry and baobab supports immunity and glowing skin. Perfect for hot weather, this refreshing blend combines the tangy sweetness of cranberries with the bright citrus notes of fresh orange.</p>
+      <p>Enriched with baobab, a superfood high in vitamin C and antioxidants, this mocktail helps boost your immune system while promoting healthy, radiant skin.</p>
     `,
     price: "$35.99",
     priceSubtext: "12 cans delivered one time",
-    imageColor: "#8B4513",
-    imageUrl:
-      "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=400&fit=crop&crop=center",
+    imageColor: "#FF6347",
+    imageUrl: "/images/products/tequila-sundown.jpg",
     features: [
-      { text: "Premium Quality", color: "#FF6B6B" },
-      { text: "Natural Ingredients", color: "#4ECDC4" },
-      { text: "No Artificial Colors", color: "#45B7D1" },
+      { text: "Fresh Orange", color: "#FF6B6B" },
+      { text: "Cranberry", color: "#DC143C" },
+      { text: "Baobab", color: "#FFB347" },
     ],
     ingredients: [
       "Carbonated Water",
-      "OLISMART (Cassava Root Fiber, Chicory Root Inulin, Jerusalem Artichoke Inulin, Nopal Cactus, Marshmallow Root, Calendula Flower, Kudzu Root)",
-      "Clementine Juice Concentrate",
-      "Cassava Root Syrup",
-      "Mandarin Juice Concentrate",
-      "Apple Juice Concentrate",
-      "Lemon Juice Concentrate",
+      "Fresh Orange Juice",
+      "Cranberry Juice Concentrate",
+      "Baobab Powder",
+      "Natural Orange Flavor",
+      "Natural Cranberry Flavor",
       "Stevia Leaf",
       "Himalayan Pink Salt",
-      "Natural Flavors",
     ],
     productBrief:
-      "The summertime treat from your fave ice cream truck just got an upgrade. Creamy, vanilla goodness and a bright pop of tangerine and mandarin citrus join forces to bring back this iconic childhood flavor.",
-    nutritionFacts: [
-      { label: "Calories", value: "50" },
-      { label: "Total Fat", value: "0g" },
-      { label: "Sodium", value: "30mg" },
-      { label: "Total Carbohydrate", value: "17g" },
-      { label: "Dietary Fiber", value: "5g" },
-      { label: "Total Sugars", value: "5g" },
-      { label: "Includes Added Sugars", value: "0g" },
-      { label: "Protein", value: "0g" },
-      { label: "Vitamin C", value: "20%" },
-    ],
-  },
-  {
-    id: "dark-stormy",
-    name: "Dark & Stormy",
-    subtitle: "Really smooth.",
-    description: "Ginger & Lime - For the smooth soul",
-    longDescription: `
-      <h3>Sophisticated & Smooth</h3>
-      <p>The Dark & Stormy is a classic with a twist. Our blend combines the warming spice of ginger with the bright acidity of lime for a perfectly balanced cocktail experience.</p>
-      <p>Ideal for those who appreciate complexity and depth in their drinks, this mix delivers a sophisticated flavor profile that's both refreshing and warming.</p>
-    `,
-    price: "$35.99",
-    priceSubtext: "12 cans delivered one time",
-    imageColor: "#2F4F4F",
-    imageUrl:
-      "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=400&fit=crop&crop=center",
-    features: [
-      { text: "Spiced Ginger", color: "#FF6B6B" },
-      { text: "Fresh Lime", color: "#4ECDC4" },
-      { text: "Complex Flavor", color: "#45B7D1" },
-    ],
-    ingredients: [
-      "Carbonated Water",
-      "OLISMART (Cassava Root Fiber, Chicory Root Inulin, Jerusalem Artichoke Inulin, Nopal Cactus, Marshmallow Root, Calendula Flower, Kudzu Root)",
-      "Ginger Root Extract",
-      "Lime Juice Concentrate",
-      "Cassava Root Syrup",
-      "Natural Ginger Flavor",
-      "Stevia Leaf",
-      "Himalayan Pink Salt",
-      "Natural Flavors",
-    ],
-    productBrief:
-      "A sophisticated blend that combines the warming spice of ginger with the bright acidity of lime for a perfectly balanced cocktail experience that's both refreshing and warming.",
+      "Very refreshing, tart and citrusy. Perfect for a hot weather. Fresh orange, cranberry and baobab supports immunity and glowing skin.",
     nutritionFacts: [
       { label: "Calories", value: "45" },
       { label: "Total Fat", value: "0g" },
@@ -98,197 +50,229 @@ const products = [
       { label: "Total Sugars", value: "4g" },
       { label: "Includes Added Sugars", value: "0g" },
       { label: "Protein", value: "0g" },
-      { label: "Vitamin C", value: "15%" },
+      { label: "Vitamin C", value: "45%" },
+    ],
+  },
+  {
+    id: "dark-stormy",
+    name: "Dark & Stormy",
+    subtitle: "Smooth & complex",
+    description:
+      "Acquired and aged taste from the perfect blend of ginger & our homemade non-alcoholic rum",
+    longDescription: `
+      <h3>Digestion & Stress Relief</h3>
+      <p>The perfect blend of ashwagandha, tea, cinnamon and ginger supports digestion & relieves stress. This sophisticated mocktail offers an acquired and aged taste from our carefully crafted combination of warming spices.</p>
+      <p>Our homemade non-alcoholic rum base is enhanced with adaptogenic ashwagandha to help manage stress, while ginger and cinnamon work together to soothe your digestive system and provide anti-inflammatory benefits.</p>
+    `,
+    price: "$35.99",
+    priceSubtext: "12 cans delivered one time",
+    imageColor: "#8B4513",
+    imageUrl: "/images/products/dark-stormy.jpg",
+    features: [
+      { text: "Ashwagandha", color: "#9B7653" },
+      { text: "Ginger", color: "#CD853F" },
+      { text: "Cinnamon", color: "#D2691E" },
+    ],
+    ingredients: [
+      "Carbonated Water",
+      "Ginger Root Extract",
+      "Ashwagandha Root Powder",
+      "Black Tea Extract",
+      "Cinnamon Extract",
+      "Natural Rum Flavor (Non-Alcoholic)",
+      "Natural Ginger Flavor",
+      "Stevia Leaf",
+      "Himalayan Pink Salt",
+    ],
+    productBrief:
+      "Acquired and aged taste from the perfect blend of ginger & our homemade non-alcoholic rum. The perfect blend of ashwagandha, tea, cinnamon and ginger supports digestion & relieves stress.",
+    nutritionFacts: [
+      { label: "Calories", value: "40" },
+      { label: "Total Fat", value: "0g" },
+      { label: "Sodium", value: "20mg" },
+      { label: "Total Carbohydrate", value: "14g" },
+      { label: "Dietary Fiber", value: "3g" },
+      { label: "Total Sugars", value: "4g" },
+      { label: "Includes Added Sugars", value: "0g" },
+      { label: "Protein", value: "0g" },
+      { label: "Vitamin C", value: "10%" },
     ],
   },
   {
     id: "maca-martini",
     name: "Maca Martini",
-    subtitle: "Really sophisticated.",
-    description: "Coffee & Chocolate - For the smooth operator",
+    subtitle: "Creamy & chocolaty",
+    description: "Creamy & Chocolaty to keep your spirits & mood up",
     longDescription: `
-      <h3>Rich & Indulgent</h3>
-      <p>The Maca Martini combines the rich, earthy flavors of maca root with decadent coffee and chocolate notes. This sophisticated blend is perfect for the discerning cocktail enthusiast.</p>
-      <p>With its unique combination of superfood ingredients and classic cocktail elements, this drink offers both indulgence and wellness in every sip.</p>
+      <h3>Stamina & Libido Boost</h3>
+      <p>Maca root, cocoa & coffee increases stamina & libido. This indulgent mocktail combines the rich, earthy flavors of maca root with decadent dark chocolate and aromatic coffee for a truly sophisticated experience.</p>
+      <p>Maca root is an ancient Peruvian superfood known for its energy-boosting properties and natural support for hormonal balance and vitality. Combined with mood-enhancing cocoa and energizing coffee, this creamy blend keeps your spirits high and your energy sustained.</p>
     `,
     price: "$37.99",
     priceSubtext: "12 cans delivered one time",
-    imageColor: "#CD5C5C",
-    imageUrl:
-      "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=400&fit=crop&crop=center",
+    imageColor: "#654321",
+    imageUrl: "/images/products/maca-martini.jpg",
     features: [
-      { text: "Superfood Maca", color: "#FF6B6B" },
-      { text: "Rich Coffee", color: "#4ECDC4" },
-      { text: "Dark Chocolate", color: "#45B7D1" },
+      { text: "Maca Root", color: "#DEB887" },
+      { text: "Cocoa", color: "#6F4E37" },
+      { text: "Coffee", color: "#3E2723" },
     ],
     ingredients: [
       "Carbonated Water",
-      "OLISMART (Cassava Root Fiber, Chicory Root Inulin, Jerusalem Artichoke Inulin, Nopal Cactus, Marshmallow Root, Calendula Flower, Kudzu Root)",
       "Maca Root Powder",
       "Coffee Extract",
       "Cocoa Powder",
-      "Cassava Root Syrup",
       "Natural Coffee Flavor",
+      "Natural Chocolate Flavor",
+      "Coconut Cream",
       "Stevia Leaf",
       "Himalayan Pink Salt",
-      "Natural Flavors",
     ],
     productBrief:
-      "The Maca Martini combines the rich, earthy flavors of maca root with decadent coffee and chocolate notes for a sophisticated blend that offers both indulgence and wellness.",
+      "Creamy & Chocolaty to keep your spirits & mood up. Maca root, cocoa & coffee increases stamina & libido.",
     nutritionFacts: [
       { label: "Calories", value: "55" },
-      { label: "Total Fat", value: "0.5g" },
-      { label: "Sodium", value: "35mg" },
-      { label: "Total Carbohydrate", value: "18g" },
-      { label: "Dietary Fiber", value: "6g" },
-      { label: "Total Sugars", value: "6g" },
-      { label: "Includes Added Sugars", value: "0g" },
-      { label: "Protein", value: "1g" },
-      { label: "Vitamin C", value: "10%" },
-    ],
-  },
-  {
-    id: "tropical-twist",
-    name: "Tropical Twist",
-    subtitle: "Really exotic.",
-    description: "Pineapple & Coconut - For the island dreamer",
-    longDescription: `
-      <h3>Escape to Paradise</h3>
-      <p>Transport yourself to a tropical paradise with our Tropical Twist blend. The sweet, juicy flavor of pineapple perfectly complements the creamy richness of coconut.</p>
-      <p>This refreshing cocktail mix brings the vacation vibes to any setting, making every sip feel like a mini getaway.</p>
-    `,
-    price: "$34.99",
-    priceSubtext: "12 cans delivered one time",
-    imageColor: "#FF6347",
-    imageUrl:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=center",
-    features: [
-      { text: "Sweet Pineapple", color: "#FF6B6B" },
-      { text: "Creamy Coconut", color: "#4ECDC4" },
-      { text: "Island Vibes", color: "#45B7D1" },
-    ],
-    ingredients: [
-      "Carbonated Water",
-      "OLISMART (Cassava Root Fiber, Chicory Root Inulin, Jerusalem Artichoke Inulin, Nopal Cactus, Marshmallow Root, Calendula Flower, Kudzu Root)",
-      "Pineapple Juice Concentrate",
-      "Coconut Water",
-      "Cassava Root Syrup",
-      "Natural Pineapple Flavor",
-      "Natural Coconut Flavor",
-      "Stevia Leaf",
-      "Himalayan Pink Salt",
-      "Natural Flavors",
-    ],
-    productBrief:
-      "Transport yourself to a tropical paradise with our Tropical Twist blend. The sweet, juicy flavor of pineapple perfectly complements the creamy richness of coconut.",
-    nutritionFacts: [
-      { label: "Calories", value: "48" },
-      { label: "Total Fat", value: "0g" },
-      { label: "Sodium", value: "28mg" },
-      { label: "Total Carbohydrate", value: "16g" },
-      { label: "Dietary Fiber", value: "5g" },
-      { label: "Total Sugars", value: "5g" },
-      { label: "Includes Added Sugars", value: "0g" },
-      { label: "Protein", value: "0g" },
-      { label: "Vitamin C", value: "25%" },
-    ],
-  },
-  {
-    id: "berry-bliss",
-    name: "Berry Bliss",
-    subtitle: "Really fresh.",
-    description: "Mixed Berries & Mint - For the fresh enthusiast",
-    longDescription: `
-      <h3>Bursting with Freshness</h3>
-      <p>Our Berry Bliss blend combines the antioxidant power of mixed berries with the refreshing coolness of mint. This vibrant cocktail mix is perfect for health-conscious cocktail lovers.</p>
-      <p>With its bright, fruity flavors and herbal finish, it's the perfect choice for summer gatherings and healthy indulgence.</p>
-    `,
-    price: "$36.99",
-    priceSubtext: "12 cans delivered one time",
-    imageColor: "#8A2BE2",
-    imageUrl:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=center",
-    features: [
-      { text: "Antioxidant Rich", color: "#FF6B6B" },
-      { text: "Fresh Mint", color: "#4ECDC4" },
-      { text: "Mixed Berries", color: "#45B7D1" },
-    ],
-    ingredients: [
-      "Carbonated Water",
-      "OLISMART (Cassava Root Fiber, Chicory Root Inulin, Jerusalem Artichoke Inulin, Nopal Cactus, Marshmallow Root, Calendula Flower, Kudzu Root)",
-      "Mixed Berry Juice Concentrate",
-      "Mint Extract",
-      "Cassava Root Syrup",
-      "Natural Berry Flavor",
-      "Natural Mint Flavor",
-      "Stevia Leaf",
-      "Himalayan Pink Salt",
-      "Natural Flavors",
-    ],
-    productBrief:
-      "Our Berry Bliss blend combines the antioxidant power of mixed berries with the refreshing coolness of mint for a vibrant cocktail mix perfect for health-conscious cocktail lovers.",
-    nutritionFacts: [
-      { label: "Calories", value: "52" },
-      { label: "Total Fat", value: "0g" },
-      { label: "Sodium", value: "32mg" },
-      { label: "Total Carbohydrate", value: "17g" },
-      { label: "Dietary Fiber", value: "5g" },
-      { label: "Total Sugars", value: "5g" },
-      { label: "Includes Added Sugars", value: "0g" },
-      { label: "Protein", value: "0g" },
-      { label: "Vitamin C", value: "30%" },
-    ],
-  },
-  {
-    id: "citrus-splash",
-    name: "Citrus Splash",
-    subtitle: "Really zesty.",
-    description: "Lemon & Lime - For the zesty spirit",
-    longDescription: `
-      <h3>Bright & Energizing</h3>
-      <p>Wake up your taste buds with our Citrus Splash blend. The perfect combination of tart lemon and zesty lime creates an energizing cocktail experience that's both refreshing and invigorating.</p>
-      <p>This classic citrus combination is ideal for those who love bright, clean flavors that refresh and revitalize.</p>
-    `,
-    price: "$33.99",
-    priceSubtext: "12 cans delivered one time",
-    imageColor: "#FFD700",
-    imageUrl:
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center",
-    features: [
-      { text: "Tart Lemon", color: "#FF6B6B" },
-      { text: "Zesty Lime", color: "#4ECDC4" },
-      { text: "Energy Boost", color: "#45B7D1" },
-    ],
-    ingredients: [
-      "Carbonated Water",
-      "OLISMART (Cassava Root Fiber, Chicory Root Inulin, Jerusalem Artichoke Inulin, Nopal Cactus, Marshmallow Root, Calendula Flower, Kudzu Root)",
-      "Lemon Juice Concentrate",
-      "Lime Juice Concentrate",
-      "Cassava Root Syrup",
-      "Natural Lemon Flavor",
-      "Natural Lime Flavor",
-      "Stevia Leaf",
-      "Himalayan Pink Salt",
-      "Natural Flavors",
-    ],
-    productBrief:
-      "Wake up your taste buds with our Citrus Splash blend. The perfect combination of tart lemon and zesty lime creates an energizing cocktail experience that's both refreshing and invigorating.",
-    nutritionFacts: [
-      { label: "Calories", value: "47" },
-      { label: "Total Fat", value: "0g" },
+      { label: "Total Fat", value: "1g" },
       { label: "Sodium", value: "30mg" },
       { label: "Total Carbohydrate", value: "16g" },
       { label: "Dietary Fiber", value: "5g" },
       { label: "Total Sugars", value: "5g" },
       { label: "Includes Added Sugars", value: "0g" },
-      { label: "Protein", value: "0g" },
-      { label: "Vitamin C", value: "35%" },
+      { label: "Protein", value: "1g" },
+      { label: "Vitamin C", value: "8%" },
     ],
+  },
+];
+
+const ingredients = [
+  {
+    name: "Baobab",
+    icon: "🌳",
+    imageUrl: "/images/ingredients/baobab.jpg",
+    subtitle: "Your gut's new BFF",
+    description:
+      "High-fiber fuel paired with zinc to keep your gut and immunity in check.",
+    type: "Adaptogen",
+    order: 1,
+  },
+  {
+    name: "Coffee",
+    icon: "☕",
+    imageUrl: "/images/ingredients/coffee.jpg",
+    subtitle: "Mental alertness",
+    description:
+      "The ultimate liquid spark for sharp mental alertness and staying dialed-in all day.",
+    type: "Adaptogen",
+    order: 2,
+  },
+  {
+    name: "Cinnamon",
+    icon: "🌿",
+    imageUrl: "/images/ingredients/cinnamon.jpg",
+    subtitle: "Antioxidant-rich spice",
+    description:
+      "A cozy, antioxidant-rich spice that helps your body fight off oxidative stress naturally.",
+    type: "Adaptogen",
+    order: 3,
+  },
+  {
+    name: "Ginger",
+    icon: "🫚",
+    imageUrl: "/images/ingredients/ginger.jpg",
+    subtitle: "Digestive sidekick",
+    description:
+      "Your digestive sidekick, perfect for soothing the stomach and keeping things moving smoothly.",
+    type: "Adaptogen",
+    order: 4,
+  },
+  {
+    name: "Ashwagandha",
+    icon: "🪷",
+    imageUrl: "/images/ingredients/ashwagandha.jpg",
+    subtitle: "Chill-inducing adaptogen",
+    description:
+      "A chill-inducing adaptogen that helps your body master stress and find its balance.",
+    type: "Adaptogen",
+    order: 5,
+  },
+  {
+    name: "Maca",
+    icon: "🥔",
+    imageUrl: "/images/ingredients/maca.jpg",
+    subtitle: "Energy-boosting root",
+    description:
+      "An ancient energy-boosting root known for naturally supporting a healthy, vibrant libido.",
+    type: "Adaptogen",
+    order: 6,
+  },
+  {
+    name: "Orange",
+    icon: "🍊",
+    imageUrl: "/images/ingredients/orange.jpg",
+    subtitle: "Vitamin C powerhouse",
+    description:
+      "A zesty Vitamin C powerhouse for bright skin and a resilient immune system.",
+    type: "Fruit",
+    order: 7,
+  },
+  {
+    name: "Lime",
+    icon: "🍋",
+    imageUrl: "/images/ingredients/lime.jpg",
+    subtitle: "Balance stomach acidity",
+    description:
+      "Refreshing citrus that helps balance stomach acidity for a happy, alkalized gut environment.",
+    type: "Fruit",
+    order: 8,
+  },
+  {
+    name: "Cocoa",
+    icon: "🍫",
+    imageUrl: "/images/ingredients/cocoa.jpg",
+    subtitle: "Heart health & mood",
+    description:
+      "Deliciously dark and packed with antioxidants for heart health and major mood boosts.",
+    type: "Adaptogen",
+    order: 9,
+  },
+  {
+    name: "Tea",
+    icon: "🍵",
+    imageUrl: "/images/ingredients/tea.jpg",
+    subtitle: "Steady caffeine lift",
+    description:
+      "Provides a gentle, steady caffeine lift for focused energy without the jittery crash.",
+    type: "Adaptogen",
+    order: 10,
+  },
+  {
+    name: "Cranberry",
+    icon: "🫐",
+    imageUrl: "/images/ingredients/cranberry.jpg",
+    subtitle: "Urinary health",
+    description:
+      "Tart and tiny antioxidant bombs that support urinary health and overall body wellness.",
+    type: "Fruit",
+    order: 11,
   },
 ];
 
 async function main() {
   console.log("Start seeding production database...");
+
+  // Delete products that are no longer in the seed data
+  const productsToRemove = ["tropical-twist", "berry-bliss", "citrus-splash"];
+  for (const productId of productsToRemove) {
+    try {
+      await prisma.product.deleteMany({
+        where: { id: productId },
+      });
+      console.log(`Deleted product with id: ${productId}`);
+    } catch (error) {
+      // Product might not exist, that's okay
+      console.log(`Product ${productId} not found or already deleted`);
+    }
+  }
 
   for (const product of products) {
     const result = await prisma.product.upsert({
@@ -310,6 +294,22 @@ async function main() {
       create: product,
     });
     console.log(`Created/Updated product with id: ${result.id}`);
+  }
+
+  for (const ingredient of ingredients) {
+    const result = await prisma.ingredient.upsert({
+      where: { name: ingredient.name },
+      update: {
+        icon: ingredient.icon,
+        imageUrl: ingredient.imageUrl,
+        subtitle: ingredient.subtitle,
+        description: ingredient.description,
+        type: ingredient.type,
+        order: ingredient.order,
+      },
+      create: ingredient,
+    });
+    console.log(`Created/Updated ingredient: ${result.name}`);
   }
 
   console.log("Production seeding finished.");
