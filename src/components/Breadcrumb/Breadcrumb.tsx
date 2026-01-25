@@ -61,7 +61,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, showHome = true }) => {
           {showHome && (
             <>
               <BreadcrumbItem>
-                <Link href="/">
+                <Link href="/" aria-label="Go to home page">
                   <BreadcrumbLink>
                     <HomeIcon />
                   </BreadcrumbLink>

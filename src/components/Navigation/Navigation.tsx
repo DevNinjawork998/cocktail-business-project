@@ -73,7 +73,7 @@ const Navigation: React.FC = () => {
         <NavContent>
           {/* Logo - Left */}
           <LogoContainer>
-            <Link href="/">
+            <Link href="/" aria-label="Go to home page">
               <Logo>
                 <LogoText>
                   Mocktails <LogoAccent>On the Go</LogoAccent>

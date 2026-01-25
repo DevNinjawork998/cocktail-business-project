@@ -80,7 +80,6 @@ export const SectionSubtitle = styled.p`
   max-width: 700px;
   margin: 0 auto;
   font-weight: 500;
-  opacity: 0.85;
 
   ${({ theme }) => `
     @media (min-width: ${theme.breakpoints.md}) {
@@ -322,7 +321,7 @@ export const ProductName = styled.h3`
 
 export const ProductDescription = styled.p`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   line-height: 1.6;
   margin-bottom: ${({ theme }) => theme.spacing.md};
   flex: 1;
@@ -343,11 +342,11 @@ export const Tag = styled.span`
     ${({ theme }) => theme.colors.mauvelous.light} 0%,
     ${({ theme }) => theme.colors.caramel.light} 100%
   );
-  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  color: ${({ theme }) => theme.colors.chocolateKisses.dark};
   padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
   border-radius: ${({ theme }) => theme.radii.full};
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   border: 1px solid ${({ theme }) => theme.colors.mauvelous.base}30;
   transition: all 0.3s ease;
 
@@ -357,6 +356,7 @@ export const Tag = styled.span`
       ${({ theme }) => theme.colors.mauvelous.base} 0%,
       ${({ theme }) => theme.colors.caramel.base} 100%
     );
+    color: ${({ theme }) => theme.colors.chocolateKisses.base};
     transform: scale(1.05);
   }
 `;
