@@ -2,6 +2,7 @@ import CheckoutPageClient from "./CheckoutPageClient";
 import Navigation from "../../components/Navigation/Navigation";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Footer from "@/components/Footer/Footer";
+import { isStripeEnabled } from "@/lib/featureFlags";
 
 export default function CheckoutPage() {
   const breadcrumbItems = [
@@ -10,11 +11,13 @@ export default function CheckoutPage() {
     { label: "Checkout" },
   ];
 
+  const stripeEnabled = isStripeEnabled();
+
   return (
     <>
       <Navigation />
       <Breadcrumb items={breadcrumbItems} />
-      <CheckoutPageClient />
+      <CheckoutPageClient stripeEnabled={stripeEnabled} />
       <Footer />
     </>
   );

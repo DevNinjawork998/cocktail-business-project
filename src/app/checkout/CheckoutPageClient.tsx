@@ -79,13 +79,19 @@ const customerInfoSchema = z.object({
 
 type CustomerInfo = z.infer<typeof customerInfoSchema>;
 
-const CheckoutPageClient: React.FC = () => {
+interface CheckoutPageClientProps {
+  stripeEnabled: boolean;
+}
+
+const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
+  stripeEnabled,
+}) => {
   const { state, clearCart } = useCart();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [stripe, setStripe] = useState<Stripe | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
-    PaymentMethod.STRIPE,
+    stripeEnabled ? PaymentMethod.STRIPE : PaymentMethod.WHATSAPP,
   );
 
   const {
@@ -104,8 +110,12 @@ const CheckoutPageClient: React.FC = () => {
     },
   });
 
-  // Load Stripe on component mount
+  // Load Stripe on component mount only if enabled
   useEffect(() => {
+    if (!stripeEnabled) {
+      return;
+    }
+
     const loadStripeInstance = async () => {
       const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
       if (publishableKey) {
@@ -114,7 +124,7 @@ const CheckoutPageClient: React.FC = () => {
       }
     };
     loadStripeInstance();
-  }, []);
+  }, [stripeEnabled]);
 
   const handleStripeCheckout = async () => {
     if (!stripe) {
@@ -270,44 +280,46 @@ const CheckoutPageClient: React.FC = () => {
               Select your preferred payment method to complete your order.
             </PaymentDescription>
             <PaymentOptions>
-              <PaymentOption>
-                <PaymentOptionButton
-                  type="button"
-                  onClick={() => {
-                    setPaymentMethod(PaymentMethod.STRIPE);
-                    handleStripeCheckout();
-                  }}
-                  $isSelected={paymentMethod === PaymentMethod.STRIPE}
-                  disabled={loading || !stripe}
-                >
-                  {loading ? (
-                    <LoadingSpinner />
-                  ) : (
-                    <PaymentOptionIcon>
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
-                        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.831 3.47 1.426 3.47 2.338 0 .914-.796 1.431-2.127 1.431-1.72 0-4.516-.924-6.378-2.168l-.9 5.555C6.203 22.99 8.977 24 12.165 24c2.469 0 4.577-.624 6.078-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.792-7.305zM24 20.352c0 2.194-1.387 3.44-3.54 3.44-1.72 0-3.44-.916-4.516-2.194L15.9 24h-5.677l6.409-13.748C17.748 8.9 20.46 9.15 22.46 9.15c2.194 0 3.54 1.387 3.54 3.44z" />
-                      </svg>
-                    </PaymentOptionIcon>
-                  )}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
+              {stripeEnabled && (
+                <PaymentOption>
+                  <PaymentOptionButton
+                    type="button"
+                    onClick={() => {
+                      setPaymentMethod(PaymentMethod.STRIPE);
+                      handleStripeCheckout();
                     }}
+                    $isSelected={paymentMethod === PaymentMethod.STRIPE}
+                    disabled={loading || !stripe}
                   >
-                    <PaymentOptionText>Pay with Card</PaymentOptionText>
-                    <PaymentOptionDescription>
-                      Secure payment with credit/debit card via Stripe
-                    </PaymentOptionDescription>
-                  </div>
-                </PaymentOptionButton>
-              </PaymentOption>
+                    {loading ? (
+                      <LoadingSpinner />
+                    ) : (
+                      <PaymentOptionIcon>
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                        >
+                          <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.831 3.47 1.426 3.47 2.338 0 .914-.796 1.431-2.127 1.431-1.72 0-4.516-.924-6.378-2.168l-.9 5.555C6.203 22.99 8.977 24 12.165 24c2.469 0 4.577-.624 6.078-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.792-7.305zM24 20.352c0 2.194-1.387 3.44-3.54 3.44-1.72 0-3.44-.916-4.516-2.194L15.9 24h-5.677l6.409-13.748C17.748 8.9 20.46 9.15 22.46 9.15c2.194 0 3.54 1.387 3.54 3.44z" />
+                        </svg>
+                      </PaymentOptionIcon>
+                    )}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <PaymentOptionText>Pay with Card</PaymentOptionText>
+                      <PaymentOptionDescription>
+                        Secure payment with credit/debit card via Stripe
+                      </PaymentOptionDescription>
+                    </div>
+                  </PaymentOptionButton>
+                </PaymentOption>
+              )}
               <PaymentOption>
                 <PaymentOptionButton
                   type="button"
