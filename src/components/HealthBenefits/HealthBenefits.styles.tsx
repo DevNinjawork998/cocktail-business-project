@@ -97,7 +97,7 @@ export const IngredientName = styled.h3`
 
 export const IngredientSubtitle = styled.p`
   font-size: 0.95rem;
-  color: ${({ theme }) => theme.semantic.textSecondary};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   line-height: 1.5;
   margin: 0;
 `;

@@ -123,7 +123,7 @@ export const TitleAccent = styled.span`
 
 export const Subtitle = styled.p`
   font-size: 1.25rem;
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   line-height: 1.6;
   max-width: 32rem;
 
@@ -239,8 +239,7 @@ export const FeatureText = styled.div`
   
   &:not(:first-child) {
     font-size: 0.875rem;
-    color: #6B6B6B;
-    opacity: 0.9;
+    color: ${({ theme }) => theme.colors.chocolateKisses.base};
   }
 `;
 
@@ -525,7 +524,7 @@ export const CardTitle = styled.h3`
 
 export const CardDescription = styled.p`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
 `;
 
 export const StatsSection = styled.div`
@@ -555,7 +554,7 @@ export const StatNumber = styled.div`
 
 export const StatLabel = styled.div`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
 `;
 
 export const Badge = styled.div`

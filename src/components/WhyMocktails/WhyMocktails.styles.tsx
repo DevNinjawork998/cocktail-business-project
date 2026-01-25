@@ -104,8 +104,7 @@ export const BenefitTitle = styled.h3`
 export const BenefitDescription = styled.p`
   font-size: 0.875rem;
   line-height: 1.6;
-  color: ${({ theme }) => theme.colors.chocolateKisses.dark};
-  opacity: 0.9;
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
 
   ${({ theme }) => `
     @media (min-width: ${theme.breakpoints.md}) {

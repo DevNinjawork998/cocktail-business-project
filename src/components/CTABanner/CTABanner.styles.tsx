@@ -44,7 +44,6 @@ export const Subtext = styled.p`
   font-size: 1.125rem;
   color: white;
   margin-bottom: ${({ theme }) => theme.spacing["2xl"]};
-  opacity: 0.95;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;

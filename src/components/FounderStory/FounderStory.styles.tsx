@@ -101,7 +101,7 @@ export const Title = styled.h2`
 export const StoryText = styled.p`
   font-size: 1rem;
   line-height: 1.8;
-  color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
 

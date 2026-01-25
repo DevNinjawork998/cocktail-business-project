@@ -265,9 +265,8 @@ export const CopyrightSection = styled.div`
 `;
 
 export const CopyrightText = styled.p`
-  color: ${({ theme }) => theme.colors.mauvelous.base};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   font-size: 0.875rem;
-  opacity: 0.8;
   margin: 0;
 `;
 
@@ -285,9 +284,8 @@ export const LegalLinks = styled.div`
 `;
 
 export const LegalLink = styled.a`
-  color: ${({ theme }) => theme.colors.mauvelous.base};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   font-size: 0.875rem;
-  opacity: 0.8;
   text-decoration: none;
   transition: all 0.3s ease;
   cursor: pointer;
