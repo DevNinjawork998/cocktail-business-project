@@ -49,8 +49,20 @@ export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [ctaBannerEnabled, setCtaBannerEnabled] = useState(true);
 
   const breadcrumbItems = [{ label: "Shop" }];
+
+  useEffect(() => {
+    // Check feature flag on client-side only to avoid hydration mismatch
+    const envValue = process.env.NEXT_PUBLIC_ENABLE_CTABANNER;
+    if (envValue !== undefined) {
+      setCtaBannerEnabled(envValue === "true" || envValue === "1");
+    } else {
+      // Default to enabled if not specified
+      setCtaBannerEnabled(true);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -123,7 +135,9 @@ export default function ShopPage() {
       <ShopContainer>
         <ShopHeader>
           <ShopTitle>Our Signature Collection</ShopTitle>
+          <ShopTitle>Our Signature Collection</ShopTitle>
           <ShopSubtitle>
+            Each flavor is thoughtfully crafted with premium ingredients and functional adaptogens.
             Each flavor is thoughtfully crafted with premium ingredients and functional adaptogens.
           </ShopSubtitle>
         </ShopHeader>
@@ -165,7 +179,7 @@ export default function ShopPage() {
       </ShopContainer>
       <HealthBenefits />
       <WhyMocktails />
-      <CTABanner />
+      {ctaBannerEnabled && <CTABanner />}
       <FounderStory />
       <Footer />
     </>

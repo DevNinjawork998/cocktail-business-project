@@ -66,7 +66,7 @@ export const OrderItem = styled.div`
   gap: 1rem;
   align-items: center;
   padding: 1rem;
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.currentSemantic.border};
 `;
@@ -407,7 +407,7 @@ export const PaymentOptionIcon = styled.div<{
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   color: ${({ $isSelected, $variant }) =>
     $variant === "whatsapp" ? ($isSelected ? "white" : "#25d366") : "inherit"};
 `;

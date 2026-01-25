@@ -112,7 +112,7 @@ export const SecondaryButton = styled.a`
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.currentSemantic.background};
+    background-color: white;
     color: ${({ theme }) => theme.colors.royalOrange.base};
     transform: translateY(-2px);
     box-shadow: ${({ theme }) => theme.shadows.lg};
@@ -138,7 +138,7 @@ export const BackgroundDecoration = styled.div`
     width: 400px;
     height: 400px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.currentSemantic.background};
+    background: white;
     top: -200px;
     right: -200px;
   }
@@ -149,7 +149,7 @@ export const BackgroundDecoration = styled.div`
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.currentSemantic.background};
+    background: white;
     bottom: -150px;
     left: -150px;
   }

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export const ProductPageContainer = styled.div`
   min-height: 100vh;
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.md};
 
   ${media.lg} {
@@ -201,6 +201,44 @@ export const AddToCartButton = styled.button`
     box-shadow: ${({ theme }) => theme.shadows.xl};
     background: ${({ theme }) => theme.colors.chocolateKisses.dark};
   }
+`;
+
+export const WhatsAppButton = styled.button`
+  background: #25d366;
+  color: white;
+  padding: ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing["2xl"]};
+  border-radius: ${({ theme }) => theme.radii.full};
+  border: none;
+  font-weight: bold;
+  font-size: 1.125rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: ${({ theme }) => theme.shadows.lg};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.sm};
+  width: 100%;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.xl};
+    background: #20ba5a;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+export const WhatsAppIcon = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 `;
 
 export const Sidebar = styled.div`
@@ -539,7 +577,7 @@ export const NutritionFactValue = styled.div`
 
 export const LoadingContainer = styled.div`
   min-height: 100vh;
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.md};
   display: flex;
   align-items: center;

@@ -106,16 +106,15 @@ const Footer: React.FC = () => {
 
   const shopLinks = [
     { label: "All Products", href: "/shop" },
-    { label: "Best Sellers", href: "/shop#best-sellers" },
-    { label: "New Arrivals", href: "/shop#new-arrivals" },
-    { label: "Subscriptions", href: "/shop#subscriptions" },
+    // { label: "Best Sellers", href: "/shop#best-sellers" },
+    // { label: "New Arrivals", href: "/shop#new-arrivals" },
+    // { label: "Subscriptions", href: "/shop#subscriptions" },
   ];
 
   const companyLinks = [
-    { label: "About Us", href: "/founders" },
     { label: "Our Story", href: "/founders" },
     { label: "Contact", href: "/contact" },
-    { label: "Careers", href: "/careers" },
+    // { label: "Careers", href: "/careers" },
   ];
 
   const legalLinks = [
@@ -128,6 +127,47 @@ const Footer: React.FC = () => {
     <FooterContainer>
       <FooterWrapper>
         <FooterContent>
+          {/* Top Section with Brand and Navigation */}
+          <FooterTop>
+            {/* Brand Section */}
+            <BrandSection>
+              <BrandLogo>Mocktails On the Go</BrandLogo>
+              <BrandDescription>
+                Crafting the future of functional beverages. Fresh fruits,
+                adaptogens, and zero compromise on taste.
+              </BrandDescription>
+            </BrandSection>
+
+            {/* Shop Links */}
+            <NavigationColumn>
+              <ColumnTitle>Shop</ColumnTitle>
+              <NavLinksList>
+                {shopLinks.map((link, index) => (
+                  <NavLinkItem key={index}>
+                    <NavLink as={Link} href={link.href}>
+                      {link.label}
+                    </NavLink>
+                  </NavLinkItem>
+                ))}
+              </NavLinksList>
+            </NavigationColumn>
+
+            {/* Company Links */}
+            <NavigationColumn>
+              <ColumnTitle>Company</ColumnTitle>
+              <NavLinksList>
+                {companyLinks.map((link, index) => (
+                  <NavLinkItem key={index}>
+                    <NavLink as={Link} href={link.href}>
+                      {link.label}
+                    </NavLink>
+                  </NavLinkItem>
+                ))}
+              </NavLinksList>
+            </NavigationColumn>
+          </FooterTop>
+
+          {/* Tagline Section */}
           {/* Top Section with Brand and Navigation */}
           <FooterTop>
             {/* Brand Section */}
@@ -195,6 +235,21 @@ const Footer: React.FC = () => {
           {/* Divider */}
           <DividerLine />
 
+          {/* Bottom Section with Copyright and Legal */}
+          <FooterBottom>
+            <CopyrightSection>
+              <CopyrightText>
+                © 2025 Mocktails On the Go. All rights reserved.
+              </CopyrightText>
+            </CopyrightSection>
+            <LegalLinks>
+              {legalLinks.map((link, index) => (
+                <LegalLink key={index} as={Link} href={link.href}>
+                  {link.label}
+                </LegalLink>
+              ))}
+            </LegalLinks>
+          </FooterBottom>
           {/* Bottom Section with Copyright and Legal */}
           <FooterBottom>
             <CopyrightSection>
