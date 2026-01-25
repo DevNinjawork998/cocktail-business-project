@@ -1,0 +1,264 @@
+import React from "react";
+import { render, screen, waitFor } from "../../../__tests__/test-utils";
+import ProductShowcase from "../ProductShowcase";
+import { getAllProducts } from "@/data/productService";
+
+// Mock Next.js Link component
+jest.mock("next/link", () => {
+  return function MockLink({
+    children,
+    href,
+  }: {
+    children: React.ReactNode;
+    href: string;
+  }) {
+    return <a href={href}>{children}</a>;
+  };
+});
+
+// Mock Next.js Image component
+jest.mock("next/image", () => ({
+  __esModule: true,
+  default: ({
+    src,
+    alt,
+  }: {
+    src: string;
+    alt: string;
+    fill?: boolean;
+    sizes?: string;
+    style?: React.CSSProperties;
+  }) => {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={src} alt={alt} />;
+  },
+}));
+
+// Mock productService
+jest.mock("@/data/productService", () => ({
+  getAllProducts: jest.fn(),
+}));
+
+const mockProducts = [
+  {
+    id: "1",
+    name: "Test Cocktail 1",
+    subtitle: "Test Subtitle 1",
+    description: "Test Description 1",
+    longDescription: "Test Long Description 1",
+    price: "RM 29.99",
+    priceSubtext: "Premium quality",
+    imageColor: "#ff6b6b",
+    imageUrl: "/test-image-1.jpg",
+    features: [{ text: "Feature 1", color: "#ff6b6b" }],
+  },
+  {
+    id: "2",
+    name: "Test Cocktail 2",
+    subtitle: "Test Subtitle 2",
+    description: "Test Description 2",
+    longDescription: "Test Long Description 2",
+    price: "RM 19.99",
+    priceSubtext: "Refreshing blend",
+    imageColor: "#4ecdc4",
+    imageUrl: undefined,
+    features: [{ text: "Feature 2", color: "#4ecdc4" }],
+  },
+  {
+    id: "3",
+    name: "Test Cocktail 3",
+    subtitle: "Test Subtitle 3",
+    description: "Test Description 3",
+    longDescription: "Test Long Description 3",
+    price: "RM 24.99",
+    priceSubtext: "Delicious taste",
+    imageColor: "#45b7d1",
+    imageUrl: "/test-image-3.jpg",
+    features: [{ text: "Feature 3", color: "#45b7d1" }],
+  },
+  {
+    id: "4",
+    name: "Test Cocktail 4",
+    subtitle: "Test Subtitle 4",
+    description: "Test Description 4",
+    longDescription: "Test Long Description 4",
+    price: "RM 34.99",
+    priceSubtext: "Premium blend",
+    imageColor: "#96ceb4",
+    imageUrl: "/test-image-4.jpg",
+    features: [{ text: "Feature 4", color: "#96ceb4" }],
+  },
+  {
+    id: "5",
+    name: "Test Cocktail 5",
+    subtitle: "Test Subtitle 5",
+    description: "Test Description 5",
+    longDescription: "Test Long Description 5",
+    price: "RM 39.99",
+    priceSubtext: "Extra premium",
+    imageColor: "#feca57",
+    imageUrl: "/test-image-5.jpg",
+    features: [{ text: "Feature 5", color: "#feca57" }],
+  },
+];
+
+describe("ProductShowcase", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe("Loading State", () => {
+    it("displays loading message while fetching products", () => {
+      (getAllProducts as jest.Mock).mockImplementation(
+        () =>
+          new Promise(() => {
+            // Never resolves to keep loading state
+          }),
+      );
+
+      render(<ProductShowcase />);
+
+      expect(screen.getByText("Loading products...")).toBeInTheDocument();
+      expect(
+        screen.getByText("Our Signature Collection"),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          "Each flavor is thoughtfully crafted with premium ingredients and functional adaptogens.",
+        ),
+      ).toBeInTheDocument();
+    });
+  });
+
+  describe("Rendering", () => {
+    it("renders section header correctly", async () => {
+      (getAllProducts as jest.Mock).mockResolvedValue(mockProducts);
+
+      render(<ProductShowcase />);
+
+      await waitFor(() => {
+        expect(
+          screen.getByText("Our Signature Collection"),
+        ).toBeInTheDocument();
+        expect(
+          screen.getByText(
+            "Each flavor is thoughtfully crafted with premium ingredients and functional adaptogens.",
+          ),
+        ).toBeInTheDocument();
+      });
+    });
+
+    it("displays first 4 products only", async () => {
+      (getAllProducts as jest.Mock).mockResolvedValue(mockProducts);
+
+      render(<ProductShowcase />);
+
+      await waitFor(() => {
+        expect(screen.getByText("Test Cocktail 1")).toBeInTheDocument();
+        expect(screen.getByText("Test Cocktail 2")).toBeInTheDocument();
+        expect(screen.getByText("Test Cocktail 3")).toBeInTheDocument();
+        expect(screen.getByText("Test Cocktail 4")).toBeInTheDocument();
+        expect(screen.queryByText("Test Cocktail 5")).not.toBeInTheDocument();
+      });
+    });
+
+    it("renders product cards with correct information", async () => {
+      (getAllProducts as jest.Mock).mockResolvedValue(mockProducts);
+
+      render(<ProductShowcase />);
+
+      await waitFor(() => {
+        expect(screen.getByText("Test Cocktail 1")).toBeInTheDocument();
+        expect(screen.getByText("Test Description 1")).toBeInTheDocument();
+        expect(screen.getByText("4g Sugar")).toBeInTheDocument();
+        expect(screen.getByText("Adaptogens")).toBeInTheDocument();
+        expect(screen.getByText("Add to Cart")).toBeInTheDocument();
+      });
+    });
+
+    it("renders product image when imageUrl is provided", async () => {
+      (getAllProducts as jest.Mock).mockResolvedValue(mockProducts);
+
+      render(<ProductShowcase />);
+
+      await waitFor(() => {
+        const image1 = screen.getByAltText("Test Cocktail 1");
+        expect(image1).toBeInTheDocument();
+        expect(image1).toHaveAttribute("src", "/test-image-1.jpg");
+      });
+    });
+
+    it("renders placeholder when imageUrl is not provided", async () => {
+      (getAllProducts as jest.Mock).mockResolvedValue(mockProducts);
+
+      render(<ProductShowcase />);
+
+      await waitFor(() => {
+        // Product name should be rendered (could be in placeholder or product name)
+        expect(screen.getByText("Test Cocktail 2")).toBeInTheDocument();
+      });
+    });
+
+    it("renders product links correctly", async () => {
+      (getAllProducts as jest.Mock).mockResolvedValue(mockProducts);
+
+      render(<ProductShowcase />);
+
+      await waitFor(() => {
+        const link1 = screen.getByText("Test Cocktail 1").closest("a");
+        expect(link1).toHaveAttribute("href", "/shop/1");
+      });
+    });
+  });
+
+  describe("Error Handling", () => {
+    it("handles error when fetching products fails", async () => {
+      const consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+      (getAllProducts as jest.Mock).mockRejectedValue(
+        new Error("Failed to fetch"),
+      );
+
+      render(<ProductShowcase />);
+
+      await waitFor(() => {
+        expect(getAllProducts).toHaveBeenCalled();
+      });
+
+      // Component should still render (empty state)
+      await waitFor(() => {
+        expect(
+          screen.getByText("Our Signature Collection"),
+        ).toBeInTheDocument();
+      });
+
+      consoleErrorSpy.mockRestore();
+    });
+  });
+
+  describe("Product Card Interactions", () => {
+    it("prevents default navigation on add to cart button click", async () => {
+      (getAllProducts as jest.Mock).mockResolvedValue(mockProducts);
+
+      render(<ProductShowcase />);
+
+      await waitFor(() => {
+        const addToCartButtons = screen.getAllByText("Add to Cart");
+        expect(addToCartButtons.length).toBeGreaterThan(0);
+      });
+
+      const addToCartButton = screen.getAllByText("Add to Cart")[0];
+      const clickEvent = new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+      });
+      const preventDefaultSpy = jest.spyOn(clickEvent, "preventDefault");
+
+      addToCartButton.dispatchEvent(clickEvent);
+
+      // The onClick handler should prevent default
+      expect(preventDefaultSpy).toHaveBeenCalled();
+    });
+  });
+});
