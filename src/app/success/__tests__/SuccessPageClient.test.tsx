@@ -1,8 +1,9 @@
 import React from "react";
 import { render, screen, fireEvent } from "../../../__tests__/test-utils";
-import { CartProvider, useCart } from "../../../contexts/CartContext";
+import { CartProvider } from "../../../contexts/CartContext";
 import SuccessPageClient from "../SuccessPageClient";
 import { useRouter, useSearchParams } from "next/navigation";
+import * as CartContext from "../../../contexts/CartContext";
 
 // Mock Next.js navigation
 const mockPush = jest.fn();
@@ -33,10 +34,10 @@ describe("SuccessPageClient", () => {
 
     // Mock useCart hook
     jest
-      .spyOn(require("../../../contexts/CartContext"), "useCart")
+      .spyOn(CartContext, "useCart")
       .mockReturnValue({
         clearCart: mockClearCart,
-      });
+      } as ReturnType<typeof CartContext.useCart>);
   });
 
   it("renders success title", () => {

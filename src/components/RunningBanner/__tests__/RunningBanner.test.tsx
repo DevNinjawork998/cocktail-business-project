@@ -1,7 +1,6 @@
 import React from "react";
 import { render, screen } from "../../../__tests__/test-utils";
 import RunningBanner from "../RunningBanner";
-import { bannerData } from "@/data/bannerData";
 
 // Mock bannerData
 jest.mock("@/data/bannerData", () => ({

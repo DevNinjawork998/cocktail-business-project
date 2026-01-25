@@ -8,9 +8,7 @@ jest.mock("next/image", () => ({
   default: ({
     src,
     alt,
-    fill,
     priority,
-    style,
   }: {
     src: string;
     alt: string;

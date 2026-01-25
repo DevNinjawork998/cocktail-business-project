@@ -148,6 +148,7 @@ describe("featureFlags", () => {
         configurable: true,
       });
       
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { readFileSync } = require("fs");
       const mockConfig = {
         features: {
@@ -184,6 +185,7 @@ describe("featureFlags", () => {
         configurable: true,
       });
       
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { readFileSync } = require("fs");
       const mockConfig = {
         features: {
@@ -217,6 +219,7 @@ describe("featureFlags", () => {
         configurable: true,
       });
       
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { readFileSync } = require("fs");
       (readFileSync as jest.Mock).mockImplementationOnce(() => {
         throw new Error("File not found");
@@ -254,6 +257,7 @@ describe("featureFlags", () => {
         configurable: true,
       });
       
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { readFileSync } = require("fs");
       const mockConfig1 = {
         features: {
