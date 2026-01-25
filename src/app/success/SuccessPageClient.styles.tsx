@@ -3,7 +3,7 @@ import { media } from "@/theme/styled-theme";
 
 export const SuccessContainer = styled.div`
   min-height: 100vh;
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.md};
   display: flex;
   align-items: center;
@@ -74,7 +74,7 @@ export const OrderItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: ${({ theme }) => theme.spacing.md};
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   border-radius: ${({ theme }) => theme.radii.md};
   box-shadow: ${({ theme }) => theme.shadows.sm};
 `;
@@ -259,7 +259,7 @@ export const SuccessMessageStyled = styled.p`
 `;
 
 export const OrderDetailsStyled = styled.div`
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -360,7 +360,7 @@ export const PrimaryButton = styled(Button)`
 `;
 
 export const SecondaryButton = styled(Button)`
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   color: ${({ theme }) => theme.currentSemantic.primary};
   border: 2px solid ${({ theme }) => theme.currentSemantic.primary};
   &:hover {

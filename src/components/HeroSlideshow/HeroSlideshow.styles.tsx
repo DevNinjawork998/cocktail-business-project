@@ -47,7 +47,7 @@ export const BadgeBottom = styled.div`
   position: absolute;
   bottom: ${({ theme }) => theme.spacing.md};
   left: ${({ theme }) => theme.spacing.md};
-  background-color: ${({ theme }) => theme.currentSemantic.background};
+  background-color: white;
   padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
   border-radius: ${({ theme }) => theme.radii.md};
   font-size: 0.75rem;

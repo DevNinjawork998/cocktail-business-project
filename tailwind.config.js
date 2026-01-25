@@ -40,11 +40,11 @@ module.exports = {
         secondary: "#F89256",
         accent: "#FBE89E",
         danger: "#C74C3D",
-        // Background colors - using caramel.light instead of white
-        background: "#FCF0B8",
-        "background-secondary": "#FBE89E",
-        surface: "#FCF0B8",
-        "surface-hover": "#FBE89E",
+        // Background colors
+        background: "#ffffff",
+        "background-secondary": "#fafafa",
+        surface: "#ffffff",
+        "surface-hover": "#f5f5f5",
         // Text colors
         foreground: "#451515",
         "foreground-muted": "rgba(69, 21, 21, 0.7)",

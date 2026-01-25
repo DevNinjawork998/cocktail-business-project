@@ -5,7 +5,7 @@ export const CartContainer = styled.div`
   margin: 0 auto;
   padding: 2rem;
   min-height: 60vh;
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
 
   @media (max-width: 768px) {
     padding: 1rem;
@@ -83,7 +83,7 @@ export const CartItem = styled.div`
   gap: 1rem;
   align-items: center;
   padding: 1.5rem;
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid ${({ theme }) => theme.currentSemantic.border};
@@ -156,7 +156,7 @@ export const QuantityButton = styled.button`
   width: 32px;
   height: 32px;
   border: 1px solid ${({ theme }) => theme.currentSemantic.border};
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -214,7 +214,7 @@ export const RemoveButton = styled.button`
 `;
 
 export const CartSummary = styled.div`
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -289,7 +289,7 @@ export const CheckoutButton = styled.button`
 `;
 
 export const CartPageBackground = styled.div`
-  background: ${({ theme }) => theme.currentSemantic.background};
+  background: white;
   min-height: 100vh;
   width: 100vw;
 `;
