@@ -40,12 +40,22 @@ export const GradientBackground = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: linear-gradient(
     135deg,
     #FFE5E5 0%,
     #FFD4C4 50%,
     #FFB88C 100%
+    #FFE5E5 0%,
+    #FFD4C4 50%,
+    #FFB88C 100%
   );
+  opacity: 1;
+  z-index: 0;
+  pointer-events: none;
   opacity: 1;
   z-index: 0;
   pointer-events: none;
@@ -54,6 +64,7 @@ export const GradientBackground = styled.div`
 export const OverlayBackground = styled.div`
   position: absolute;
   inset: 0;
+  background: transparent;
   background: transparent;
 `;
 
@@ -119,10 +130,12 @@ export const Title = styled.h1`
 
 export const TitleAccent = styled.span`
   color: #F7941D;
+  color: #F7941D;
 `;
 
 export const Subtitle = styled.p`
   font-size: 1.25rem;
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   color: ${({ theme }) => theme.colors.chocolateKisses.base};
   line-height: 1.6;
   max-width: 32rem;
@@ -139,10 +152,15 @@ export const CTAContainer = styled.div`
   gap: ${({ theme }) => theme.spacing.md};
   flex-wrap: wrap;
   align-items: center;
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.md};
+  flex-wrap: wrap;
+  align-items: center;
   padding-top: ${({ theme }) => theme.spacing.md};
 `;
 
 export const CTAButton = styled.div`
+  background-color: #451515;
   background-color: #451515;
   color: white;
   padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
@@ -158,6 +176,7 @@ export const CTAButton = styled.div`
 
   &:hover {
     background-color: #3a1111;
+    background-color: #3a1111;
     transform: scale(1.05);
     box-shadow: ${({ theme }) => theme.shadows.xl};
   }
@@ -167,6 +186,28 @@ export const CTAContent = styled.span`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
+`;
+
+export const CTAButtonSecondary = styled(CTAButton)`
+  background: transparent;
+  border: 2px solid ${({ theme }) => theme.colors.chocolateKisses.base};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  box-shadow: none;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.chocolateKisses.base};
+    color: white;
+    transform: scale(1.05);
+    box-shadow: ${({ theme }) => theme.shadows.xl};
+  }
+`;
+
+export const CTAContentSecondary = styled(CTAContent)`
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+
+  ${CTAButtonSecondary}:hover & {
+    color: white;
+  }
 `;
 
 export const CTAButtonSecondary = styled(CTAButton)`
@@ -205,12 +246,24 @@ export const FeaturesGrid = styled.div`
   display: flex;
   flex-direction: row;
   gap: ${({ theme }) => theme.spacing.xl};
+  display: flex;
+  flex-direction: row;
+  gap: ${({ theme }) => theme.spacing.xl};
   padding-top: ${({ theme }) => theme.spacing.xl};
+  align-items: flex-start;
+  flex-wrap: wrap;
   align-items: flex-start;
   flex-wrap: wrap;
 `;
 
 export const FeatureCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ${({ theme }) => theme.spacing.xs};
+  padding: 0;
+  background: transparent;
+  border: none;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -229,6 +282,18 @@ export const FeatureText = styled.div`
   font-size: 0.875rem;
   font-weight: 500;
   color: ${({ theme }) => theme.currentSemantic.foreground};
+  
+  &:first-child {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #451515;
+    line-height: 1.2;
+  }
+  
+  &:not(:first-child) {
+    font-size: 0.875rem;
+    color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  }
   
   &:first-child {
     font-size: 2rem;
@@ -274,7 +339,7 @@ export const ProductContainer = styled.div`
 `;
 
 export const ProductInner = styled.div`
-  background-color: white;
+  background-color: ${({ theme }) => theme.currentSemantic.background};
   border-radius: 1rem;
   padding: ${({ theme }) => theme.spacing.xl};
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
@@ -375,7 +440,7 @@ export const GlassHighlight = styled.div`
   right: ${({ theme }) => theme.spacing.sm};
   width: 0.5rem;
   height: 0.5rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.currentSemantic.background};
   border-radius: ${({ theme }) => theme.radii.full};
   opacity: 0.6;
 `;
@@ -524,6 +589,7 @@ export const CardTitle = styled.h3`
 
 export const CardDescription = styled.p`
   font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   color: ${({ theme }) => theme.colors.chocolateKisses.base};
 `;
 

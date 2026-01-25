@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { media } from "@/theme/styled-theme";
 
 export const SuccessContainer = styled.div`
@@ -74,7 +75,7 @@ export const OrderItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: ${({ theme }) => theme.spacing.md};
-  background: white;
+  background: ${({ theme }) => theme.currentSemantic.background};
   border-radius: ${({ theme }) => theme.radii.md};
   box-shadow: ${({ theme }) => theme.shadows.sm};
 `;

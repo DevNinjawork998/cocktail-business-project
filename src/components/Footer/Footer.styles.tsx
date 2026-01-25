@@ -23,6 +23,12 @@ export const FooterWrapper = styled.div`
 export const FooterContent = styled.div`
   display: flex;
   flex-direction: column;
+  gap: ${({ theme }) => theme.spacing["3xl"]};
+`;
+
+export const FooterTop = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
   gap: ${({ theme }) => theme.spacing["2xl"]};
 
   ${({ theme }) => `
@@ -275,11 +281,36 @@ export const FooterBottom = styled.div`
   `}
 `;
 
+export const FooterBottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md};
+  align-items: center;
+  padding-top: ${({ theme }) => theme.spacing.lg};
+  border-top: 1px solid rgba(234, 157, 174, 0.2);
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  `}
+`;
+
 export const CopyrightSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.xs};
+  gap: ${({ theme }) => theme.spacing.xs};
   align-items: center;
+  text-align: center;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      align-items: flex-start;
+      text-align: left;
+    }
+  `}
   text-align: center;
 
   ${({ theme }) => `
@@ -292,10 +323,36 @@ export const CopyrightSection = styled.div`
 
 export const CopyrightText = styled.p`
   color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
   font-size: 0.875rem;
+  margin: 0;
   margin: 0;
 `;
 
+export const LegalLinks = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.lg};
+  flex-wrap: wrap;
+  justify-content: center;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      justify-content: flex-end;
+    }
+  `}
+`;
+
+export const LegalLink = styled.a`
+  color: ${({ theme }) => theme.colors.chocolateKisses.base};
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.caramel.base};
+    opacity: 1;
+  }
 export const LegalLinks = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.lg};

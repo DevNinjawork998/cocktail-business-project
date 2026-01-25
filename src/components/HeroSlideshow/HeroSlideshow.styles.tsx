@@ -3,16 +3,48 @@ import styled from "styled-components";
 export const ProductImageContainer = styled.div`
   width: 100%;
   height: 100%;
+export const ProductImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
+  align-items: center;
   justify-content: center;
+  position: relative;
+  padding: ${({ theme }) => theme.spacing.xl};
   position: relative;
   padding: ${({ theme }) => theme.spacing.xl};
 `;
 
 export const ImageWrapper = styled.div`
   position: relative;
+export const ImageWrapper = styled.div`
+  position: relative;
   width: 100%;
+  height: 100%;
+  min-height: 500px;
+  border-radius: ${({ theme }) => theme.radii.xl};
+  overflow: hidden;
+  box-shadow: ${({ theme }) => theme.shadows.xl};
+  
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.lg}) {
+      min-height: 600px;
+    }
+  `}
+`;
+
+export const Badge = styled.div`
+  position: absolute;
+  top: ${({ theme }) => theme.spacing.md};
+  right: ${({ theme }) => theme.spacing.md};
+  background-color: #E8F5E9;
+  padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
+  border-radius: ${({ theme }) => theme.radii.md};
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2E7D32;
+  box-shadow: ${({ theme }) => theme.shadows.md};
   height: 100%;
   min-height: 500px;
   border-radius: ${({ theme }) => theme.radii.xl};

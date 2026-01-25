@@ -23,22 +23,29 @@ export const BreadcrumbWrapper = styled.div`
 
 export const BreadcrumbList = styled.ol`
   display: flex !important;
+  display: flex !important;
   align-items: center;
+  gap: 8px;
   gap: 8px;
   list-style: none;
   margin: 0;
   padding: 0;
   visibility: visible !important;
+  visibility: visible !important;
 `;
 
 export const BreadcrumbItem = styled.li`
   display: flex !important;
+  display: flex !important;
   align-items: center;
+  gap: 8px;
+  visibility: visible !important;
   gap: 8px;
   visibility: visible !important;
 `;
 
 export const BreadcrumbLink = styled.div`
+  color: #451515;
   color: #451515;
   text-decoration: none;
   font-size: 0.875rem;
@@ -46,8 +53,15 @@ export const BreadcrumbLink = styled.div`
   transition: color 0.2s ease;
   display: flex;
   align-items: center;
+  display: flex;
+  align-items: center;
 
   &:hover {
+    color: #3a1111;
+  }
+  
+  svg {
+    color: #451515;
     color: #3a1111;
   }
   
@@ -58,13 +72,21 @@ export const BreadcrumbLink = styled.div`
 
 export const BreadcrumbCurrent = styled.span`
   color: #451515;
+  color: #451515;
   font-size: 0.875rem;
   font-weight: 500;
 `;
 
 export const BreadcrumbSeparator = styled.span`
   color: #A0A0A0;
+  color: #A0A0A0;
   font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  
+  svg {
+    color: #A0A0A0;
+  }
   display: flex;
   align-items: center;
   

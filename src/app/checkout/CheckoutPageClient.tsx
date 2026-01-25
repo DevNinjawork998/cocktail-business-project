@@ -86,11 +86,19 @@ interface CheckoutPageClientProps {
 const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
   stripeEnabled,
 }) => {
+interface CheckoutPageClientProps {
+  stripeEnabled: boolean;
+}
+
+const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
+  stripeEnabled,
+}) => {
   const { state, clearCart } = useCart();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [stripe, setStripe] = useState<Stripe | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
+    stripeEnabled ? PaymentMethod.STRIPE : PaymentMethod.WHATSAPP,
     stripeEnabled ? PaymentMethod.STRIPE : PaymentMethod.WHATSAPP,
   );
 
@@ -111,7 +119,12 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
   });
 
   // Load Stripe on component mount only if enabled
+  // Load Stripe on component mount only if enabled
   useEffect(() => {
+    if (!stripeEnabled) {
+      return;
+    }
+
     if (!stripeEnabled) {
       return;
     }
@@ -124,6 +137,7 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
       }
     };
     loadStripeInstance();
+  }, [stripeEnabled]);
   }, [stripeEnabled]);
 
   const handleStripeCheckout = async () => {

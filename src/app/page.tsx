@@ -32,6 +32,34 @@ const FounderStory = dynamic(
   () => import("@/components/FounderStory/FounderStory"),
   { ssr: false }
 );
+import * as S from "./page.styles";
+import dynamic from "next/dynamic";
+
+// Dynamically import sections for better performance
+const ProductShowcase = dynamic(
+  () => import("@/components/ProductShowcase/ProductShowcase"),
+  { ssr: false }
+);
+
+const HealthBenefits = dynamic(
+  () => import("@/components/HealthBenefits/HealthBenefits"),
+  { ssr: false }
+);
+
+const WhyMocktails = dynamic(
+  () => import("@/components/WhyMocktails/WhyMocktails"),
+  { ssr: false }
+);
+
+const CTABanner = dynamic(
+  () => import("@/components/CTABanner/CTABanner"),
+  { ssr: false }
+);
+
+const FounderStory = dynamic(
+  () => import("@/components/FounderStory/FounderStory"),
+  { ssr: false }
+);
 
 export default function Home() {
   const [ctaBannerEnabled, setCtaBannerEnabled] = useState(true);
@@ -49,6 +77,7 @@ export default function Home() {
 
   return (
     <S.PageContainer>
+    <S.PageContainer>
       <Navigation />
       <LandingPage />
       <ProductShowcase />
@@ -57,6 +86,7 @@ export default function Home() {
       {ctaBannerEnabled && <CTABanner />}
       <FounderStory />
       <Footer />
+    </S.PageContainer>
     </S.PageContainer>
   );
 }

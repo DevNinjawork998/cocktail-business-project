@@ -267,7 +267,7 @@ export const SidebarGrid = styled.div`
 `;
 
 export const SidebarProductCard = styled(Link)`
-  background: white;
+  background: ${({ theme }) => theme.currentSemantic.background};
   border-radius: ${({ theme }) => theme.radii.lg};
   padding: ${({ theme }) => theme.spacing.md};
   text-decoration: none;
@@ -499,7 +499,7 @@ export const QuantityButton = styled.button`
   width: 36px;
   height: 36px;
   border: 1px solid ${({ theme }) => theme.currentSemantic.border};
-  background: white;
+  background: ${({ theme }) => theme.currentSemantic.background};
   color: ${({ theme }) => theme.currentSemantic.text};
   border-radius: ${({ theme }) => theme.radii.md};
   font-size: 1.25rem;
@@ -527,7 +527,7 @@ export const QuantityInput = styled.input`
   font-size: 1.1rem;
   font-weight: 600;
   color: ${({ theme }) => theme.currentSemantic.text};
-  background: white;
+  background: ${({ theme }) => theme.currentSemantic.background};
   /* Hide number input spinners for Chrome, Safari, Edge, Opera */
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
@@ -752,7 +752,7 @@ export const LoadingSidebarGrid = styled.div`
 `;
 
 export const LoadingSidebarCard = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.currentSemantic.background};
   border-radius: ${({ theme }) => theme.radii.lg};
   padding: ${({ theme }) => theme.spacing.md};
   height: 120px;

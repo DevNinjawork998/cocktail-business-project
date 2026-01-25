@@ -27,11 +27,11 @@
   --accent: var(--caramel);
   --danger: var(--bittersweet-shimmer);
 
-  /* Background Colors */
-  --background: #ffffff;
-  --background-secondary: #fafafa;
-  --surface: #ffffff;
-  --surface-hover: #f5f5f5;
+  /* Background Colors - using caramel.light instead of white */
+  --background: #FCF0B8;
+  --background-secondary: #FBE89E;
+  --surface: #FCF0B8;
+  --surface-hover: #FBE89E;
 
   /* Text Colors */
   --foreground: var(--chocolate-kisses);

@@ -36,7 +36,7 @@ export const CheckoutContent = styled.div`
 `;
 
 export const OrderSummary = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.currentSemantic.background};
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -150,7 +150,7 @@ export const TotalAmount = styled(TotalRow)`
 `;
 
 export const CustomerInfo = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.currentSemantic.background};
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -215,7 +215,7 @@ export const FormTextarea = styled.textarea`
 
 export const WhatsAppSection = styled.div`
   grid-column: 1 / -1;
-  background: white;
+  background: ${({ theme }) => theme.currentSemantic.background};
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -309,7 +309,7 @@ export const BackToCartButton = styled.button`
 
 export const PaymentSection = styled.div`
   grid-column: 1 / -1;
-  background: white;
+  background: ${({ theme }) => theme.currentSemantic.background};
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
