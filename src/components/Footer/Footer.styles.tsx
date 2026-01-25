@@ -80,13 +80,12 @@ export const BrandDescription = styled.p`
 export const NavigationColumn = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg};
+  gap: ${({ theme }) => theme.spacing.md};
   align-items: center;
 
   ${({ theme }) => `
     @media (min-width: ${theme.breakpoints.md}) {
       align-items: flex-start;
-      gap: ${theme.spacing.xl};
     }
   `}
 `;
@@ -95,7 +94,7 @@ export const ColumnTitle = styled.h4`
   font-size: 1rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.caramel.base};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
+  margin-bottom: ${({ theme }) => theme.spacing.sm};
 `;
 
 export const NavLinksList = styled.ul`
@@ -104,13 +103,7 @@ export const NavLinksList = styled.ul`
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
-
-  ${({ theme }) => `
-    @media (min-width: ${theme.breakpoints.md}) {
-      gap: ${theme.spacing.lg};
-    }
-  `}
+  gap: ${({ theme }) => theme.spacing.sm};
 `;
 
 export const NavLinkItem = styled.li`
