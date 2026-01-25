@@ -24,17 +24,38 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Setup Prisma for CI
+        run: |
+          # Ensure we have a schema file (use dev schema for CI)
+          if [ ! -f prisma/schema.prisma ] || ! grep -q "provider = \"sqlite\"" prisma/schema.prisma; then
+            cp prisma/schema.dev.prisma prisma/schema.prisma
+          fi
+        env:
+          DATABASE_URL: "file:./dev.db"
+
       - name: Generate Prisma Client
-        run: npx prisma generate
+        run: npx prisma generate --schema=./prisma/schema.prisma
+        env:
+          DATABASE_URL: "file:./dev.db"
 
       - name: Run TypeScript type checking
         run: npm run type-check
+        env:
+          DATABASE_URL: "file:./dev.db"
+          NODE_ENV: "test"
 
       - name: Run ESLint
         run: npm run lint
 
       - name: Run tests
         run: npm run test:ci
+        env:
+          DATABASE_URL: "file:./dev.db"
+          NODE_ENV: "test"
+          # Mock environment variables for tests
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "pk_test_dummy_key_for_ci"
+          NEXT_PUBLIC_ENABLE_CTABANNER: "false"
+          NEXT_PUBLIC_APP_URL: "http://localhost:3000"
 
   # Optional: Build check to ensure the project builds successfully
   build-check:
@@ -54,6 +75,20 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Setup Prisma for Build
+        run: |
+          # Use production schema for build check
+          if [ -f prisma/schema.prod.prisma ]; then
+            cp prisma/schema.prod.prisma prisma/schema.prisma
+          fi
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL || 'file:./dev.db' }}
+
+      - name: Generate Prisma Client
+        run: npx prisma generate --schema=./prisma/schema.prisma
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL || 'file:./dev.db' }}
 
       - name: Build project
         run: npm run build
