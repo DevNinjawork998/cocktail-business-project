@@ -44,13 +44,13 @@ const LandingPage: React.FC = () => {
                   </S.CTAContent>
                 </S.CTAButton>
               </Link>
-              <Link href="/shop">
+              {/* <Link href="/shop">
                 <S.CTAButtonSecondary>
                   <S.CTAContentSecondary>
                     <span>Explore Flavors</span>
                   </S.CTAContentSecondary>
                 </S.CTAButtonSecondary>
-              </Link>
+              </Link> */}
             </S.CTAContainer>
 
             {/* Stats/Features */}

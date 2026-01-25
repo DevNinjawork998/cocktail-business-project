@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation/Navigation";
 import LandingPage from "@/components/LandingPage/LandingPage";
 import Footer from "@/components/Footer/Footer";
@@ -33,6 +34,19 @@ const FounderStory = dynamic(
 );
 
 export default function Home() {
+  const [ctaBannerEnabled, setCtaBannerEnabled] = useState(true);
+
+  useEffect(() => {
+    // Check feature flag on client-side only to avoid hydration mismatch
+    const envValue = process.env.NEXT_PUBLIC_ENABLE_CTABANNER;
+    if (envValue !== undefined) {
+      setCtaBannerEnabled(envValue === "true" || envValue === "1");
+    } else {
+      // Default to enabled if not specified
+      setCtaBannerEnabled(true);
+    }
+  }, []);
+
   return (
     <S.PageContainer>
       <Navigation />
@@ -40,7 +54,7 @@ export default function Home() {
       <ProductShowcase />
       <HealthBenefits />
       <WhyMocktails />
-      <CTABanner />
+      {ctaBannerEnabled && <CTABanner />}
       <FounderStory />
       <Footer />
     </S.PageContainer>

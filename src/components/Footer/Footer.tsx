@@ -106,16 +106,15 @@ const Footer: React.FC = () => {
 
   const shopLinks = [
     { label: "All Products", href: "/shop" },
-    { label: "Best Sellers", href: "/shop#best-sellers" },
-    { label: "New Arrivals", href: "/shop#new-arrivals" },
-    { label: "Subscriptions", href: "/shop#subscriptions" },
+    // { label: "Best Sellers", href: "/shop#best-sellers" },
+    // { label: "New Arrivals", href: "/shop#new-arrivals" },
+    // { label: "Subscriptions", href: "/shop#subscriptions" },
   ];
 
   const companyLinks = [
-    { label: "About Us", href: "/founders" },
     { label: "Our Story", href: "/founders" },
     { label: "Contact", href: "/contact" },
-    { label: "Careers", href: "/careers" },
+    // { label: "Careers", href: "/careers" },
   ];
 
   const legalLinks = [

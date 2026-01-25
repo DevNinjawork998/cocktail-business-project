@@ -1,6 +1,3 @@
-import { readFileSync } from "fs";
-import { join } from "path";
-
 interface FeatureFlagsConfig {
   features: {
     stripe?: {
@@ -13,7 +10,7 @@ interface FeatureFlagsConfig {
 let cachedConfig: FeatureFlagsConfig | null = null;
 
 /**
- * Read feature flags from config file
+ * Read feature flags from config file (server-side only)
  * Caches the result to avoid repeated file reads
  */
 function getFeatureFlagsConfig(): FeatureFlagsConfig {
@@ -21,23 +18,37 @@ function getFeatureFlagsConfig(): FeatureFlagsConfig {
     return cachedConfig;
   }
 
-  try {
-    const configPath = join(process.cwd(), "src", "config", "featureFlags.json");
-    const fileContent = readFileSync(configPath, "utf-8");
-    cachedConfig = JSON.parse(fileContent) as FeatureFlagsConfig;
-    return cachedConfig;
-  } catch (error) {
-    // If config file doesn't exist, return default config (all features enabled)
-    console.warn(
-      "Feature flags config file not found, using defaults (all features enabled)",
-    );
-    cachedConfig = {
-      features: {
-        stripe: { enabled: true },
-      },
-    };
-    return cachedConfig;
+  // Only try to read config file on server-side
+  if (typeof window === "undefined") {
+    try {
+      // Dynamic import for Node.js modules (server-side only)
+      const { readFileSync } = require("fs");
+      const { join } = require("path");
+      const configPath = join(process.cwd(), "src", "config", "featureFlags.json");
+      const fileContent = readFileSync(configPath, "utf-8");
+      cachedConfig = JSON.parse(fileContent) as FeatureFlagsConfig;
+      return cachedConfig;
+    } catch (error) {
+      // If config file doesn't exist, return default config (all features enabled)
+      console.warn(
+        "Feature flags config file not found, using defaults (all features enabled)",
+      );
+      cachedConfig = {
+        features: {
+          stripe: { enabled: true },
+        },
+      };
+      return cachedConfig;
+    }
   }
+
+  // Client-side: return default config
+  cachedConfig = {
+    features: {
+      stripe: { enabled: true },
+    },
+  };
+  return cachedConfig;
 }
 
 /**
@@ -72,6 +83,14 @@ export function isFeatureEnabled(featureName: string): boolean {
  */
 export function isStripeEnabled(): boolean {
   return isFeatureEnabled("stripe");
+}
+
+/**
+ * Check if CTABanner is enabled
+ * @returns true if CTABanner is enabled, false otherwise
+ */
+export function isCTABannerEnabled(): boolean {
+  return isFeatureEnabled("ctabanner");
 }
 
 /**
