@@ -45,17 +45,11 @@ const LandingPage: React.FC = () => {
                 </S.CTAButton>
               </Link>
               <Link href="/shop">
-                <S.CTAButton
-                  style={{
-                    background: "transparent",
-                    border: "2px solid #451515",
-                    color: "#451515",
-                  }}
-                >
-                  <S.CTAContent style={{ color: "#451515" }}>
+                <S.CTAButtonSecondary>
+                  <S.CTAContentSecondary>
                     <span>Explore Flavors</span>
-                  </S.CTAContent>
-                </S.CTAButton>
+                  </S.CTAContentSecondary>
+                </S.CTAButtonSecondary>
               </Link>
             </S.CTAContainer>
 
