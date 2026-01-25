@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import type { Product as PrismaProduct } from "@prisma/client";
 
 export interface Product {
   id: string;
@@ -16,6 +15,8 @@ export interface Product {
   productBrief?: string; // Introduction/description of the drink
   nutritionFacts?: Array<{ label: string; value: string }>; // Array of nutrition facts
 }
+
+type PrismaProduct = Awaited<ReturnType<typeof prisma.product.findMany>>[number];
 
 export async function getAllProducts(): Promise<Product[]> {
   try {
