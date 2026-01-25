@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import type { Product as PrismaProduct } from "@prisma/client";
 
 export interface Product {
   id: string;
@@ -23,7 +24,7 @@ export async function getAllProducts(): Promise<Product[]> {
         createdAt: "desc",
       },
     });
-    return products.map((product) => {
+    return products.map((product: PrismaProduct) => {
       return {
         ...product,
         features: product.features as Array<{ text: string; color: string }>,
