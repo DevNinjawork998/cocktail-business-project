@@ -40,22 +40,12 @@ export const GradientBackground = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: linear-gradient(
     135deg,
     #FFE5E5 0%,
     #FFD4C4 50%,
     #FFB88C 100%
-    #FFE5E5 0%,
-    #FFD4C4 50%,
-    #FFB88C 100%
   );
-  opacity: 1;
-  z-index: 0;
-  pointer-events: none;
   opacity: 1;
   z-index: 0;
   pointer-events: none;
@@ -64,7 +54,6 @@ export const GradientBackground = styled.div`
 export const OverlayBackground = styled.div`
   position: absolute;
   inset: 0;
-  background: transparent;
   background: transparent;
 `;
 

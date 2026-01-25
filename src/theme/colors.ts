@@ -47,11 +47,11 @@ export const semanticColors = {
   danger: colors.bittersweetShimmer.base,
   dangerDark: colors.bittersweetShimmer.dark,
 
-  // Background colors - using caramel.light instead of white
-  background: colors.caramel.light,
-  backgroundSecondary: colors.caramel.base,
-  surface: colors.caramel.light,
-  surfaceHover: colors.caramel.base,
+  // Background colors
+  background: "#ffffff",
+  backgroundSecondary: "#fafafa",
+  surface: "#ffffff",
+  surfaceHover: "#f5f5f5",
 
   // Text colors
   text: colors.chocolateKisses.base,
