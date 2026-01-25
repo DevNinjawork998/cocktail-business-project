@@ -51,7 +51,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("shows empty cart message when cart is empty", () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={false} />);
 
       expect(screen.getByText("Your cart is empty")).toBeInTheDocument();
       expect(
@@ -69,7 +69,7 @@ describe("CheckoutPageClient", () => {
         push: mockPush,
       });
 
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={false} />);
 
       fireEvent.click(screen.getByText("Back to Cart"));
       expect(mockPush).toHaveBeenCalledWith("/cart");
@@ -101,7 +101,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("renders payment method selection by default", () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
 
       expect(screen.getByText("Checkout")).toBeInTheDocument();
       expect(screen.getByText("Choose Payment Method")).toBeInTheDocument();
@@ -110,7 +110,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("shows customer form when WhatsApp payment is selected", () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
 
       // Click on WhatsApp payment option
       fireEvent.click(screen.getByText("Pay via WhatsApp"));
@@ -150,7 +150,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("shows validation error for empty required fields", async () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
 
       // First select WhatsApp payment to show the form
       fireEvent.click(screen.getByText("Pay via WhatsApp"));
@@ -171,7 +171,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("validates email format", async () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
 
       // First select WhatsApp payment to show the form
       fireEvent.click(screen.getByText("Pay via WhatsApp"));
@@ -186,7 +186,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("validates phone number format", async () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
 
       // First select WhatsApp payment to show the form
       fireEvent.click(screen.getByText("Pay via WhatsApp"));
@@ -203,7 +203,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("accepts valid phone number formats", async () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
 
       // First select WhatsApp payment to show the form
       fireEvent.click(screen.getByText("Pay via WhatsApp"));
@@ -252,13 +252,13 @@ describe("CheckoutPageClient", () => {
     });
 
     it("displays order summary section", () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={false} />);
 
       expect(screen.getByText("Order Summary")).toBeInTheDocument();
     });
 
     it("displays multiple items correctly", () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={false} />);
 
       expect(screen.getByText("Order Summary")).toBeInTheDocument();
       // Use getAllByText since there are multiple elements with the same product names
@@ -271,7 +271,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("displays correct prices and totals", () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={false} />);
 
       expect(screen.getByText("RM 59.98")).toBeInTheDocument(); // Mojito x2
       expect(screen.getByText("RM 34.99")).toBeInTheDocument(); // Margarita x1
@@ -282,7 +282,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("shows free shipping", () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={false} />);
 
       expect(screen.getByText("Shipping")).toBeInTheDocument();
       expect(screen.getByText("Free")).toBeInTheDocument();
@@ -313,7 +313,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("displays WhatsApp button after selecting WhatsApp payment", () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
 
       // First select WhatsApp payment to show the form
       fireEvent.click(screen.getByText("Pay via WhatsApp"));
@@ -323,7 +323,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("requires form fields to be filled before sending", async () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
 
       // First select WhatsApp payment to show the form
       fireEvent.click(screen.getByText("Pay via WhatsApp"));
@@ -340,7 +340,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("submits WhatsApp order and opens WhatsApp with correct URL", async () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
       fireEvent.click(screen.getByText("Pay via WhatsApp"));
 
       fireEvent.change(screen.getByLabelText("Full Name *"), {
@@ -399,7 +399,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("allows typing in all form fields", () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
 
       // First select WhatsApp payment to show the form
       fireEvent.click(screen.getByText("Pay via WhatsApp"));
@@ -424,7 +424,7 @@ describe("CheckoutPageClient", () => {
     });
 
     it("limits notes to 200 characters", () => {
-      renderWithCart(<CheckoutPageClient />);
+      renderWithCart(<CheckoutPageClient stripeEnabled={true} />);
 
       // First select WhatsApp payment to show the form
       fireEvent.click(screen.getByText("Pay via WhatsApp"));

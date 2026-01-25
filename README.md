@@ -128,7 +128,9 @@ A modern Next.js e-commerce application for a cocktail business, featuring dynam
 - `npm run build:prod` - Build for production with production database
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript type checking
 - `npm run test` - Run tests
+- `npm run test:ci` - Run tests in CI mode (with coverage, no watch)
 - `npm run db:dev` - Switch to development database (SQLite)
 - `npm run db:prod` - Switch to production database (PostgreSQL)
 - `npm run db:seed` - Seed development database
@@ -209,6 +211,27 @@ vercel --prod
 # Seed production database
 npm run db:seed:prod
 ```
+
+### CI/CD with GitHub Actions
+
+This project includes automated CI/CD pipelines using GitHub Actions:
+
+- **Quality Checks**: Automatically runs on every push and pull request
+  - TypeScript type checking
+  - ESLint code linting
+  - Jest test suite execution
+  - Build validation
+
+- **Automated Deployment**: Deploys to Vercel only after all checks pass
+  - Runs on pushes to `main` or `master` branches
+  - Ensures only tested, validated code reaches production
+
+**Setup Instructions**: See [docs/VERCEL_DEPLOYMENT.md](docs/VERCEL_DEPLOYMENT.md#step-5-github-actions-cicd-setup) for detailed setup guide.
+
+**Required GitHub Secrets**:
+- `VERCEL_TOKEN` - Vercel authentication token
+- `VERCEL_ORG_ID` - Vercel organization ID
+- `VERCEL_PROJECT_ID` - Vercel project ID
 
 ## 🧪 Testing
 

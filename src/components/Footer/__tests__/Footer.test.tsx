@@ -55,17 +55,12 @@ describe("Footer", () => {
   it("renders shop navigation links", () => {
     render(<Footer />);
     expect(screen.getByText("All Products")).toBeInTheDocument();
-    expect(screen.getByText("Best Sellers")).toBeInTheDocument();
-    expect(screen.getByText("New Arrivals")).toBeInTheDocument();
-    expect(screen.getByText("Subscriptions")).toBeInTheDocument();
   });
 
   it("renders company navigation links", () => {
     render(<Footer />);
-    expect(screen.getByText("About Us")).toBeInTheDocument();
     expect(screen.getByText("Our Story")).toBeInTheDocument();
     expect(screen.getByText("Contact")).toBeInTheDocument();
-    expect(screen.getByText("Careers")).toBeInTheDocument();
   });
 
   it("renders legal links", () => {

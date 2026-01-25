@@ -135,9 +135,7 @@ export default function ShopPage() {
       <ShopContainer>
         <ShopHeader>
           <ShopTitle>Our Signature Collection</ShopTitle>
-          <ShopTitle>Our Signature Collection</ShopTitle>
           <ShopSubtitle>
-            Each flavor is thoughtfully crafted with premium ingredients and functional adaptogens.
             Each flavor is thoughtfully crafted with premium ingredients and functional adaptogens.
           </ShopSubtitle>
         </ShopHeader>
