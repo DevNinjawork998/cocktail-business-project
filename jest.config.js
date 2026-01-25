@@ -15,6 +15,8 @@ const customJestConfig = {
     "<rootDir>/node_modules/",
     "<rootDir>/src/__tests__/test-utils.tsx",
   ],
+  // Use v8 coverage provider to avoid conflicts with Next.js require hook and Istanbul
+  coverageProvider: "v8",
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
@@ -23,6 +25,33 @@ const customJestConfig = {
     "!src/**/*.d.ts",
     "!src/**/*.stories.{js,jsx,ts,tsx}",
     "!src/**/*.styles.{js,jsx,ts,tsx}",
+    // Exclude Next.js app router files that cause coverage instrumentation issues
+    "!src/app/**/page.{ts,tsx}",
+    "!src/app/**/layout.{ts,tsx}",
+    "!src/app/**/error.{ts,tsx}",
+    "!src/app/**/not-found.{ts,tsx}",
+    "!src/app/**/loading.{ts,tsx}",
+    "!src/app/**/route.{ts,tsx}",
+    "!src/app/**/template.{ts,tsx}",
+    "!src/app/**/default.{ts,tsx}",
+    // Exclude Next.js API routes
+    "!src/app/api/**/*.{ts,tsx}",
+    // Exclude Next.js lib files that use server-side features
+    "!src/app/lib/**/*.{ts,tsx}",
+  ],
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "/.next/",
+    "/coverage/",
+    // Ignore Next.js app router files that conflict with coverage instrumentation
+    "/src/app/.*/page\\.(ts|tsx)$",
+    "/src/app/.*/layout\\.(ts|tsx)$",
+    "/src/app/.*/error\\.(ts|tsx)$",
+    "/src/app/.*/not-found\\.(ts|tsx)$",
+    "/src/app/.*/loading\\.(ts|tsx)$",
+    "/src/app/.*/route\\.(ts|tsx)$",
+    "/src/app/api/",
+    "/src/app/lib/",
   ],
   coverageThreshold: {
     global: {
