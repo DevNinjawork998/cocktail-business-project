@@ -5,43 +5,15 @@ import Link from "next/link";
 export const ShopContainer = styled.div`
   min-height: 100vh;
   background: linear-gradient(
-    135deg,
-    ${({ theme }) => theme.colors.mauvelous.light}20 0%,
-    ${({ theme }) => theme.colors.caramel.light}25 25%,
-    ${({ theme }) => theme.colors.caramel.base}15 50%,
-    ${({ theme }) => theme.colors.royalOrange.light}20 75%,
-    ${({ theme }) => theme.colors.mauvelous.light}15 100%
+    180deg,
+    #FEF9F5 0%,
+    #FFF5F0 50%,
+    #FFE8E0 100%
   );
   padding: ${({ theme }) => theme.spacing["2xl"]};
   ${({ theme }) => theme.spacing.md};
   position: relative;
   overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-      circle at 15% 30%,
-      ${({ theme }) => theme.colors.mauvelous.base}12 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 85% 70%,
-      ${({ theme }) => theme.colors.royalOrange.base}12 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 50% 10%,
-      ${({ theme }) => theme.colors.caramel.base}08 0%,
-      transparent 40%
-    );
-    pointer-events: none;
-    z-index: 0;
-  }
 
   ${media.lg} {
     padding: ${({ theme }) => theme.spacing["4xl"]};
