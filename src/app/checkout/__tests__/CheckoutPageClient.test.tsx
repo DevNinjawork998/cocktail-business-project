@@ -29,6 +29,26 @@ const renderWithCart = (component: React.ReactElement) => {
 
 beforeAll(() => {
   window.alert = jest.fn();
+  
+  // Suppress console.error for act() warnings in tests
+  const originalError = console.error;
+  console.error = (...args: unknown[]) => {
+    if (
+      typeof args[0] === "string" &&
+      (args[0].includes("not wrapped in act") ||
+       args[0].includes("FORM SUBMIT") ||
+       args[0].includes("WhatsApp order handler called") ||
+       args[0].includes("Opening WhatsApp URL"))
+    ) {
+      return;
+    }
+    originalError.call(console, ...args);
+  };
+});
+
+afterAll(() => {
+  // Restore console.error
+  console.error = jest.requireActual("console").error;
 });
 
 describe("CheckoutPageClient", () => {

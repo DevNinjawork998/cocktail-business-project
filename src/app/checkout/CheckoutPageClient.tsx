@@ -163,7 +163,6 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
   };
 
   const handleWhatsAppOrder = (customerInfo: CustomerInfo) => {
-    console.log("WhatsApp order handler called", customerInfo);
     if (state.items.length === 0) return;
 
     try {
@@ -195,12 +194,8 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
         message,
       )}`;
 
-      console.log("Opening WhatsApp URL:", whatsappUrl);
       const newWindow = window.open(whatsappUrl, "_blank");
       if (!newWindow) {
-        console.log(
-          "window.open was blocked, falling back to window.location.href",
-        );
         window.location.href = whatsappUrl;
       }
       // Clear cart after sending to WhatsApp
@@ -371,7 +366,6 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
               <CustomerInfoTitle>Customer Information</CustomerInfoTitle>
               <CustomerInfoForm
                 onSubmit={(e) => {
-                  console.log("FORM SUBMIT", e);
                   handleSubmit(handleWhatsAppOrder)(e);
                 }}
                 role="form"
@@ -461,7 +455,6 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
                   <WhatsAppButton
                     type="submit"
                     disabled={!isValid || loading}
-                    onClick={() => console.log("WhatsApp button clicked")}
                   >
                     <WhatsAppIcon>
                       <svg
