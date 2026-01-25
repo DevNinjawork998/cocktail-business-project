@@ -22,13 +22,15 @@ function getFeatureFlagsConfig(): FeatureFlagsConfig {
   if (typeof window === "undefined") {
     try {
       // Dynamic import for Node.js modules (server-side only)
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { readFileSync } = require("fs");
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { join } = require("path");
       const configPath = join(process.cwd(), "src", "config", "featureFlags.json");
       const fileContent = readFileSync(configPath, "utf-8");
       cachedConfig = JSON.parse(fileContent) as FeatureFlagsConfig;
       return cachedConfig;
-    } catch (error) {
+    } catch {
       // If config file doesn't exist, return default config (all features enabled)
       console.warn(
         "Feature flags config file not found, using defaults (all features enabled)",

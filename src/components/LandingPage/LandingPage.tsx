@@ -4,8 +4,6 @@ import React from "react";
 import Link from "next/link";
 import * as S from "./LandingPage.styles";
 import RunningBanner from "../RunningBanner/RunningBanner";
-import * as S from "./LandingPage.styles";
-import RunningBanner from "../RunningBanner/RunningBanner";
 import dynamic from "next/dynamic";
 
 const HeroSlideshow = dynamic(() => import("../HeroSlideshow/HeroSlideshow"), {
@@ -16,16 +14,10 @@ const LandingPage: React.FC = () => {
   return (
     <S.LandingSection>
       <RunningBanner />
-    <S.LandingSection>
-      <RunningBanner />
       {/* Gradient Background */}
       <S.GradientBackground />
       <S.OverlayBackground />
-      <S.GradientBackground />
-      <S.OverlayBackground />
 
-      <S.Container>
-        <S.MainGrid>
       <S.Container>
         <S.MainGrid>
           {/* Left Content */}
@@ -34,21 +26,10 @@ const LandingPage: React.FC = () => {
             <S.ContentSection>
               <S.Title>
                 Mocktails that fuel
-          <S.LeftContent>
-            <S.Badge>✨ Fresh. Functional. Delicious.</S.Badge>
-            <S.ContentSection>
-              <S.Title>
-                Mocktails that fuel
                 <br />
                 <S.TitleAccent>your day</S.TitleAccent>
               </S.Title>
-                <S.TitleAccent>your day</S.TitleAccent>
-              </S.Title>
 
-              <S.Subtitle>
-                Crafted with the freshest fruits and powered by adaptogens. All the taste, none of the guilt. Low sugar. High vibes.
-              </S.Subtitle>
-            </S.ContentSection>
               <S.Subtitle>
                 Crafted with the freshest fruits and powered by adaptogens. All the taste, none of the guilt. Low sugar. High vibes.
               </S.Subtitle>
@@ -63,13 +44,13 @@ const LandingPage: React.FC = () => {
                   </S.CTAContent>
                 </S.CTAButton>
               </Link>
-              {/* <Link href="/shop">
+              <Link href="/shop">
                 <S.CTAButtonSecondary>
                   <S.CTAContentSecondary>
                     <span>Explore Flavors</span>
                   </S.CTAContentSecondary>
                 </S.CTAButtonSecondary>
-              </Link> */}
+              </Link>
             </S.CTAContainer>
 
             {/* Stats/Features */}
@@ -91,13 +72,7 @@ const LandingPage: React.FC = () => {
 
           {/* Right Content - Product Image */}
           <S.RightContent>
-          {/* Right Content - Product Image */}
-          <S.RightContent>
             <HeroSlideshow />
-          </S.RightContent>
-        </S.MainGrid>
-      </S.Container>
-    </S.LandingSection>
           </S.RightContent>
         </S.MainGrid>
       </S.Container>

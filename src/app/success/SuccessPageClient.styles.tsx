@@ -1,5 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import styled, { keyframes } from "styled-components";
 import { media } from "@/theme/styled-theme";
 
 export const SuccessContainer = styled.div`

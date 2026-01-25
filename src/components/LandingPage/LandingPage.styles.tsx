@@ -210,28 +210,6 @@ export const CTAContentSecondary = styled(CTAContent)`
   }
 `;
 
-export const CTAButtonSecondary = styled(CTAButton)`
-  background: transparent;
-  border: 2px solid ${({ theme }) => theme.colors.chocolateKisses.base};
-  color: ${({ theme }) => theme.colors.chocolateKisses.base};
-  box-shadow: none;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.chocolateKisses.base};
-    color: white;
-    transform: scale(1.05);
-    box-shadow: ${({ theme }) => theme.shadows.xl};
-  }
-`;
-
-export const CTAContentSecondary = styled(CTAContent)`
-  color: ${({ theme }) => theme.colors.chocolateKisses.base};
-
-  ${CTAButtonSecondary}:hover & {
-    color: white;
-  }
-`;
-
 export const CTAIcon = styled.svg`
   width: 1.25rem;
   height: 1.25rem;

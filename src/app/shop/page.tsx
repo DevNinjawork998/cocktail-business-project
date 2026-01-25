@@ -45,24 +45,6 @@ const FounderStory = dynamic(
   },
 );
 
-const WhyMocktails = dynamic(
-  () => import("@/components/WhyMocktails/WhyMocktails"),
-  {
-    ssr: false,
-  },
-);
-
-const CTABanner = dynamic(() => import("@/components/CTABanner/CTABanner"), {
-  ssr: false,
-});
-
-const FounderStory = dynamic(
-  () => import("@/components/FounderStory/FounderStory"),
-  {
-    ssr: false,
-  },
-);
-
 export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -173,19 +155,12 @@ export default function ShopPage() {
                       maxWidth: "200px",
                       maxHeight: "300px",
                       margin: "0 auto",
-                      width: "100%",
-                      height: "100%",
-                      maxWidth: "200px",
-                      maxHeight: "300px",
-                      margin: "0 auto",
                     }}
                   >
                     <Image
                       src={product.imageUrl}
                       alt={product.name}
                       fill
-                      style={{ objectFit: "contain", borderRadius: "8px" }}
-                      sizes="(max-width: 768px) 150px, 200px"
                       style={{ objectFit: "contain", borderRadius: "8px" }}
                       sizes="(max-width: 768px) 150px, 200px"
                     />

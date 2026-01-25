@@ -2,15 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-import Link from "next/link";
 import {
   FooterContainer,
   FooterWrapper,
   FooterContent,
-  FooterTop,
-  BrandSection,
-  BrandLogo,
-  BrandDescription,
   FooterTop,
   BrandSection,
   BrandLogo,
@@ -23,11 +18,6 @@ import {
   NavLinksList,
   NavLinkItem,
   NavLink,
-  NavigationColumn,
-  ColumnTitle,
-  NavLinksList,
-  NavLinkItem,
-  NavLink,
   SocialSection,
   SocialTitle,
   SocialLinksContainer,
@@ -35,11 +25,8 @@ import {
   SocialIcon,
   DividerLine,
   FooterBottom,
-  FooterBottom,
   CopyrightSection,
   CopyrightText,
-  LegalLinks,
-  LegalLink,
   LegalLinks,
   LegalLink,
 } from "./Footer.styles";
@@ -101,7 +88,6 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, label }) => (
 const Footer: React.FC = () => {
   const socialLinks = [
     {
-      href: "https://instagram.com/mocktailsonthego",
       href: "https://instagram.com/mocktailsonthego",
       icon: <InstagramIcon />,
       label: "Follow us on Instagram",
