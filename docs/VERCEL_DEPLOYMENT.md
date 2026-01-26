@@ -168,10 +168,134 @@ vercel --prod
 2. **Prisma Cloud**: Database performance and query analytics
 3. **Error Tracking**: Monitor application errors in Vercel dashboard
 
+## Step 5: GitHub Actions CI/CD Setup
+
+This project includes GitHub Actions workflows to automatically run quality checks and deploy to Vercel.
+
+### Workflows Included
+
+1. **CI Workflow** (`.github/workflows/ci.yml`):
+   - Runs on every push and pull request
+   - Performs TypeScript type checking
+   - Runs ESLint
+   - Executes test suite
+   - Validates build process
+
+2. **Vercel Deployment Workflow** (`.github/workflows/vercel-deploy.yml`):
+   - Runs only on pushes to `main` or `master` branches
+   - Runs quality checks first (type check, lint, tests)
+   - Only deploys if all checks pass
+   - Deploys to Vercel production
+
+### Required GitHub Secrets
+
+To enable Vercel deployment via GitHub Actions, you need to set up the following secrets in your GitHub repository:
+
+1. **Go to your GitHub repository** → Settings → Secrets and variables → Actions
+
+2. **Add the following secrets**:
+
+   - `VERCEL_TOKEN`: Your Vercel authentication token
+     - Get it from: https://vercel.com/account/tokens
+     - Create a new token with full access
+
+   - `VERCEL_ORG_ID`: Your Vercel organization ID
+     - Find it in: Vercel Dashboard → Settings → General → Organization ID
+
+   - `VERCEL_PROJECT_ID`: Your Vercel project ID
+     - Find it in: Vercel Dashboard → Your Project → Settings → General → Project ID
+
+3. **Optional Environment Variables** (if needed for build):
+   - `DATABASE_URL`: Already set in Vercel, but can be added to GitHub Secrets if needed
+   - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`: If using Stripe
+
+### How It Works
+
+1. **On Pull Requests**:
+   - CI workflow runs automatically
+   - Type checking, linting, and tests must pass
+   - No deployment occurs
+
+2. **On Push to Main/Master**:
+   - CI workflow runs first
+   - If CI passes, Vercel deployment workflow runs
+   - Quality checks run again in deployment workflow
+   - If all checks pass, code is deployed to Vercel production
+
+### Manual Setup Steps
+
+1. **Get Vercel Credentials**:
+   ```bash
+   # Install Vercel CLI if not already installed
+   npm install -g vercel
+   
+   # Login to Vercel
+   vercel login
+   
+   # Link your project (if not already linked)
+   vercel link
+   ```
+
+2. **Find Your IDs**:
+   - After linking, check `.vercel/project.json` for `orgId` and `projectId`
+   - Or find them in Vercel Dashboard → Project Settings
+
+3. **Add Secrets to GitHub**:
+   - Go to: `https://github.com/YOUR_USERNAME/YOUR_REPO/settings/secrets/actions`
+   - Click "New repository secret"
+   - Add each secret: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
+
+### Testing the Workflow
+
+1. **Create a test branch**:
+   ```bash
+   git checkout -b test-ci
+   ```
+
+2. **Make a small change** and commit:
+   ```bash
+   git add .
+   git commit -m "Test CI workflow"
+   git push origin test-ci
+   ```
+
+3. **Create a Pull Request**:
+   - Go to GitHub and create a PR
+   - Check the "Actions" tab to see CI running
+   - All checks should pass
+
+4. **Merge to Main**:
+   - Once PR is merged, the deployment workflow will run
+   - Check the Actions tab to see deployment progress
+
+### Troubleshooting GitHub Actions
+
+1. **Workflow not running**:
+   - Check that workflows are enabled: Settings → Actions → General
+   - Ensure workflow files are in `.github/workflows/` directory
+
+2. **Vercel deployment failing**:
+   - Verify all secrets are set correctly
+   - Check Vercel token hasn't expired
+   - Ensure project is linked correctly
+
+3. **Tests failing in CI**:
+   - Run tests locally: `npm run test:ci`
+   - Check that all environment variables are available
+   - Verify test setup matches local environment
+
+### Benefits of This Setup
+
+- ✅ **Automated Quality Checks**: Every commit is validated
+- ✅ **Prevents Bad Deployments**: Only tested code reaches production
+- ✅ **Faster Feedback**: Know immediately if code has issues
+- ✅ **Consistent Deployments**: Same process every time
+- ✅ **Team Collaboration**: PRs must pass checks before merge
+
 ## Next Steps
 
 1. **Set up custom domain** (optional)
-2. **Configure automatic deployments** from Git
+2. **Configure GitHub Actions** (see Step 5 above)
 3. **Set up monitoring and alerts**
 4. **Optimize performance** based on analytics
 

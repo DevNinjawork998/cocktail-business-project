@@ -3,6 +3,25 @@ import { render, screen } from "../../../__tests__/test-utils";
 import LandingPage from "../LandingPage";
 import "@jest/globals";
 
+// Suppress console.error for act() warnings from Next.js LoadableComponent
+const originalError = console.error;
+beforeAll(() => {
+  console.error = jest.fn((...args: unknown[]) => {
+    const message = typeof args[0] === "string" ? args[0] : "";
+    if (
+      message.includes("not wrapped in act") ||
+      message.includes("LoadableComponent")
+    ) {
+      return;
+    }
+    originalError.call(console, ...args);
+  });
+});
+
+afterAll(() => {
+  console.error = originalError;
+});
+
 // Mock dynamic imports
 jest.mock("../../RunningBanner/RunningBanner", () => {
   return function MockRunningBanner() {

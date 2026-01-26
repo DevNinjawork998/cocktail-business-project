@@ -16,6 +16,8 @@ export interface Product {
   nutritionFacts?: Array<{ label: string; value: string }>; // Array of nutrition facts
 }
 
+type PrismaProduct = Awaited<ReturnType<typeof prisma.product.findMany>>[number];
+
 export async function getAllProducts(): Promise<Product[]> {
   try {
     const products = await prisma.product.findMany({
@@ -23,7 +25,7 @@ export async function getAllProducts(): Promise<Product[]> {
         createdAt: "desc",
       },
     });
-    return products.map((product) => {
+    return products.map((product: PrismaProduct) => {
       return {
         ...product,
         features: product.features as Array<{ text: string; color: string }>,
