@@ -40,7 +40,8 @@ describe("Testimonials", () => {
     render(<Testimonials />);
 
     expect(screen.getByText("Jenny")).toBeInTheDocument();
-    expect(screen.getByText("Truffle Zombie Butler")).toBeInTheDocument();
+    // Multiple testimonials have the same title, so use getAllByText
+    expect(screen.getAllByText("Truffle Zombie Butler").length).toBeGreaterThan(0);
   });
 
   it("renders navigation dots", () => {
@@ -100,7 +101,8 @@ describe("Testimonials", () => {
   it("renders customer avatars with initials", () => {
     render(<Testimonials />);
 
-    expect(screen.getByText("J")).toBeInTheDocument(); // Jenny's initial
+    // Multiple customers have "J" initial (Jenny, Jay), so use getAllByText
+    expect(screen.getAllByText("J").length).toBeGreaterThan(0);
     expect(screen.getByText("K")).toBeInTheDocument(); // Kat's initial
   });
 });

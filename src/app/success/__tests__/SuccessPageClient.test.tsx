@@ -1,9 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "../../../__tests__/test-utils";
-import { CartProvider } from "../../../contexts/CartContext";
 import SuccessPageClient from "../SuccessPageClient";
 import { useRouter, useSearchParams } from "next/navigation";
-import * as CartContext from "../../../contexts/CartContext";
 
 // Mock Next.js navigation
 const mockPush = jest.fn();
@@ -14,38 +12,30 @@ jest.mock("next/navigation", () => ({
   useSearchParams: jest.fn(),
 }));
 
-// Test wrapper component to provide cart context
-const TestWrapper: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  return <CartProvider>{children}</CartProvider>;
-};
+// Mock CartContext
+const mockClearCart = jest.fn();
+jest.mock("../../../contexts/CartContext", () => ({
+  useCart: jest.fn(() => ({
+    clearCart: mockClearCart,
+  })),
+  CartProvider: ({ children }: { children: React.ReactNode }) => (
+    <>{children}</>
+  ),
+}));
 
 describe("SuccessPageClient", () => {
-  const mockClearCart = jest.fn();
-
   beforeEach(() => {
     jest.clearAllMocks();
+    mockClearCart.mockClear();
     mockSearchParams.delete("session_id");
     (useRouter as jest.Mock).mockReturnValue({
       push: mockPush,
     });
     (useSearchParams as jest.Mock).mockReturnValue(mockSearchParams);
-
-    // Mock useCart hook
-    jest
-      .spyOn(CartContext, "useCart")
-      .mockReturnValue({
-        clearCart: mockClearCart,
-      } as ReturnType<typeof CartContext.useCart>);
   });
 
   it("renders success title", () => {
-    render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
-    );
+    render(<SuccessPageClient />);
 
     expect(
       screen.getByText("Cheers! Your Order is Shaking Things Up!"),
@@ -54,9 +44,7 @@ describe("SuccessPageClient", () => {
 
   it("renders success message", () => {
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     expect(
@@ -70,20 +58,16 @@ describe("SuccessPageClient", () => {
   });
 
   it("renders cocktail emoji", () => {
-    render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
-    );
+    render(<SuccessPageClient />);
 
-    expect(screen.getByText("🍹")).toBeInTheDocument();
+    // The emoji appears multiple times (in confetti and main display), so use getAllByText
+    const emojis = screen.getAllByText("🍹");
+    expect(emojis.length).toBeGreaterThan(0);
   });
 
   it("renders success icon", () => {
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     expect(screen.getByText("✓")).toBeInTheDocument();
@@ -93,9 +77,7 @@ describe("SuccessPageClient", () => {
     mockSearchParams.set("session_id", "test-session-123");
 
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     expect(screen.getByText("Your Cocktail Order Code:")).toBeInTheDocument();
@@ -111,9 +93,7 @@ describe("SuccessPageClient", () => {
     mockSearchParams.delete("session_id");
 
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     expect(
@@ -123,9 +103,7 @@ describe("SuccessPageClient", () => {
 
   it("renders next steps section", () => {
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     expect(screen.getByText("What happens next?")).toBeInTheDocument();
@@ -147,9 +125,7 @@ describe("SuccessPageClient", () => {
 
   it("renders action buttons", () => {
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     expect(screen.getByText("Continue Shopping")).toBeInTheDocument();
@@ -158,9 +134,7 @@ describe("SuccessPageClient", () => {
 
   it("navigates to shop when Continue Shopping button is clicked", () => {
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     const continueShoppingButton = screen.getByText("Continue Shopping");
@@ -171,9 +145,7 @@ describe("SuccessPageClient", () => {
 
   it("navigates to home when Back to Home button is clicked", () => {
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     const backToHomeButton = screen.getByText("Back to Home");
@@ -184,9 +156,7 @@ describe("SuccessPageClient", () => {
 
   it("clears cart on mount", () => {
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     expect(mockClearCart).toHaveBeenCalled();
@@ -194,9 +164,7 @@ describe("SuccessPageClient", () => {
 
   it("renders social share text", () => {
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     expect(
@@ -207,9 +175,7 @@ describe("SuccessPageClient", () => {
 
   it("generates confetti on mount", () => {
     render(
-      <TestWrapper>
-        <SuccessPageClient />
-      </TestWrapper>,
+      <SuccessPageClient />,
     );
 
     // Confetti emojis should be rendered

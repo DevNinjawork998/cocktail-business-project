@@ -25,12 +25,13 @@ describe("RunningBanner", () => {
   it("renders all banner messages", () => {
     render(<RunningBanner />);
 
+    // Banner data is duplicated, so messages appear multiple times
     expect(
-      screen.getByText("Free shipping on all orders over $50!"),
-    ).toBeInTheDocument();
+      screen.getAllByText("Free shipping on all orders over $50!").length,
+    ).toBeGreaterThan(0);
     expect(
-      screen.getByText("New flavor just dropped: Strawberry Basil!"),
-    ).toBeInTheDocument();
+      screen.getAllByText("New flavor just dropped: Strawberry Basil!").length,
+    ).toBeGreaterThan(0);
   });
 
   it("renders all banner images", () => {
@@ -68,12 +69,13 @@ describe("RunningBanner", () => {
   it("renders both message and image types", () => {
     render(<RunningBanner />);
 
+    // Banner data is duplicated, so messages appear multiple times
     expect(
-      screen.getByText("Free shipping on all orders over $50!"),
-    ).toBeInTheDocument();
+      screen.getAllByText("Free shipping on all orders over $50!").length,
+    ).toBeGreaterThan(0);
     expect(screen.getAllByAltText("Test Image 1").length).toBeGreaterThan(0);
     expect(
-      screen.getByText("New flavor just dropped: Strawberry Basil!"),
-    ).toBeInTheDocument();
+      screen.getAllByText("New flavor just dropped: Strawberry Basil!").length,
+    ).toBeGreaterThan(0);
   });
 });

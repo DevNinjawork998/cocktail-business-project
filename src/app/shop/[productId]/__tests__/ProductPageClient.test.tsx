@@ -102,7 +102,8 @@ describe("ProductPageClient", () => {
         <ProductPageClient product={mockProduct} otherProducts={mockOtherProducts} />,
       );
 
-      expect(screen.getByText("Test Cocktail")).toBeInTheDocument();
+      // Product name appears multiple times (title and in ProductInfoSection)
+      expect(screen.getAllByText("Test Cocktail").length).toBeGreaterThan(0);
       expect(screen.getByText("Test Subtitle")).toBeInTheDocument();
     });
 
@@ -129,7 +130,8 @@ describe("ProductPageClient", () => {
         />,
       );
 
-      expect(screen.getByText("Test Cocktail")).toBeInTheDocument();
+      // Product name appears multiple times (title, placeholder, ProductInfoSection)
+      expect(screen.getAllByText("Test Cocktail").length).toBeGreaterThan(0);
     });
 
     it("renders product features", () => {
@@ -270,8 +272,9 @@ describe("ProductPageClient", () => {
         <ProductPageClient product={mockProduct} otherProducts={mockOtherProducts} />,
       );
 
-      expect(screen.getByText("Other Cocktail 1")).toBeInTheDocument();
-      expect(screen.getByText("Other Cocktail 2")).toBeInTheDocument();
+      // Product names might appear multiple times, so use getAllByText
+      expect(screen.getAllByText("Other Cocktail 1").length).toBeGreaterThan(0);
+      expect(screen.getAllByText("Other Cocktail 2").length).toBeGreaterThan(0);
     });
 
     it("renders sidebar product links correctly", () => {
@@ -279,7 +282,9 @@ describe("ProductPageClient", () => {
         <ProductPageClient product={mockProduct} otherProducts={mockOtherProducts} />,
       );
 
-      const link1 = screen.getByText("Other Cocktail 1").closest("a");
+      // Product name might appear multiple times, get the first one and find its link
+      const productNames = screen.getAllByText("Other Cocktail 1");
+      const link1 = productNames[0].closest("a");
       expect(link1).toHaveAttribute("href", "/shop/2");
     });
 
@@ -298,7 +303,8 @@ describe("ProductPageClient", () => {
         <ProductPageClient product={mockProduct} otherProducts={mockOtherProducts} />,
       );
 
-      expect(screen.getByText("Other Cocktail 1")).toBeInTheDocument();
+      // Product name might appear multiple times, so use getAllByText
+      expect(screen.getAllByText("Other Cocktail 1").length).toBeGreaterThan(0);
     });
   });
 
@@ -314,6 +320,10 @@ describe("ProductPageClient", () => {
     });
 
     it("opens WhatsApp when button is clicked", () => {
+      const consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+      
       render(
         <ProductPageClient product={mockProduct} otherProducts={mockOtherProducts} />,
       );
@@ -325,15 +335,16 @@ describe("ProductPageClient", () => {
       if (whatsappButton) {
         fireEvent.click(whatsappButton);
 
-        expect(mockWindowOpen).toHaveBeenCalledWith(
-          expect.stringContaining("wa.me/60146491165"),
-          "_blank",
-        );
-        expect(mockWindowOpen).toHaveBeenCalledWith(
-          expect.stringContaining("Test Cocktail"),
-          "_blank",
-        );
+        // window.open should be called with WhatsApp URL
+        expect(mockWindowOpen).toHaveBeenCalled();
+        const callArgs = mockWindowOpen.mock.calls[0];
+        expect(callArgs[0]).toContain("wa.me/60146491165");
+        // URL is encoded, so check for encoded version
+        expect(callArgs[0]).toContain("Test%20Cocktail");
+        expect(callArgs[1]).toBe("_blank");
       }
+      
+      consoleErrorSpy.mockRestore();
     });
 
     it("handles WhatsApp error gracefully", () => {
@@ -355,8 +366,10 @@ describe("ProductPageClient", () => {
       if (whatsappButton) {
         fireEvent.click(whatsappButton);
 
-        // Should fallback to window.location.href
+        // Should attempt to open window, and fallback to location.href when it returns null
         expect(mockWindowOpen).toHaveBeenCalled();
+        // The error from jsdom's navigation limitation is expected and handled
+        // We verify the function attempted to handle the error gracefully
       }
 
       consoleErrorSpy.mockRestore();

@@ -154,10 +154,11 @@ describe("ProductShowcase", () => {
       render(<ProductShowcase />);
 
       await waitFor(() => {
-        expect(screen.getByText("Test Cocktail 1")).toBeInTheDocument();
-        expect(screen.getByText("Test Cocktail 2")).toBeInTheDocument();
-        expect(screen.getByText("Test Cocktail 3")).toBeInTheDocument();
-        expect(screen.getByText("Test Cocktail 4")).toBeInTheDocument();
+        // Product names appear multiple times (in placeholder and product name), so use getAllByText
+        expect(screen.getAllByText("Test Cocktail 1").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("Test Cocktail 2").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("Test Cocktail 3").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("Test Cocktail 4").length).toBeGreaterThan(0);
         expect(screen.queryByText("Test Cocktail 5")).not.toBeInTheDocument();
       });
     });
@@ -168,11 +169,14 @@ describe("ProductShowcase", () => {
       render(<ProductShowcase />);
 
       await waitFor(() => {
-        expect(screen.getByText("Test Cocktail 1")).toBeInTheDocument();
+        // Product names appear multiple times, so use getAllByText
+        expect(screen.getAllByText("Test Cocktail 1").length).toBeGreaterThan(0);
         expect(screen.getByText("Test Description 1")).toBeInTheDocument();
-        expect(screen.getByText("4g Sugar")).toBeInTheDocument();
-        expect(screen.getByText("Adaptogens")).toBeInTheDocument();
-        expect(screen.getByText("Add to Cart")).toBeInTheDocument();
+        // Tags appear multiple times (one per product), so use getAllByText
+        expect(screen.getAllByText("4g Sugar").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("Adaptogens").length).toBeGreaterThan(0);
+        // Add to Cart buttons appear multiple times (one per product)
+        expect(screen.getAllByText("Add to Cart").length).toBeGreaterThan(0);
       });
     });
 
@@ -194,8 +198,8 @@ describe("ProductShowcase", () => {
       render(<ProductShowcase />);
 
       await waitFor(() => {
-        // Product name should be rendered (could be in placeholder or product name)
-        expect(screen.getByText("Test Cocktail 2")).toBeInTheDocument();
+        // Product name appears multiple times (in placeholder and product name), so use getAllByText
+        expect(screen.getAllByText("Test Cocktail 2").length).toBeGreaterThan(0);
       });
     });
 
@@ -205,7 +209,9 @@ describe("ProductShowcase", () => {
       render(<ProductShowcase />);
 
       await waitFor(() => {
-        const link1 = screen.getByText("Test Cocktail 1").closest("a");
+        // Product name appears multiple times, get the first one and find its link
+        const productNames = screen.getAllByText("Test Cocktail 1");
+        const link1 = productNames[0].closest("a");
         expect(link1).toHaveAttribute("href", "/shop/1");
       });
     });
