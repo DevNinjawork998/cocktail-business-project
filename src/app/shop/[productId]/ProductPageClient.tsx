@@ -114,12 +114,6 @@ export default function ProductPageClient({
     }
   };
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      handleCloseModal();
-    }
-  };
-
   // Data from Prisma database
   const ingredients = product.ingredients;
   const nutritionFacts = product.nutritionFacts;
@@ -307,7 +301,7 @@ export default function ProductPageClient({
                 purposes.
               </ModalContentText>
               <ModalContentText>
-                By clicking &quot;Proceed to WhatsApp&quot;, you will be sharing your interest in
+                By clicking "Proceed to WhatsApp", you will be sharing your interest in
                 this product with us. We will use this information to respond to your
                 inquiry and provide you with product information and ordering details.
               </ModalContentText>

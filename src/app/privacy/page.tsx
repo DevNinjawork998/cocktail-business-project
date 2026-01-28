@@ -17,6 +17,11 @@ export default function PrivacyPage() {
           Protection Act 2010 (PDPA) of Malaysia. This Privacy Policy explains how
           we collect, use, disclose, and safeguard your personal information when
           you visit our website or use our services.
+          At Mocktails On the Go, we take your privacy seriously and are committed
+          to protecting your personal data in accordance with the Personal Data
+          Protection Act 2010 (PDPA) of Malaysia. This Privacy Policy explains how
+          we collect, use, disclose, and safeguard your personal information when
+          you visit our website or use our services.
         </S.Paragraph>
         <S.Paragraph>Last updated: January 2025</S.Paragraph>
 
