@@ -84,6 +84,12 @@ export default function ProductPageClient({
     setConsentGiven(false);
   };
 
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      handleCloseModal();
+    }
+  };
+
   const handleProceedToWhatsApp = () => {
     if (!consentGiven) {
       return;
