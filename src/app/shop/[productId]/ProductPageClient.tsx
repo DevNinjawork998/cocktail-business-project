@@ -84,6 +84,12 @@ export default function ProductPageClient({
     setConsentGiven(false);
   };
 
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      handleCloseModal();
+    }
+  };
+
   const handleProceedToWhatsApp = () => {
     if (!consentGiven) {
       return;
@@ -111,12 +117,6 @@ export default function ProductPageClient({
     } catch (error) {
       console.error("Error opening WhatsApp:", error);
       alert("There was an error opening WhatsApp. Please try again.");
-    }
-  };
-
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      handleCloseModal();
     }
   };
 
@@ -307,7 +307,7 @@ export default function ProductPageClient({
                 purposes.
               </ModalContentText>
               <ModalContentText>
-                By clicking "Proceed to WhatsApp", you will be sharing your interest in
+                By clicking &quot;Proceed to WhatsApp&quot;, you will be sharing your interest in
                 this product with us. We will use this information to respond to your
                 inquiry and provide you with product information and ordering details.
               </ModalContentText>
