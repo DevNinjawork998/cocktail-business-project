@@ -12,12 +12,14 @@ export const ShopContainer = styled.div`
   );
   padding: ${({ theme }) => theme.spacing["2xl"]};
   ${({ theme }) => theme.spacing.md};
+  padding-top: calc(4rem + ${({ theme }) => theme.spacing["2xl"]}); /* Account for fixed navigation bar + existing padding */
   position: relative;
   overflow: hidden;
 
   ${media.lg} {
     padding: ${({ theme }) => theme.spacing["4xl"]};
     ${({ theme }) => theme.spacing.xl};
+    padding-top: calc(4rem + ${({ theme }) => theme.spacing["4xl"]}); /* Account for fixed navigation bar + existing padding */
   }
 `;
 

@@ -4,8 +4,11 @@ import styled from "styled-components";
 export const NavContainer = styled.nav`
   background-color: ${({ theme }) => theme.currentSemantic.background};
   border-bottom: 1px solid ${({ theme }) => theme.currentSemantic.border};
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 50;
   transition: all 0.3s ease;
 `;
@@ -27,6 +30,8 @@ export const NavContent = styled.div`
     @media (max-width: ${theme.breakpoints.md}) {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      grid-template-columns: auto 1fr auto;
     }
   `}
 `;
@@ -59,17 +64,27 @@ export const NavLink = styled.div`
 `;
 
 export const MobileMenuButton = styled.button`
-  display: block;
+  display: none;
   padding: ${({ theme }) => theme.spacing.sm};
   color: ${({ theme }) => theme.currentSemantic.foreground};
   transition: color 0.2s ease;
   background: none;
   border: none;
   cursor: pointer;
+  z-index: 10;
 
   &:hover {
     color: ${({ theme }) => theme.semantic.secondary};
   }
+
+  ${({ theme }) => `
+    @media (max-width: ${theme.breakpoints.md}) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      order: 1;
+    }
+  `}
 
   ${({ theme }) =>
     theme.breakpoints.md &&
@@ -88,6 +103,7 @@ export const LogoContainer = styled.div`
     @media (max-width: ${theme.breakpoints.md}) {
       flex: 1;
       justify-content: center;
+      order: 2;
     }
   `}
 `;
@@ -119,6 +135,12 @@ export const CartIconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  ${({ theme }) => `
+    @media (max-width: ${theme.breakpoints.md}) {
+      order: 3;
+    }
+  `}
 `;
 
 export const DesktopRightNav = styled.div`

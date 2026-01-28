@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Product } from "@/data/serverProductService";
 import {
   ProductPageContainer,
@@ -44,6 +44,22 @@ import {
   NutritionFactValue,
   WhatsAppButton,
   WhatsAppIcon,
+  ProductDisclaimerSection,
+  ProductDisclaimerText,
+  ModalOverlay,
+  ModalContainer,
+  ModalTitle,
+  ModalContent,
+  ModalContentText,
+  ModalConsentSection,
+  ModalConsentCheckboxWrapper,
+  ModalConsentCheckbox,
+  ModalConsentLabel,
+  ModalConsentText,
+  ModalConsentLink,
+  ModalButtonGroup,
+  ModalProceedButton,
+  ModalCancelButton,
 } from "./page.styles";
 import { formatCurrency } from "@/app/lib/stripe";
 
@@ -56,7 +72,23 @@ export default function ProductPageClient({
   product,
   otherProducts,
 }: ProductPageClientProps) {
+  const [showModal, setShowModal] = useState(false);
+  const [consentGiven, setConsentGiven] = useState(false);
+
   const handleWhatsAppInquiry = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setConsentGiven(false);
+  };
+
+  const handleProceedToWhatsApp = () => {
+    if (!consentGiven) {
+      return;
+    }
+
     try {
       // Simple WhatsApp message
       const message = `Hey, I am interested in your ${product.name}. How can I order it?`;
@@ -67,6 +99,9 @@ export default function ProductPageClient({
         message,
       )}`;
 
+      // Close modal first
+      handleCloseModal();
+
       // Open WhatsApp in new tab
       const newWindow = window.open(whatsappUrl, "_blank");
       if (!newWindow) {
@@ -76,6 +111,12 @@ export default function ProductPageClient({
     } catch (error) {
       console.error("Error opening WhatsApp:", error);
       alert("There was an error opening WhatsApp. Please try again.");
+    }
+  };
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      handleCloseModal();
     }
   };
 
@@ -240,6 +281,78 @@ export default function ProductPageClient({
           </ProductInfoNutritionBox>
         </ProductInfoRight>
       </ProductInfoSection>
+
+      <ProductDisclaimerSection>
+        <ProductDisclaimerText>
+          Individual results may vary. These statements have not been evaluated
+          by health authorities. This product is not intended to diagnose,
+          treat, cure, or prevent any disease. Please review our{" "}
+          <a href="/disclaimer" target="_blank" rel="noopener noreferrer">
+            full disclaimer
+          </a>{" "}
+          for more information. If you have allergies or medical conditions,
+          please consult with a healthcare professional before consuming.
+        </ProductDisclaimerText>
+      </ProductDisclaimerSection>
+
+      {/* PDPA Consent Modal */}
+      {showModal && (
+        <ModalOverlay onClick={handleOverlayClick}>
+          <ModalContainer>
+            <ModalTitle>Privacy Consent Required</ModalTitle>
+            <ModalContent>
+              <ModalContentText>
+                To proceed with your inquiry via WhatsApp, we need your consent to
+                collect and process your personal data in accordance with the Personal
+                Data Protection Act 2010 (PDPA) of Malaysia.
+              </ModalContentText>
+              <ModalContentText>
+                By clicking "Proceed to WhatsApp", you will be sharing your interest in
+                this product with us. We will use this information to respond to your
+                inquiry and provide you with product information and ordering details.
+              </ModalContentText>
+              <ModalConsentSection>
+                <ModalConsentCheckboxWrapper>
+                  <ModalConsentCheckbox
+                    id="productPDPAConsent"
+                    type="checkbox"
+                    checked={consentGiven}
+                    onChange={(e) => setConsentGiven(e.target.checked)}
+                  />
+                  <ModalConsentLabel htmlFor="productPDPAConsent">
+                    <ModalConsentText>
+                      I agree to the collection and processing of my personal data for
+                      inquiry and communication purposes in accordance with the Personal
+                      Data Protection Act 2010 (PDPA) of Malaysia. I have read and
+                      agree to the{" "}
+                      <ModalConsentLink
+                        href="/privacy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Privacy Policy
+                      </ModalConsentLink>
+                      . *
+                    </ModalConsentText>
+                  </ModalConsentLabel>
+                </ModalConsentCheckboxWrapper>
+              </ModalConsentSection>
+            </ModalContent>
+            <ModalButtonGroup>
+              <ModalCancelButton onClick={handleCloseModal}>
+                Cancel
+              </ModalCancelButton>
+              <ModalProceedButton
+                onClick={handleProceedToWhatsApp}
+                disabled={!consentGiven}
+              >
+                Proceed to WhatsApp
+              </ModalProceedButton>
+            </ModalButtonGroup>
+          </ModalContainer>
+        </ModalOverlay>
+      )}
     </ProductPageContainer>
   );
 }

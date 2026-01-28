@@ -4,10 +4,12 @@ export const CheckoutContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  padding-top: calc(4rem + 2rem); /* Account for fixed navigation bar + existing padding */
   min-height: 60vh;
 
   @media (max-width: 768px) {
     padding: 1rem;
+    padding-top: calc(4rem + 1rem); /* Account for fixed navigation bar + existing padding */
   }
 `;
 
@@ -441,5 +443,71 @@ export const LoadingSpinner = styled.div`
     100% {
       transform: rotate(360deg);
     }
+  }
+`;
+
+export const DisclaimerNotice = styled.div`
+  grid-column: 1 / -1;
+  background: ${({ theme }) => theme.currentSemantic.background};
+  border: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.currentSemantic.textSecondary};
+`;
+
+export const DisclaimerText = styled.p`
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.currentSemantic.textSecondary};
+`;
+
+export const PDPAConsentSection = styled.div`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`;
+
+export const ConsentCheckboxWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+`;
+
+export const ConsentCheckbox = styled.input`
+  margin-top: 0.25rem;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  accent-color: ${({ theme }) => theme.currentSemantic.primary};
+
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.currentSemantic.primary};
+    outline-offset: 2px;
+  }
+`;
+
+export const ConsentLabel = styled.label`
+  cursor: pointer;
+  flex: 1;
+`;
+
+export const ConsentText = styled.span`
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.currentSemantic.text};
+  display: block;
+`;
+
+export const ConsentLink = styled.a`
+  color: ${({ theme }) => theme.currentSemantic.primary};
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
   }
 `;

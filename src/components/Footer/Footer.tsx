@@ -29,6 +29,8 @@ import {
   CopyrightText,
   LegalLinks,
   LegalLink,
+  BottomContentWrapper,
+  DisclaimerText,
 } from "./Footer.styles";
 
 // Social Media Icons as SVG components
@@ -120,6 +122,7 @@ const Footer: React.FC = () => {
   const legalLinks = [
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
+    { label: "Disclaimer", href: "/disclaimer" },
     { label: "Shipping", href: "/shipping" },
   ];
 
@@ -191,23 +194,29 @@ const Footer: React.FC = () => {
             </SocialLinksContainer>
           </SocialSection>
 
-          {/* Divider */}
-          <DividerLine />
-
-          {/* Bottom Section with Copyright and Legal */}
+          {/* Bottom Section with Copyright, Legal, and Disclaimer */}
           <FooterBottom>
-            <CopyrightSection>
-              <CopyrightText>
-                © 2025 Mocktails On the Go. All rights reserved.
-              </CopyrightText>
-            </CopyrightSection>
-            <LegalLinks>
-              {legalLinks.map((link, index) => (
-                <LegalLink key={index} as={Link} href={link.href}>
-                  {link.label}
-                </LegalLink>
-              ))}
-            </LegalLinks>
+            <BottomContentWrapper>
+              <CopyrightSection>
+                <CopyrightText>
+                  © 2025 Mocktails On the Go. All rights reserved.
+                </CopyrightText>
+                <DisclaimerText>
+                  Individual results may vary. These statements have not been
+                  evaluated by health authorities. Our products are not intended to
+                  diagnose, treat, cure, or prevent any disease. Please review our{" "}
+                  <Link href="/disclaimer">full disclaimer</Link> for more
+                  information.
+                </DisclaimerText>
+              </CopyrightSection>
+              <LegalLinks>
+                {legalLinks.map((link, index) => (
+                  <LegalLink key={index} as={Link} href={link.href}>
+                    {link.label}
+                  </LegalLink>
+                ))}
+              </LegalLinks>
+            </BottomContentWrapper>
           </FooterBottom>
         </FooterContent>
       </FooterWrapper>

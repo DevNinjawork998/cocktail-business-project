@@ -28,7 +28,7 @@ export const Paragraph = styled.p`
   margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
 
-export const PrivacySection = styled.div`
+export const DisclaimerSection = styled.div`
   margin-top: ${({ theme }) => theme.spacing.xl};
 `;
 
@@ -51,9 +51,4 @@ export const ListItem = styled.li`
   line-height: 1.8;
   color: ${({ theme }) => theme.currentSemantic.foregroundMuted};
   margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-export const StrongText = styled.strong`
-  color: ${({ theme }) => theme.semantic.primary};
-  font-weight: 600;
 `;

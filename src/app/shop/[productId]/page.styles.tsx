@@ -780,3 +780,181 @@ export const MainImageLoadingPlaceholder = styled.div`
     height: 350px;
   }
 `;
+
+export const ProductDisclaimerSection = styled.div`
+  margin: 2rem auto 0 auto;
+  padding: 1.25rem 1.5rem;
+  background: ${({ theme }) => theme.semantic.surface};
+  border: 1px solid ${({ theme }) => theme.semantic.border};
+  border-radius: 0.75rem;
+  max-width: 1400px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: ${({ theme }) => theme.currentSemantic.textSecondary};
+`;
+
+export const ProductDisclaimerText = styled.p`
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: ${({ theme }) => theme.currentSemantic.textSecondary};
+
+  a {
+    color: ${({ theme }) => theme.semantic.primary};
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+`;
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: ${({ theme }) => theme.spacing.md};
+`;
+
+export const ModalContainer = styled.div`
+  background: ${({ theme }) => theme.currentSemantic.background};
+  border-radius: ${({ theme }) => theme.radii.xl};
+  padding: ${({ theme }) => theme.spacing["2xl"]};
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: ${({ theme }) => theme.shadows.xl};
+  position: relative;
+`;
+
+export const ModalTitle = styled.h2`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.semantic.primary};
+  margin: 0 0 ${({ theme }) => theme.spacing.lg} 0;
+`;
+
+export const ModalContent = styled.div`
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+`;
+
+export const ModalContentText = styled.p`
+  font-size: 1rem;
+  line-height: 1.6;
+  color: ${({ theme }) => theme.currentSemantic.text};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
+`;
+
+export const ModalConsentSection = styled.div`
+  margin: ${({ theme }) => theme.spacing.lg} 0;
+  padding: ${({ theme }) => theme.spacing.md};
+  background: ${({ theme }) => theme.currentSemantic.backgroundSecondary};
+  border-radius: ${({ theme }) => theme.radii.md};
+  border: 1px solid ${({ theme }) => theme.currentSemantic.border};
+`;
+
+export const ModalConsentCheckboxWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: ${({ theme }) => theme.spacing.sm};
+`;
+
+export const ModalConsentCheckbox = styled.input`
+  margin-top: 0.25rem;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  accent-color: ${({ theme }) => theme.currentSemantic.primary};
+
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.currentSemantic.primary};
+    outline-offset: 2px;
+  }
+`;
+
+export const ModalConsentLabel = styled.label`
+  cursor: pointer;
+  flex: 1;
+`;
+
+export const ModalConsentText = styled.span`
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.currentSemantic.text};
+  display: block;
+`;
+
+export const ModalConsentLink = styled.a`
+  color: ${({ theme }) => theme.currentSemantic.primary};
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+export const ModalButtonGroup = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.md};
+  margin-top: ${({ theme }) => theme.spacing.lg};
+  flex-direction: column;
+
+  ${media.md} {
+    flex-direction: row;
+  }
+`;
+
+export const ModalProceedButton = styled.button`
+  background: #25d366;
+  color: white;
+  padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.lg};
+  border-radius: ${({ theme }) => theme.radii.full};
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  flex: 1;
+
+  &:hover:not(:disabled) {
+    background: #20ba5a;
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+`;
+
+export const ModalCancelButton = styled.button`
+  background: ${({ theme }) => theme.currentSemantic.background};
+  color: ${({ theme }) => theme.currentSemantic.text};
+  padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.lg};
+  border-radius: ${({ theme }) => theme.radii.full};
+  border: 1px solid ${({ theme }) => theme.currentSemantic.border};
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  flex: 1;
+
+  &:hover {
+    background: ${({ theme }) => theme.currentSemantic.backgroundSecondary};
+    border-color: ${({ theme }) => theme.currentSemantic.primary};
+  }
+`;
