@@ -203,7 +203,7 @@ export default function PrivacyPage() {
             We may update this Privacy Policy from time to time to reflect changes in
             our practices or legal requirements. We will notify you of any material
             changes by posting the updated policy on this page and updating the
-            "Last updated" date. Your continued use of our services after such
+            &quot;Last updated&quot; date. Your continued use of our services after such
             changes constitutes your acceptance of the updated Privacy Policy.
           </S.Paragraph>
         </S.PrivacySection>
