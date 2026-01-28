@@ -465,7 +465,7 @@ export const DisclaimerText = styled.p`
   color: ${({ theme }) => theme.currentSemantic.textSecondary};
 `;
 
-export const PDPAConsentSection = styled.div`
+export const TermsConsentSection = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
 `;

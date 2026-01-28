@@ -56,7 +56,7 @@ import {
   LoadingSpinner,
   DisclaimerNotice,
   DisclaimerText,
-  PDPAConsentSection,
+  TermsConsentSection,
   ConsentCheckboxWrapper,
   ConsentCheckbox,
   ConsentLabel,
@@ -83,9 +83,9 @@ const customerInfoSchema = z.object({
     ),
   address: z.string().min(1, "Delivery address is required"),
   notes: z.string().max(200, "Notes must be 200 characters or less").optional(),
-  pdpaConsent: z
+  termsConsent: z
     .boolean()
-    .refine((val) => val === true, "You must agree to the privacy policy"),
+    .refine((val) => val === true, "You must agree to the terms of service"),
 });
 
 type CustomerInfo = z.infer<typeof customerInfoSchema>;
@@ -118,7 +118,7 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
       phone: "",
       address: "",
       notes: "",
-      pdpaConsent: false,
+      termsConsent: false,
     },
   });
 
@@ -479,32 +479,31 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
                     </span>
                   )}
                 </FormGroup>
-                <PDPAConsentSection>
+                <TermsConsentSection>
                   <ConsentCheckboxWrapper>
                     <ConsentCheckbox
-                      id="pdpaConsent"
+                      id="termsConsent"
                       type="checkbox"
-                      {...register("pdpaConsent")}
+                      {...register("termsConsent")}
                     />
-                    <ConsentLabel htmlFor="pdpaConsent">
+                    <ConsentLabel htmlFor="termsConsent">
                       <ConsentText>
                         I agree to the collection and processing of my personal data
-                        for order processing and delivery purposes in accordance with
-                        the Personal Data Protection Act 2010 (PDPA) of Malaysia. I
-                        have read and agree to the{" "}
-                        <ConsentLink href="/privacy" target="_blank" rel="noopener noreferrer">
-                          Privacy Policy
+                        for order processing and delivery purposes. I have read and
+                        agree to the{" "}
+                        <ConsentLink href="/terms" target="_blank" rel="noopener noreferrer">
+                          Terms of Service
                         </ConsentLink>
                         . *
                       </ConsentText>
                     </ConsentLabel>
                   </ConsentCheckboxWrapper>
-                  {errors.pdpaConsent && (
+                  {errors.termsConsent && (
                     <span style={{ color: "red", fontSize: 12, marginTop: "0.5rem", display: "block" }}>
-                      {errors.pdpaConsent.message}
+                      {errors.termsConsent.message}
                     </span>
                   )}
-                </PDPAConsentSection>
+                </TermsConsentSection>
                 <WhatsAppSection>
                   <WhatsAppTitle>Complete Your Order</WhatsAppTitle>
                   <WhatsAppDescription>

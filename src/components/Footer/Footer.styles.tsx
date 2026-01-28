@@ -39,7 +39,7 @@ export const FooterTop = styled.div`
 
   ${({ theme }) => `
     @media (min-width: ${theme.breakpoints.md}) {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       text-align: left;
       gap: ${theme.spacing["2xl"]};
       align-items: start;

@@ -295,16 +295,16 @@ export default function ProductPageClient({
         </ProductDisclaimerText>
       </ProductDisclaimerSection>
 
-      {/* PDPA Consent Modal */}
+      {/* Terms of Service Consent Modal */}
       {showModal && (
         <ModalOverlay onClick={handleOverlayClick}>
           <ModalContainer>
-            <ModalTitle>Privacy Consent Required</ModalTitle>
+            <ModalTitle>Terms of Service Consent Required</ModalTitle>
             <ModalContent>
               <ModalContentText>
                 To proceed with your inquiry via WhatsApp, we need your consent to
-                collect and process your personal data in accordance with the Personal
-                Data Protection Act 2010 (PDPA) of Malaysia.
+                collect and process your personal data for inquiry and communication
+                purposes.
               </ModalContentText>
               <ModalContentText>
                 By clicking "Proceed to WhatsApp", you will be sharing your interest in
@@ -314,24 +314,22 @@ export default function ProductPageClient({
               <ModalConsentSection>
                 <ModalConsentCheckboxWrapper>
                   <ModalConsentCheckbox
-                    id="productPDPAConsent"
+                    id="productTermsConsent"
                     type="checkbox"
                     checked={consentGiven}
                     onChange={(e) => setConsentGiven(e.target.checked)}
                   />
-                  <ModalConsentLabel htmlFor="productPDPAConsent">
+                  <ModalConsentLabel htmlFor="productTermsConsent">
                     <ModalConsentText>
                       I agree to the collection and processing of my personal data for
-                      inquiry and communication purposes in accordance with the Personal
-                      Data Protection Act 2010 (PDPA) of Malaysia. I have read and
-                      agree to the{" "}
+                      inquiry and communication purposes. I have read and agree to the{" "}
                       <ModalConsentLink
-                        href="/privacy"
+                        href="/terms"
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        Privacy Policy
+                        Terms of Service
                       </ModalConsentLink>
                       . *
                     </ModalConsentText>

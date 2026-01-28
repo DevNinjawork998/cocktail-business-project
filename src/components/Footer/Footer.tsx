@@ -119,6 +119,13 @@ const Footer: React.FC = () => {
     // { label: "Careers", href: "/careers" },
   ];
 
+  const moreLinks = [
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
+    { label: "Disclaimer", href: "/disclaimer" },
+    { label: "Shipping", href: "/shipping" },
+  ];
+
   const legalLinks = [
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
@@ -160,6 +167,20 @@ const Footer: React.FC = () => {
               <ColumnTitle>Company</ColumnTitle>
               <NavLinksList>
                 {companyLinks.map((link, index) => (
+                  <NavLinkItem key={index}>
+                    <NavLink as={Link} href={link.href}>
+                      {link.label}
+                    </NavLink>
+                  </NavLinkItem>
+                ))}
+              </NavLinksList>
+            </NavigationColumn>
+
+            {/* More Links */}
+            <NavigationColumn>
+              <ColumnTitle>More</ColumnTitle>
+              <NavLinksList>
+                {moreLinks.map((link, index) => (
                   <NavLinkItem key={index}>
                     <NavLink as={Link} href={link.href}>
                       {link.label}

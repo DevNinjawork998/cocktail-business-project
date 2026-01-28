@@ -59,7 +59,7 @@ describe("Footer", () => {
 
   it("renders company navigation links", () => {
     render(<Footer />);
-    expect(screen.getByText("Our Story")).toBeInTheDocument();
+    expect(screen.getByText("Our Founder")).toBeInTheDocument();
     expect(screen.getByText("Contact")).toBeInTheDocument();
   });
 
