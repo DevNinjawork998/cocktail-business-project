@@ -54,6 +54,14 @@ import {
   PaymentOptionText,
   PaymentOptionDescription,
   LoadingSpinner,
+  DisclaimerNotice,
+  DisclaimerText,
+  TermsConsentSection,
+  ConsentCheckboxWrapper,
+  ConsentCheckbox,
+  ConsentLabel,
+  ConsentText,
+  ConsentLink,
 } from "./CheckoutPageClient.styles";
 import { formatCurrency } from "@/app/lib/stripe";
 
@@ -75,6 +83,9 @@ const customerInfoSchema = z.object({
     ),
   address: z.string().min(1, "Delivery address is required"),
   notes: z.string().max(200, "Notes must be 200 characters or less").optional(),
+  termsConsent: z
+    .boolean()
+    .refine((val) => val === true, "You must agree to the terms of service"),
 });
 
 type CustomerInfo = z.infer<typeof customerInfoSchema>;
@@ -107,6 +118,7 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
       phone: "",
       address: "",
       notes: "",
+      termsConsent: false,
     },
   });
 
@@ -267,6 +279,28 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
             </TotalAmount>
           </OrderTotal>
         </OrderSummary>
+
+        <DisclaimerNotice>
+          <DisclaimerText>
+            By completing your order, you acknowledge that you have read and
+            agree to our{" "}
+            <a
+              href="/disclaimer"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "inherit",
+                textDecoration: "underline",
+              }}
+            >
+              Disclaimer
+            </a>
+            . Product information is provided for informational purposes only.
+            Individual results may vary. If you have allergies or medical
+            conditions, please consult with a healthcare professional before
+            consuming our products.
+          </DisclaimerText>
+        </DisclaimerNotice>
 
         <div>
           {stripeEnabled && (
@@ -445,6 +479,31 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
                     </span>
                   )}
                 </FormGroup>
+                <TermsConsentSection>
+                  <ConsentCheckboxWrapper>
+                    <ConsentCheckbox
+                      id="termsConsent"
+                      type="checkbox"
+                      {...register("termsConsent")}
+                    />
+                    <ConsentLabel htmlFor="termsConsent">
+                      <ConsentText>
+                        I agree to the collection and processing of my personal data
+                        for order processing and delivery purposes. I have read and
+                        agree to the{" "}
+                        <ConsentLink href="/terms" target="_blank" rel="noopener noreferrer">
+                          Terms of Service
+                        </ConsentLink>
+                        . *
+                      </ConsentText>
+                    </ConsentLabel>
+                  </ConsentCheckboxWrapper>
+                  {errors.termsConsent && (
+                    <span style={{ color: "red", fontSize: 12, marginTop: "0.5rem", display: "block" }}>
+                      {errors.termsConsent.message}
+                    </span>
+                  )}
+                </TermsConsentSection>
                 <WhatsAppSection>
                   <WhatsAppTitle>Complete Your Order</WhatsAppTitle>
                   <WhatsAppDescription>

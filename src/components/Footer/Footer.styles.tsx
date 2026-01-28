@@ -4,18 +4,17 @@ import styled from "styled-components";
 export const FooterContainer = styled.footer`
   background-color: ${({ theme }) => theme.colors.chocolateKisses.base};
   color: white;
-  padding: ${({ theme }) => theme.spacing["2xl"]};
-  ${({ theme }) => theme.spacing.md};
+  padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.md};
 
   ${({ theme }) => `
     @media (min-width: ${theme.breakpoints.md}) {
-      padding: ${theme.spacing["3xl"]} ${theme.spacing.md};
+      padding: ${theme.spacing["2xl"]} ${theme.spacing.lg};
     }
   `}
 `;
 
 export const FooterWrapper = styled.div`
-  max-width: 72rem;
+  max-width: 90rem;
   margin: 0 auto;
   width: 100%;
 `;
@@ -23,11 +22,11 @@ export const FooterWrapper = styled.div`
 export const FooterContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing["2xl"]};
+  gap: ${({ theme }) => theme.spacing.lg};
 
   ${({ theme }) => `
     @media (min-width: ${theme.breakpoints.md}) {
-      gap: ${theme.spacing["3xl"]};
+      gap: ${theme.spacing.xl};
     }
   `}
 `;
@@ -40,7 +39,7 @@ export const FooterTop = styled.div`
 
   ${({ theme }) => `
     @media (min-width: ${theme.breakpoints.md}) {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       text-align: left;
       gap: ${theme.spacing["2xl"]};
       align-items: start;
@@ -132,7 +131,7 @@ export const NavLink = styled.a`
 export const TaglineSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
+  gap: ${({ theme }) => theme.spacing.sm};
   text-align: center;
 
   ${({ theme }) => `
@@ -175,7 +174,7 @@ export const SubTagline = styled.p`
 export const SocialSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
+  gap: ${({ theme }) => theme.spacing.sm};
   align-items: center;
 `;
 
@@ -263,21 +262,28 @@ export const DividerLine = styled.div`
     transparent 100%
   );
   opacity: 0.5;
-  margin: ${({ theme }) => theme.spacing.md} 0;
+  margin: ${({ theme }) => theme.spacing.sm} 0;
 `;
 
 export const FooterBottom = styled.div`
+  padding-top: ${({ theme }) => theme.spacing.xs};
+  border-top: 1px solid rgba(234, 157, 174, 0.2);
+  margin-top: ${({ theme }) => theme.spacing.xs};
+  width: 100%;
+`;
+
+export const BottomContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.md};
   align-items: center;
-  padding-top: ${({ theme }) => theme.spacing.lg};
-  border-top: 1px solid rgba(234, 157, 174, 0.2);
 
   ${({ theme }) => `
     @media (min-width: ${theme.breakpoints.md}) {
       flex-direction: row;
       justify-content: space-between;
+      align-items: flex-start;
+      gap: ${theme.spacing.lg};
     }
   `}
 `;
@@ -288,11 +294,14 @@ export const CopyrightSection = styled.div`
   gap: ${({ theme }) => theme.spacing.xs};
   align-items: center;
   text-align: center;
+  width: 100%;
 
   ${({ theme }) => `
     @media (min-width: ${theme.breakpoints.md}) {
       align-items: flex-start;
       text-align: left;
+      flex: 1;
+      max-width: none;
     }
   `}
 `;
@@ -305,13 +314,14 @@ export const CopyrightText = styled.p`
 
 export const LegalLinks = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme.spacing.lg};
+  gap: ${({ theme }) => theme.spacing.md};
   flex-wrap: wrap;
   justify-content: center;
 
   ${({ theme }) => `
     @media (min-width: ${theme.breakpoints.md}) {
       justify-content: flex-end;
+      gap: ${theme.spacing.lg};
     }
   `}
 `;
@@ -326,5 +336,29 @@ export const LegalLink = styled.a`
   &:hover {
     color: ${({ theme }) => theme.colors.caramel.base};
     opacity: 1;
+  }
+`;
+
+export const DisclaimerText = styled.p`
+  color: ${({ theme }) => theme.colors.mauvelous.base};
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin: 0;
+  width: 100%;
+
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakpoints.md}) {
+      font-size: 0.8125rem;
+    }
+  `}
+
+  a {
+    color: ${({ theme }) => theme.colors.caramel.base};
+    text-decoration: underline;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.royalOrange.base};
+    }
   }
 `;

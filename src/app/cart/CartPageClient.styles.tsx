@@ -292,4 +292,5 @@ export const CartPageBackground = styled.div`
   background: white;
   min-height: 100vh;
   width: 100vw;
+  padding-top: 4rem; /* Account for fixed navigation bar */
 `;

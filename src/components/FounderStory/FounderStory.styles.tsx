@@ -72,6 +72,8 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg};
+  text-align: center;
+  align-items: center;
 `;
 
 export const Label = styled.p`
@@ -140,6 +142,7 @@ export const CTAButton = styled.a`
   cursor: pointer;
   margin-top: ${({ theme }) => theme.spacing.md};
   width: fit-content;
+  align-self: center;
 
   svg {
     width: 1.25rem;

@@ -13,6 +13,7 @@ export const BreadcrumbContainer = styled.nav`
   opacity: 1 !important;
   min-height: 40px;
   box-sizing: border-box;
+  margin-top: 4rem; /* Account for fixed navigation bar */
 `;
 
 export const BreadcrumbWrapper = styled.div`

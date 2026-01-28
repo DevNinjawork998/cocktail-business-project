@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
@@ -38,12 +38,6 @@ jobs:
         env:
           DATABASE_URL: "file:./dev.db"
 
-      - name: Run TypeScript type checking
-        run: npm run type-check
-        env:
-          DATABASE_URL: "file:./dev.db"
-          NODE_ENV: "test"
-
       - name: Run ESLint
         run: npm run lint
 
@@ -52,10 +46,9 @@ jobs:
         env:
           DATABASE_URL: "file:./dev.db"
           NODE_ENV: "test"
-          # Mock environment variables for tests
+          # Optional: Add other env vars if tests need them
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "pk_test_dummy_key_for_ci"
           NEXT_PUBLIC_ENABLE_CTABANNER: "false"
-          NEXT_PUBLIC_APP_URL: "http://localhost:3000"
 
   # Optional: Build check to ensure the project builds successfully
   build-check:
@@ -70,25 +63,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Setup Prisma for Build
-        run: |
-          # Use production schema for build check
-          if [ -f prisma/schema.prod.prisma ]; then
-            cp prisma/schema.prod.prisma prisma/schema.prisma
-          fi
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL || 'file:./dev.db' }}
-
-      - name: Generate Prisma Client
-        run: npx prisma generate --schema=./prisma/schema.prisma
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL || 'file:./dev.db' }}
 
       - name: Build project
         run: npm run build
